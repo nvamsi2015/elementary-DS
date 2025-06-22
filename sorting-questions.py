@@ -1820,3 +1820,7 @@ def shortestSubarrayLength(A):
 n = int(input())
 A = [int(each) for each in input().split()] 
 print(shortestSubarrayLength(A))
+
+
+
+
