@@ -285,40 +285,168 @@ def longestPalindromeSubseq(s):
 s = input()
 print(longestPalindromeSubseq(s)) 
 
-# -----------------    --------------
+# ----------------- 11 Min cost to reac last cell   --------------
 
-# -----------------    --------------
+# 3 3
+# 4 1 0
+# 3 4 2
+# 0 3 5
 
-# -----------------    --------------
+# op: 12
 
-# -----------------    --------------
+def findMinCost(cost):
+    m,n = len(cost), len(cost[0])
+    table = [[0 for _ in range(n)] for _ in range(m)]
+    
+    for i in range(m):
+        for j in range(n):
+            table[i][j] = cost[i][j]
+            if i==0 and j>0:
+                table[0][j] += table[0][j-1]
+            elif j==0 and i>0:
+                table[i][0] += table[i-1][0]
+            elif i>0 and j>0:
+                table[i][j] += min(table[i-1][j], table[i][j-1])
+    
+    return table[m-1][n-1] 
 
-# -----------------    --------------
+cost = []
+m,n = [int(x) for x in input().split()]
+for x in range(m):
+    cost.append([int(y) for y in input().split()])
 
-# -----------------    --------------
+print(findMinCost(cost))
 
-# -----------------    --------------
+# ----------------- 12 Shortest Supersequence    --------------
+# abac cab
 
-# -----------------    --------------
+# o/p: 5
 
-# -----------------    --------------
+def shortest_supersequence(x,y):
+    m = len(x) 
+    n = len(y)
+    table = [[0 for _ in range(n+1)] for _ in range(m+1)]
+    
+    for i in range(m+1):
+        table[i][0] = i 
+    
+    for j in range(n+1):
+        table[0][j] = j 
+    
+    for i in range(1,m+1):
+        for j in range(1,n+1):
+            if x[i-1] == y[j-1]:
+                table[i][j] = table[i-1][j-1]+1 
+            else:
+                table[i][j] = min(table[i-1][j] +1 , table[i][j-1]+1)
+    
+    return table[m][n] 
 
-# -----------------    --------------
 
-# -----------------    --------------
+x,y = input().split()
+print(shortest_supersequence(x,y))
 
-# -----------------    --------------
 
-# -----------------    --------------
+# ----------------- 13 Evaluate Expression   --------------
+# 4
+# 4 1 6 3
 
-# -----------------    --------------
+# -6
 
-# -----------------    --------------
 
-# -----------------    --------------
+def maximizeExpression(A):
+    first = [float("-inf")] * (len(A) + 1)
+    second = [float("-inf")] * len(A)
+    third = [float("-inf")] * (len(A) -1)
+    fourth = [float("-inf")] * (len(A) -2)
+    
+    for i in  (range(len(A))):
+        first[i] = max(first[i+1], A[i])
+    
+    for i in reversed(range(len(A) -1)):
+        second[i] = max(second[i+1], first[i+1] -A[i])
+    
+    for i in reversed(range(len(A)-2)):
+        third[i] = max(third[i+1], second[i+1] + A[i])
+    
+    for i in reversed(range(len(A) -3)):
+        fourth[i] = max(fourth[i+1], third[i+1] - A[i] )
+    
+    return fourth[0]
+        
+    
+    
+    
+n = int(input())
+a = [int(x) for x in input().split()]
+print(maximizeExpression(a))
 
-# -----------------    --------------
 
-# -----------------    --------------
+# ----------------- 14 Number of possible paths  --------------
+# 2 2
 
-# -----------------    --------------
+# 2
+
+# 2 3
+
+# 3
+
+m,n = [int(x) for x in input().split()]
+dp = [1 for i in range(m)]
+
+for i in range(n-1):
+    for j in range(1,m):
+        dp[j] += dp[j-1]
+
+print(dp[m-1])
+
+
+# -----------------  15  Rod cutting product --------------
+# 4
+
+# 4
+
+
+
+def rodcut(n):
+    T = [i for i in range(n+1)]
+    for i in range(2,n+1):
+        for j in range(1,i+1):
+            T[i] = max(T[i],T[j]*T[i-j])
+    
+    return T[n] 
+
+
+n = int(input())
+print(rodcut(n))
+
+
+
+# -----------------  16  Minimum number of deletions for a palindrome  --------------
+
+
+# ----------------- 17 Minimum partitions to make palindromes  --------------
+
+# ----------------- 18  Maximum sum of a subsequence  --------------
+
+# ----------------- 19   --------------
+
+# ----------------- 20   --------------
+
+# ----------------- 21   --------------
+
+# ----------------- 22   --------------
+
+# ----------------- 23   --------------
+
+# ----------------- 24   --------------
+
+# ----------------- 25   --------------
+
+# ----------------- 26   --------------
+
+# ----------------- 27   --------------
+
+# ----------------- 28   --------------
+
+# ----------------- 29   --------------
