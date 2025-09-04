@@ -27,4 +27,32 @@ if(p1==p2):
 else:
     print(str(p1) + " " + str(p2))
 
-#---------
+#------------- max rain water  sorting-6 -----------------
+# 3
+# 3 6 2
+
+# 4
+
+
+# 3
+# 5 6 2
+
+#5
+
+
+def maxArea(heights):
+    maxArea = 0 
+    left = 0 
+    right = len(heights)-1 
+    
+    while left<right:
+        maxArea = max(maxArea, min(heights[left], heights[right])*(right-left))
+        if heights[left] < heights[right]:
+            left+=1 
+        else:
+            right-=1 
+    return maxArea
+
+N = input()
+heights = [int(x) for x in input().split()]
+print(maxArea(heights))

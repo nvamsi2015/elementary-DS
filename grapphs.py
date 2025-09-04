@@ -622,15 +622,15 @@ print(g.max_area(mat))
 import heapq
 
 def lex_smallest_topo_sort(n, adj):
-    indegree = [0] * (n + 1)
+    indegree = [0] * (n + 1)    # This counts the number of incoming edges for each node, which is essential for Kahn's algorithm (a BFS-based topological sort)
     for u in range(1, n + 1):
         for v in adj[u]:
             indegree[v] += 1
 
     heap = []
-    for i in range(1, n + 1):
-        if indegree[i] == 0:
-            heapq.heappush(heap, i)
+    for i in range(1, n + 1):       #Processing Nodes with Zero Indegree
+        if indegree[i] == 0:        #Nodes with zero indegree are eligible to be placed in the topological order
+            heapq.heappush(heap, i) # Lexicographical Logic Using a Min-Heap
 
     result = []
     while heap:
@@ -639,7 +639,7 @@ def lex_smallest_topo_sort(n, adj):
         for v in adj[u]:
             indegree[v] -= 1
             if indegree[v] == 0:
-                heapq.heappush(heap, v)
+                heapq.heappush(heap, v) # Lexicographical Logic Using a Min-Heap
     return result
 
 # Read input
@@ -680,6 +680,59 @@ no
 yes 
 2 
 
+# To solve this, treat the problem as checking if the graph is bipartite (can be colored with 2 colors such that no two adjacent nodes have the same color).
+# If not bipartite, print yes and the max number of people in a team who communicated.
+# If bipartite, print no.
+
+# How it works:
+
+# Uses BFS to color the graph.
+# If two adjacent nodes have the same color, the rule is violated.
+# If violated, prints yes and the largest team size in any component.
+# If not, prints no.
+
+# ...existing code...
+
+from collections import deque
+
+def check_fair_play(n, m, edges):
+    adj = [[] for _ in range(n+1)]
+    for u, v in edges:
+        adj[u].append(v)
+        adj[v].append(u)
+    color = [-1] * (n+1)
+    max_team = 0
+    is_bipartite = True
+
+    for start in range(1, n+1):
+        if color[start] == -1:
+            q = deque()
+            q.append(start)
+            color[start] = 0
+            count = [1, 0]
+            while q:
+                u = q.popleft()
+                for v in adj[u]:
+                    if color[v] == -1:
+                        color[v] = 1 - color[u]
+                        count[color[v]] += 1
+                        q.append(v)
+                    elif color[v] == color[u]:
+                        is_bipartite = False
+            max_team = max(max_team, max(count))
+    if is_bipartite:
+        print("no")
+    else:
+        print("yes")
+        print(max_team)
+
+# Example usage:
+n, m = map(int, input().split())
+edges = [tuple(map(int, input().split())) for _ in range(m)]
+check_fair_play(n, m, edges)
+# ...existing code...
+
+
 
 
 
@@ -712,3 +765,62 @@ yes
 no 
 yes 
 
+# Approach
+# For each doctor, mark all rooms within their strength (distance) from their allocated room using BFS/DFS.
+# Each room must be covered by exactly one doctor (no overlaps, no gaps).
+# The number of doctors used must be minimum (as per input).
+# If all rooms are covered exactly once, print yes, else print no.
+
+
+from collections import deque
+
+def is_optimal_allocation(n, m, adj, doctors):
+    covered = [0] * (n + 1)  # 1-based indexing
+
+    for room, strength in doctors:
+        if strength < 0:
+            continue
+        visited = [False] * (n + 1)
+        q = deque()
+        q.append((room, 0))
+        while q:
+            curr, dist = q.popleft()
+            if dist > strength or visited[curr]:
+                continue
+            visited[curr] = True
+            if covered[curr] != 0:
+                # Already covered by another doctor
+                return False
+            covered[curr] = 1
+            for neighbor in adj[curr]:
+                if not visited[neighbor]:
+                    q.append((neighbor, dist + 1))
+
+    # Check all rooms are covered exactly once
+    for i in range(1, n + 1):
+        if covered[i] != 1:
+            return False
+    return True
+
+t = int(input())
+for _ in range(t):
+    n, m = map(int, input().split())
+    adj = [[] for _ in range(n + 1)]
+    for _ in range(n):
+        li = list(map(int, input().split()))
+        u = li[0]
+        for v in li[1:]:
+            if v == -1:
+                break
+            adj[u].append(v)
+            adj[v].append(u)  # Undirected graph
+
+    doctors = []
+    for _ in range(m):
+        room, strength = map(int, input().split())
+        doctors.append((room, strength))
+
+    if is_optimal_allocation(n, m, adj, doctors):
+        print("yes")
+    else:
+        print("no")

@@ -1,3 +1,34 @@
+#sorting
+
+#------------- 1. max rain water  sorting-6 -----------------
+# 3
+# 3 6 2
+
+# 4
+
+
+# 3
+# 5 6 2
+
+#5
+
+
+def maxArea(heights):
+    maxArea = 0 
+    left = 0 
+    right = len(heights)-1 
+    
+    while left<right:
+        maxArea = max(maxArea, min(heights[left], heights[right])*(right-left))
+        if heights[left] < heights[right]:
+            left+=1 
+        else:
+            right-=1 
+    return maxArea
+
+N = input()
+heights = [int(x) for x in input().split()]
+print(maxArea(heights))
 
 #stack 
 #------------- 1. stack 3 sq3- sort stack recursively without using  loops ---------
@@ -150,3 +181,42 @@ def findMaxDiff(arr, n):
 n= int(input())
 arr = [int(x) for x in input().split()] 
 print(findMaxDiff(arr,n))
+
+
+
+#----------- 17 Find Largest Rectangle -----------
+
+# 6
+# 1 4 5 6 2 3
+# 12
+
+# 6
+# 1 2 3 1 5 6
+# 10
+
+from collections import deque
+
+def MaxArea(heights):
+    max_area = 0 
+    currentIndex = 0 
+    indexStack = deque()
+    indexStack.append(-1) 
+    
+    while currentIndex < len(heights):
+        while indexStack[-1] != -1 and heights[indexStack[-1]] >= heights[currentIndex]:
+            poppedIndex = indexStack.pop()
+            max_area = max(max_area, heights[poppedIndex] * (currentIndex - indexStack[-1] -1))
+        
+        indexStack.append(currentIndex) 
+        currentIndex +=1 
+    
+    while indexStack[-1] != -1:
+        poppedIndex = indexStack.pop() 
+        max_area = max(max_area, heights[poppedIndex] * (len(heights) - indexStack[-1] -1))
+    
+    return max_area
+
+n = int(input())
+heights = [int(x) for x in input().split()]
+max_area = MaxArea(heights)
+print(max_area)
