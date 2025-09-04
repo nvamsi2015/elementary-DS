@@ -190,6 +190,8 @@ print(findMaxDiff(arr,n))
 # 1 4 5 6 2 3
 # 12
 
+
+
 # 6
 # 1 2 3 1 5 6
 # 10
