@@ -1,4 +1,4 @@
-# -------------- p1 Min lenth subArray with sum atleast k (p3 in arrays) ------------
+# -------------- sw1 Min lenth subArray with sum atleast k (p3 in arrays) ------------
 # 7 9
 # 5 3 1 2 4 3 6
 # op: 2
@@ -27,7 +27,7 @@ n,k = map(int,input().split())
 nums = [int(x) for x in input().split()]
 min_length_subarray_with_sum_atleast_k(nums,k)
 
-# ------- p2 Max continous ones with k flips allowed in a binary array (p5 in arrays) --------------
+# ------- sw2 Max continous ones with k flips allowed in a binary array (p5 in arrays) --------------
 # 9 1
 # 0 1 1 0 1 0 0 0 1
 # op: 1 4
@@ -58,7 +58,7 @@ def MaxContinuousOnes(A,n,k):
 n,k = map(int,input().split())
 A = [int(x) for x in input().split()]
 MaxContinuousOnes(A,n,k)
-#----------- p10  Find triplets with sum k in a sorted array ------ 
+#----------- sw2.1  Find triplets with sum k in a sorted array (p10 in arrays)------ 
 # 8 4
 # -2 -1 0 1 2 4 4 4
 # op: 
@@ -97,7 +97,7 @@ n,k = map(int, input().split())
 A = [int(x) for x in input().split()]
 tripletsWithSumK(A,n,k)
 
-# -------- p3 Minimum swaps to group all ones in Binary array (p12 in arrays)--------------
+# -------- sw3 Minimum swaps to group all ones in Binary array (p12 in arrays)--------------
 
 def minSwapsReqToGroupAllOnes(A,n):
     total_ones =0 
@@ -131,7 +131,7 @@ n = int(input())
 A = [int(x) for x in input().split()]
 print(minSwapsReqToGroupAllOnes(A,n))
 
-#-------p4 maximize happy customers (p13 in arrays) -------------
+#-------sw4 maximize happy customers (p13 in arrays) (p13 in arrays)-------------
 
 # 9 3
 # 1 0 1 2 4 3 7 0 5
@@ -164,7 +164,7 @@ sleepArray = [int(x) for x in input().split()]
 
 print(MaxSatisfiedCustomers(customersArray, sleepArray, x))
 
-# ----------------p5  SubArray with product less than k (p16 in arrays -------------------
+# ----------------sw5  SubArray with product less than k (p16 in arrays -------------------
 # 5 7
 # 9 10 3 2 7
 # op: 3 [{2},{3},{2,3}]
@@ -190,3 +190,25 @@ n,k = map(int,input().split())
 A = [int(x) for x in input().split()]
 
 print(noOf_subArrays_withProduct_lessthan_k(A,k))
+
+# ----------------sw6 distribute m coin boxes to n children, diff bw max and min coins in boxes should be min (22 in sorting)
+# 5 3
+# 4 8 6 5 4
+
+# 1 (min difference)
+
+from sys import maxsize 
+
+def find_min_diff(coins, m,n):
+    coins.sort() 
+    min_diff = maxsize 
+    i=0 
+    while i+n-1 < m:
+        diff = coins[i+n-1] -coins[i] 
+        min_diff = min(min_diff,diff) 
+        i+=1 
+    return min_diff
+
+m,n = map(int,input().split())
+coins = [int(x) for x in input().split()] 
+print(find_min_diff(coins, m,n))
