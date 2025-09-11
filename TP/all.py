@@ -1,4 +1,4 @@
-# ------- tp1 Find pairs whose sum is k in a sorted array ( arrays p2) --------------
+# ------- tp1 Find pairs indices whose sum is k in a sorted array ( arrays p2) --------------
 # 5 10
 # 2 3 5 6 8  
 # op: 0 4
@@ -28,12 +28,14 @@ else:
     print(str(p1) + " " + str(p2))
 
 
-# ----------- tp2  Find quadraplets in sorted array with sum k (p15 in arrays, if-else conditions) ----------------
+# ----------- tp2  Find no of unique quadraplets in sorted array with sum k (p15 in arrays, if-else conditions) ----------------
 
 # 6 1
 # -2 -1 0 1 2 3
 
 # 2
+# {-2,-1,1,3}
+# {-2,0,1,2}
 
 def count_four_sums(A, target):
     total = 0
@@ -108,7 +110,7 @@ N = input()
 heights = [int(x) for x in input().split()]
 print(maxArea(heights))
 
-# ----- 2p4  sum of 2 elements in array and 0 should have min absolute diff (13 sorting)--
+# ----- 2p4  sum of 2 elements in array and 0 should have min absolute diff (14 sorting)--
 # 7
 # 1 2 3 -4 6 10 -13
 

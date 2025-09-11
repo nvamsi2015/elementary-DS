@@ -28,14 +28,19 @@ print(findIndex(nums,n, k))
 # 1. mid is calculated as (l+h)//2  inside while loop not outside, bc mid calculated only when l<=h condition satisfyies
 
 
-# ------------------ bs2 find smallest and largest element in a rotated array of a sorted array (p4 in intro) ---------learn why l<=h,  mid<n-1, nums[l] <= nums[mid] => l = mid+1  and return 0  are needed needed------------
+# ------------------ bs2 find smallest and largest element in a rotated array of a sorted array (p4 in intro) ---------
+# learn why l<=h,  mid<n-1, nums[l] <= nums[mid] => l = mid+1  and return 0  are needed needed------------
 
-def get_pivot_index(nums, n):
+# 6
+# 5 6 1 2 3 4
+# output: 1 6
+
+def get_pivot_index(nums, n): # piviot index is index of smallest element
     l= 0 
     h = n-1 
     while l<=h:
         mid = (l+h)//2 
-        if mid< n-1 and  nums[mid] > nums[mid+1]:
+        if mid< n-1 and  nums[mid] > nums[mid+1]: # in rotated array, the sequence will always be increasing and only at one point it will drop, that is the pivot point
             return mid+1 
         elif nums[l] <=  nums[mid]:
             l = mid+1 
@@ -171,6 +176,13 @@ while t:
 
 # 5
 
+# k books : 1 day
+# p books : x days
+
+# x = p/k 
+# x = ceil(p/k)
+# x = (p-1)//k + 1        # in integer math ceil(p / K) is the same as (p - 1) // K + 1.
+
 def min_reading_speed_k(book_piles, D):
     def possible(K):
         return sum((p - 1) // K + 1 for p in book_piles) <= D
@@ -194,6 +206,9 @@ def main():
 main()
 
 #------------ bs7 total sum of quotients (p12 in intro)
+#pgm to find minimum x, when x divides all elements in arr, the sum of quotients does not exceed threshold s.
+
+# N S
 # 6 27
 # 10 8 8 11 14 19
 
@@ -232,6 +247,12 @@ main()
 
 # 1 3
 
+
+#We will do binary search twice. 
+# The first time, we will find the first position of K. 
+# The second time, we will find the last position of K.
+
+
 def search_range(A, n, k):
     start, end = 0, n - 1
     start_index, end_index = -1, -1
@@ -250,7 +271,7 @@ def search_range(A, n, k):
 
     end = n - 1
     while start < end:
-        mid = (start + end) // 2 + 1
+        mid = (start + end) // 2 + 1  #The + 1 is to ensure that the search range narrows down when A[mid] is equal to k.
         if A[mid] > k:
             end = mid - 1
         else:
@@ -271,11 +292,13 @@ main()
 
 
 #------------bs9  Arranging dustbins (p16 in intro)
+# given N places and M dustbins, place the dustbins in such a way that the minimum distance between any two dustbins is maximized.
+
 # 5
 # 1 3 5 7 10
 # 3
 
-# 4
+# 4 (maximum possible minimum distance between any two dustbins)
 
 def max_distance(position, m):
     n = len(position)
