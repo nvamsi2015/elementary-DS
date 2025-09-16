@@ -106,6 +106,12 @@ main()
 
 #------------- 3 sq3- sort stack recursively without using  loops ---------
 
+# 5
+# 43 64 32 74 75
+
+# 75 74 64 43 32 
+
+
 def sortedPush(s, element):
     if len(s)==0 or element>s[-1]:
         s.append(element)

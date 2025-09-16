@@ -1,6 +1,198 @@
+# stack and queue both are implemented by deque in python
+# stack follows LIFO (last in first out) and queue follows FIFO (first in first out)
+
+
 # Notes
 #1. one common pattern is stack.append(-1) at the start of the function to avoid empty stack issues
 #2. another common pattern is while stack and stack[-1] == -1 and stack values are increasing stoped => stack.pop() to check maximum area unitil it is again increasing
+
+# operations on stack or deque for stack
+# pop() => removes from right end of stack:
+# append() => adds to right end of stack
+# len(stack) => gives length of stack
+# stack[-1] => gives top element of stack 
+
+# deque operations 
+# dq.remove(m_id) => removes the element m_id from anywhere in the deque  ( check ticket counter problem in deques&circularQueues.py problem 8 )
+
+
+#------------- 3 sq3- sort stack recursively without using  loops ---------
+
+# 5
+# 43 64 32 74 75
+
+# 75 74 64 43 32 
+
+
+def sortedPush(s, element):
+    if len(s)==0 or element>s[-1]:
+        s.append(element)
+    else:
+        temp = s.pop()
+        sortedPush(s,element)
+        s.append(temp)
+
+
+def sortStack(s):
+    if len(s) !=0:
+        temp = s.pop()
+        sortStack(s)
+        sortedPush(s,temp)
+        
+
+def printStack(s):
+    if len(stack) ==0:
+        return 
+    else:
+        x = s[-1] 
+        s.pop(-1)
+        print(x, end= ' ')
+        printStack(s) 
+        s.append(x)
+
+
+stack = []
+n = int(input())
+A = [int(x) for x in input().split()][:n]
+for i in range(n):
+    stack.append(A[i])
+
+sortStack(stack)
+# print(stack)
+printStack(stack)
+
+#------------- 4 print minimum in the stack before each pop---------
+# 4
+# 2 4 1 3
+
+# 1 1 2 2 
+
+from collections import deque
+
+INITIAL_STACK = deque()
+MIN_STACK = deque()
+
+def push(arr, n):
+    INITIAL_STACK.append(arr[0])
+    MIN_STACK.append(arr[0])
+
+    for i in range(1, n):
+        if arr[i] <= MIN_STACK[-1]:
+            MIN_STACK.append(arr[i])
+        INITIAL_STACK.append(arr[i])
+
+def get_min_at_pop():
+    while INITIAL_STACK:
+        print(MIN_STACK[-1], end=" ")
+        if MIN_STACK[-1] == INITIAL_STACK[-1]:
+            MIN_STACK.pop()
+            INITIAL_STACK.pop()
+        else:
+            INITIAL_STACK.pop()
+
+def main():
+    n = int(input())
+    nums = [int(i) for i in input().split()]
+    push(nums, n)
+    get_min_at_pop()
+
+main()
+
+#------------- 5 Length of longest valid substring ---------
+
+# ((())))()
+# 6
+
+from collections import deque
+
+
+def findMaxLenBraces(braces):
+    n= len(braces) 
+    stack = deque()
+    stack.append(-1) 
+    result = 0 
+    
+    for i in range(n):
+        if braces[i] == '(':
+            stack.append(i) 
+        else:
+            stack.pop()
+            if len(stack) != 0:
+                currentValue = i - stack[-1] 
+                result  = max(result, currentValue) 
+            else:
+                stack.append(i) 
+    return result 
+    
+    
+braces = input() 
+print(findMaxLenBraces(braces))
+
+
+#------------- 6- diff of closest smallest element on left and right side of element in array---------
+# 3
+# 2 1 8
+
+# 1
+
+from collections import deque
+
+def leftSmaller(arr, n, SE):
+    num_stack = deque() 
+    for i in range(n):
+        while ( num_stack and num_stack[-1] >= arr[i]):
+            num_stack.pop() 
+        
+        if num_stack:
+            SE[i] = num_stack[-1] 
+        else:
+            SE[i] =0
+        num_stack.append(arr[i]) 
+
+            
+
+def findMaxDiff(arr, n):
+    ls = [0]*n 
+    rs = [0]*n 
+    
+    leftSmaller(arr,n,ls) 
+    leftSmaller(arr[::-1], n, rs)
+    max_diff = -1 
+    
+    for i in range(n):
+        max_diff = max(max_diff, abs(ls[i]- rs[n-1-i]))
+    return max_diff
+    
+    
+n= int(input())
+arr = [int(x) for x in input().split()] 
+print(findMaxDiff(arr,n))
+
+
+#------------- 7   card game ---------
+# given N cards 1 to N with one on top, remove the top card and move the next card to the bottom of the deck.continue this until one card is left.
+# 7 
+
+# 1 3 5 7 4 2  (sequence of removed cards cards)
+# 6 (remaining card)
+
+from collections import deque
+def print_cards(n):
+    q = list(range(1,n+1))          #[1, 2, 3, 4, 5, 6, 7
+    q = deque(q)                    #list to queue conversion deque([1, 2, 3, 4, 5, 6, 7])
+    
+    while (len(q)>1):
+        print(q.popleft(), end=" ")     # 1 removed
+        x= q.popleft()                  # x=2 removed from front    
+        q.append(x)                 # appending elements to the end of the queue, deque([3, 4, 5, 6, 7, 2]) 
+    print() 
+    print(q[0])
+
+n = int(input())
+print_cards(n)
+
+## stack won't support popleft(), queue wont support pop(), but deque will support both, so it is combo of stack and queue problem or deque problem
+
 
 #------- 10 card game - no of cards left after even sum pairs are removed -----------
 # 5

@@ -1,7 +1,7 @@
-#--------- 1  -------------------
+#--------- 1 Minimize difference after removing k elements in sorted array -------------------
 # 5 2
 # 1 5 8 11 17
-# 3
+# 3 ( after removing 2 elements 1 and 17, adjacent differences are 3,3)
 
 # 5 3
 # 5 7 9 10 12
@@ -47,8 +47,21 @@ n,k = map(int,  input().split())
 A = [int(x) for x in input().split()] 
 print(minimumAdjacentDifference(A,n,k)) 
 
+# approach: 
 
-#--------- 2 Rectify string -------------------
+# The intuition is, to iterate over all the subarrays of size N – K and for each subarray find the maximum difference between adjacent elements. Finally, find the minimum of all the maximum differences of adjacent elements.
+# First, take all elements from the array and calculate the difference between two adjacent elements in the subarray. We will get a total of N-1 elements. Store them in an array diff_A. Now we have to remove K elements from an array of N-1 elements.
+# Create a deque dq with size N-K-1. It stores the indices of diff_A. At first dq is empty so we add the first element from diff_A. Next, we compare the element of A with the last index present in the queue and pop the element if it less than or equal to current element. From this process, we get dq for the current window with the index of the first maximum as the front element. The next element will be the index of the maximum after the previous index, and so on.
+# Next, we use min_of_diffs to store the minimum of the maximum difference values up to the previous window and compare it with a maximum difference in the present window, and we update the min_of_diffs.
+# For each window, if the front element of dq(max of the previous window) is not present in the current window then remove the front element.
+# Update the position of the current element in dq by removing all the values that are less than it. 
+# After the window reaches the end of the array return min_of_diffs.
+
+
+# Complexity Analysis:
+# Time complexity: The deque adds K elements from starting of the array upto the last element. So the time complexity is O(N).
+
+#--------- 2 Rectify string '<' represent backspace -------------------
 # 1
 # happi<y
 # happy
@@ -111,7 +124,7 @@ while t>0:
     print(check_palindrom(s))
     t-=1
 
-#--------- 4 change previous letter to @  to upper case  -------------------
+#--------- 4 change to uppercase, change previous letter to @  to upper case  -------------------
 # 1
 # happi@y
 # happIy
@@ -156,6 +169,10 @@ while t>0:
     t-=1 
 
 #--------- 5 Decode string  -------------------
+
+# > represents add the following alphabetical characters till the next spacial character, at the end
+# < represents add the following alphabetical characters till the next spacial character, at the start
+
 # 1
 # p<ap>le
 # apple 
@@ -201,20 +218,64 @@ while t>0:
     final_string = get_string(s) 
     print(final_string) if final_string else print(-1)
     t-=1 
+
+#approach:
+
+# The intuition is to use deque so that elements can be added at either end and a boolean flag direction which helps in deciding from which end the elements have to be added.
+
+# Create a deque and let it be dq. Let the end(front or back) where an element is added be represented by a boolean flag direction.
+# direction can only have two values - 1 which signifies that elements are to be added in the front and 0 which signifies that elements are to be added in the back.
+# In each iteration check for the direction. If direction = 0, add all the alphabets from the current alphabet in the word into dq until < is encountered.
+# Skip adding > to dq if it is encountered and add the alphabets next to it. As we are currently adding the alphabets at the end of dq, encountering > does not change the current order of adding the alphabets.
+# When < is encountered, update the direction to 1. Form a temporary string temp by joining only the alphabets after < till you encounter another special character(< or >).
+# There are 2 possible scenarios of encountering special characters after <.
+# Case 1: < is encountered again. Add the alphabets in temp at the front of dq and reset temp to an empty string. Start adding the alphabets from the word to temp again.
+# Case 2: > is encountered. Add the alphabets in temp at the front of dq and reset temp to an empty string. Change the direction to 0.
+# After all the alphabets from word are arranged in dq, join all the alphabets in dq and return it.
+
+
+# Complexity Analysis
+# Time Complexity: At most, we push and pop N times from the deque. So the time complexity of each test case in T tests is O(N) where N is the length of S.
+
 #--------- 6 Multiple queries  -------------------
+
+# given an array of N integers and Q integers representing no of queries. In each query, you are given an integer K. 
+# You have to perform the following operation K times on the array and print the first two elements of the array after K operations.
+
+# The operation is as follows:
+# 1. Pop the first two elements of the array say A and B.
+# 2. If A > B, then push A at the front of the array and B at the back of the array.
+# 3. Else, push B at the front of the array and A at the back of the array.
+
+#----------------
 # 2 1
 # 4 5
 # 2
 
+#o/p
 # 5 4
-
+#----------------
 # 4 3
 # 5 6 7 8
 # 1 2 4
 
+#o/p 
 # 6 7
 # 7 8
 # 8 6
+
+# ex: A = [5,6,7,8], queries = [1,2,4]
+
+# operation count  A before   A after
+# 1               [5,6,7,8]     [6,7,8,5]
+# 2               [6,7,8,5]     [7,8,5,6]
+# 3               [7,8,5,6]     [8,5,6,7]
+# 4               [8,5,6,7]     [8,6,7,5]
+
+# ouput is first 2 lines of the given queries 1,2,4
+# 6, 7
+# 7, 8
+# 8, 6
 
 from collections import deque
 
@@ -253,17 +314,24 @@ for x in queries:
     print(*result[x-1]) 
     
 #--------- 7 Queries on Deque  -------------------
+#given an array of N integers and Q queries. The queries can be of the following four types:
+# 0: left shift the array by one position.
+# 1: right shift the array by one position.
+# 2 A B: update the value at index A to B.
+# 3 A: print the value at index A.  
+
 # 5
 # 1 2 3 4 5
-# 5
-# 0
-# 1
-# 3 1
-# 2 2 54
-# 3 2
+
+# 5 (Q, no of queries)      1 2 3 4 5
+# 0          left shift     2 3 4 5 1
+# 1          right shift    1 2 3 4 5
+# 3 1                       1 2 3 4 5     print element at 1 index => 2 
+# 2 2 54                    1 2 54 4 5   update index 2 to 54
+# 3 2                       1 2 54 4 5     print element at index 2 => 54  
 
 # 2 54
-
+#----------------
 # 3
 # 1 2 3
 # 4
@@ -312,8 +380,19 @@ for i in range(Q):
 
 
 #--------- 8 Ticket Counter -------------------
+# in a city there is a ticket counter where people stand to buy a ticket. to buy a ticket everyone has to show their membership card which is Id from 1 to P. 
+# initially people stand according to their membership id in increasing order. Each person has to enter the countert to buy a ticket and comes out to join the queue again at the rear EncodingWarning
+
+# there is a machine at entrance displays instructions
+# - N : next person in the queue enters the counter to buy a ticket
+# - E X : person with membership id X can come to the front of the queue 
+
+# you are given T sets of C instructions. Return the order in which they entered the counter. 
+
+
 # 1
-# 4 6
+
+# 4 6       P, C => p =[1,2,3,4] c= no of instructions
 # N
 # N
 # N
@@ -362,7 +441,15 @@ while t:
     print() 
 
 
-#--------- 9 Distribute Bonus points  -------------------
+#--------- 9 Distribute K Bonus points to N students  -------------------
+
+# - maximizw the no of students who got new points
+# - select a group of adjacent students of any size before awarding points
+# - after the selection of group, start awarding points so that all the students in that group have equal points by the end of distribution 
+
+# find the max no of students in the group you have selected ( for distribution of points) as mentioned above
+# note: you need not distribute all the k points among students 
+
 # 6 6
 # 2 4 8 5 9 6
 
@@ -411,6 +498,10 @@ arr = [int(each) for each in input().split()]
 print(maxSubarray(arr,k))
 
 #--------- 10 Print integer list -------------------
+
+# R -> reverse the array
+# D -> delete the first element from left in the array
+
 # RD
 # 4 1 2 3 4
 
@@ -449,3 +540,12 @@ d = deque(d)
 print_integer_list(word,d) 
 
 
+# approach: 
+
+# We take advantage of the way instructions are designed using a deque to avoid reversing the array whenever the instruction asks us.
+# As we have to delete only the first element, if at all the array is reversed, the element to be deleted is the last element. Otherwise, we can delete the first element itself. So we use a deque for this functionality.
+# Coming to the implementation, we traverse the string and use a bool to store the current order of the array (normal or reversed) whenever we counter 'R'. When we encounter 'D', based on this boolean value, we either delete the first element or the last element.
+# In the end, we print all the remaining elements in the deque either from the front or from the back based on this bool value.
+
+# Complexity Analysis:
+# Time complexity: We traverse through every character of the string and then traverse at most N times to print remaining elements. So the time complexity of the solution is O(N).
