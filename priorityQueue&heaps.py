@@ -1,4 +1,28 @@
-#--------------- 1. Find Kth largest Element -------------
+# notes 
+from queue import PriorityQueue 
+pq = PriorityQueue() 
+
+pq.qsize()
+pq.queue[0] # access the smallest element in the priority queue
+pq.get()    # return the smallest element and remove it from the priority queue           
+pq.put(each)
+pq.empty()
+
+# sum of all elements in pq 
+total = 0 
+while not pq.empty():
+    total+=pq.get()
+
+# charecter frequencty of a string
+char_frequency = [ 0 for i in range(26)] 
+for i in s:
+    char_frequency[ord(i) -ord('a')] +=1
+
+# iterating over all elements in pq
+result = sum([each **2 for each in pq.queue])
+    
+        
+#--------------- 1. Find Kth largest Element in array -------------
 # 5 2
 # 4 5 3 1 2
 # 4
@@ -8,25 +32,31 @@
 # 6
 
 from queue import PriorityQueue 
-
 def get_kth_largest(arr, k):
     pq = PriorityQueue() 
     
-    for each in arr:
-        if pq.qsize() <k:
-            pq.put(each) 
-        else:
-            if pq.queue[0] <each:
-                pq.get() 
+    for each in arr: 
+        if pq.qsize()<k:
+            pq.put(each)
+        else:                       # pq.queue[0] returns smallest number in priority queue
+            if pq.queue[0] < each:  # maintain only k items in pq, 4 < 3:  , 4<1: 4<2: so only [4,5] in pq at the end 
+                pq.get()                
                 pq.put(each) 
     
-    return pq.get() 
-    
+    return pq.get() #always return the mininumum number in the pq, kth largest no => 1st number in kth length pq    
+
 n,k = [int(x) for x in input().split()] 
 arr = [int(x) for x in input().split()] 
 print(get_kth_largest(arr,k))
 
-#-----------2. Penalty Round --------------------
+# Complexity Analysis
+# Time complexity: The priority queue will hold exactly K elements. So the push and pop operations on it takes at most O(log(K)) time. In the worst case, we push and pop priority queue N times. So the time complexity of the solution is O(N * log(K)).
+
+
+#-----------2. Final score of team after Penalty Round --------------------
+# given scores of players, they go to penality round (where their max socred is halfed and floor value has to be taken) do this operation k times.
+# print final score of team after penality round
+
 # 5 4
 # 5 10 20 40 50
 # 57
@@ -96,7 +126,9 @@ S = input()
 K = int(input())
 print(min_sum(S,K))
 
-# ----------4.Shrink the array --------
+# ----------4.Shrink the array  --------
+# by inserting absolute diff of two largest numbers in array if they are not equal, untill one or no element reamain. print one element lert or -1 if no element left
+
 # 5
 # 5 10 20 40 50
 # 5
@@ -276,18 +308,18 @@ def seating_order(width_of_seats, order):
     N = len(width_of_seats) 
     ans = [] 
     
-    width_row_details = [[-width_of_seats[i], i+1] for i in range(N)] 
-    width_row_details.sort(reverse= True) 
+    width_row_details = [[-width_of_seats[i], i+1] for i in range(N)]  # [[-5,1], [-10,2], [-15,3], [-20,4], [-25,5]]
+    width_row_details.sort(reverse= True)   # [[-5,1], [-10,2], [-15,3], [-20,4], [-25,5]]
     seats = PriorityQueue() 
     index = 0 
     
     for each in order:
-        if each == "0":
-            ans.append(width_row_details[index][1])
-            seats.put(width_row_details[index])
-            index+=1 
+        if each == "0":                               # index=0    
+            ans.append(width_row_details[index][1])   #ans = [1]      # for boys directly chosse the row number with min widht that is available
+            seats.put(width_row_details[index])       #seats = {[-5,1]}        # all the rows occupied with one boy is maintained in pq to get max with row out of this for girls
+            index+=1                                  #index =1    
         else:
-            ans.append(seats.get()[1]) 
+            ans.append(seats.get()[1])   # ans = [1,1]    # bc girls only seat in row which has boy in it. if multiple options they choose max width row. since width are -(width) minPriotityqueue will work
     print(*ans) 
 
 N = int(input())
@@ -402,17 +434,18 @@ from queue import PriorityQueue
 def kth_smallest_number(matrix,k):
     size = len(matrix) 
     pq = PriorityQueue() 
-    suitable_rows = min(size,k)
+    suitable_rows = min(size,k) #min(3,5) = 3,   in a 10*1 matrix to get 5th smallest number  suitable rows will only be min(10,5) = 5
 
     # Picking up first element of each row, for the first iteration 
     for i in range(suitable_rows):
         pq.put((matrix[i][0], (i,0)))
+        # print(pq.queue) or print(list(pq.queue)) #[(1,(0,0)), (3,(1,0)), (5,(2,0))]
         
     while k:
         least_value, (i,j) = pq.get() 
 
         if j < size-1:
-            pq.put((matrix[i][j+1], (i,j+1)))
+            pq.put((matrix[i][j+1], (i,j+1))) #[(2,(0,1)), (3,(1,0)), (5,(2,0))]
         k-=1 
     
     return least_value    

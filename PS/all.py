@@ -131,7 +131,7 @@ for i in range(m):
 
 subMatrixSum(matrix,m,n,k)
 
-# ------- hash tables cp-7,  Total no of subarrays whose sum is k-----  
+# ------- hash tables 17,  Total no of subarrays whose sum is k-----  
 
 
 from collections import defaultdict 
@@ -152,3 +152,5 @@ integer_array = [int(each) for each in input().split()]
 target_sum = int(input())
 count = subarray_sum(integer_array, target_sum) 
 print(count) 
+
+

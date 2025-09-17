@@ -1,9 +1,35 @@
+# notes 
+
+#-----------
+freq_dict[char] =1 if char not in freq_dict else freq_dict[char]+1
+
+#--------------
+count = Counter(string) #Counter({'t': 3, 'a': 3, 'e': 3, 'l': 2, 'c': 2, 'r': 2, 'n': 1, 'o': 1})
+
+#----------------
+map = defaultdict(int) 
+for i in range(len(s)):
+    map[s[i]]+=1 
+
+#----------
+dictionary.values()
+
+#----------- diff bw 
+
+frequency = defaultdict(int) # frequency ={}  or dict() will give key error in the increment step bc it is not initialised
+for number in A:
+    for number in A:
+        frequency[number] +=1   # didfference bw {} and defaultdict(int), this will inidiate default values to 0, while {} dont initiate[number] +=1   # didfference bw {} and defaultdict(int), this will inidiate default values to 0, while {} dont initiate
+
+
+
 # ---------1  Find pairs with sum k -----------
 # ip1: 
 # 5 3
 # 2 4 7 1 5
 # op1:
 # 0 3 
+
 # ip2:
 # 6 4
 # 1 2 3 4 5 6
@@ -60,6 +86,28 @@ def firstUniqueCharecter(string):
 
 string = input() 
 print(firstUniqueCharecter(string))
+
+#--------------- usig hastables ---------
+
+def firstUniqueCharecter(s):
+    freq_dict = {}
+    for char in s:
+    #   if char in freq_dict:
+    #       freq_dict[char]+=1 
+    #   else:
+    #         freq_dict[char]=1 
+        
+        freq_dict[char] =1 if char not in freq_dict else freq_dict[char]+1     #this line working
+        
+        # freq_dict[char] +=1 if char in freq_dict else 1 # giving keyerror for first letter in string bc freq_dict[char] wont be available to increment for new charecters
+
+    for char in s:
+        if freq_dict[char] ==1: 
+            return s.find(char) 
+    return -1 
+
+s = input()
+print(firstUniqueCharecter(s))
 
 # ------------------3 Happy Number ---------------------------------------
 # ip:
@@ -161,7 +209,7 @@ from collections import defaultdict
 def largestUniqueNumber(A):
     frequency = defaultdict(int) 
     for number in A:
-        frequency[number] +=1 
+        frequency[number] +=1   # didfference bw {} and defaultdict(int), this will inidiate default values to 0, while {} dont initiate
     result = -1 
     for key in frequency.keys():
         if frequency[key]  == 1:
@@ -200,6 +248,10 @@ while t:
     t-=1 
 
 # -------------------------------------------8 K-diff paris in array  ---------------------------------------
+# count of unique pairs that satisfy following conditions
+# - A pair should be formed by two integers {A[i], A[j]} where i != j 
+# - |A[i] - A[j]| must be equal to k 
+
 # 5 2
 # 3 2 4 2 5
 
@@ -211,7 +263,7 @@ def findPairs(A,k):
     count = 0 
     if k <0:
         return 0 
-    c = Counter(A) 
+    c = Counter(A)  #Counter({2: 2, 3: 1, 4: 1, 5: 1})
     for i in c:
         if k>0 and i+k in c or k==0 and c[i] > 1:
             count+=1 
@@ -221,7 +273,7 @@ n,k = [int(x) for x in input().split()]
 A = [int(x) for x in input().split()] 
 print(findPairs(A,k))
 
-# -----9 Longest Harmonious subsequence (diff of max and min value in array is 1) ------
+# -----9 length of Longest Harmonious subsequence (diff of max and min value in array is 1) ------
 # 4
 # 1 2 3 4
 
@@ -389,8 +441,8 @@ print(maxlen)
 # 0 5 0 5 0 5 5 
 # -2 
 
-def get_lower_bound(nums_set, num):
-    nums = list(nums_set) 
+def get_lower_bound(nums_set, num): #(2,3},0)
+    nums = list(nums_set) #[2,3]
     if not nums:
         return None 
     if num in nums:
@@ -401,27 +453,27 @@ def get_lower_bound(nums_set, num):
             if each>num:
                 lower_bound = min(lower_bound,each) 
     
-    lower_bound = None if lower_bound == pow(10,6) else lower_bound 
-    return lower_bound
+    lower_bound = None if lower_bound == pow(10,6) else lower_bound #2
+    return lower_bound #2
 
 def avoid_lakes(lakes):
     ans = [] 
-    full_lakes = {}     # Lake number,day when it become full 
-    dry_days = set() # Available days that can be used for drying a lake
+    full_lakes = {}     # Lake number,day when it become full  {5:0, 6:1}
+    dry_days = set() # Available days that can be used for drying a lake, {2,3}
     for i,each in enumerate(lakes):
         if not each:
             dry_days.add(i) 
             ans.append(0) 
         else:
             if each in full_lakes:
-                lb = get_lower_bound(dry_days, full_lakes[each])
+                lb = get_lower_bound(dry_days, full_lakes[each]) #({2,}, full_lakes[5]=0) => lb=2
                 if lb is None:
                     return [-2] 
                 
-                ans[lb] = each 
+                ans[lb] = each          # ans[2] = 5 means we are drying 5 on day 2 
                 dry_days.remove(lb) 
-            full_lakes[each] = i 
-            ans.append(-1) 
+            full_lakes[each] = i        #{5:4, 6:1}
+            ans.append(-1)              # on rainy day append -1 
     return ans
 
 
@@ -431,8 +483,7 @@ lakes = [int(each) for each in input().split()]
 rains_status = avoid_lakes(lakes) 
 print(*rains_status) 
 
-
-# -------15 Maximum size subArray with sum K ------  
+# -------15 Maximum length  subArray with sum K ------  
 # 5 3
 # 6 1 -1 -2 -1
 # 5
@@ -611,6 +662,8 @@ while t>0:
     t-=1 
     
 # ------20 Brick wall ------  
+# find out how to draw least bricks and return the crossed bridge
+
 # 3
 # 6 3 -1
 # 3 6 -1
@@ -640,10 +693,10 @@ for _ in range(n):
 count = least_bricks(brick_widths)
 print(count) 
 
-# ---21 smallest subarray to remove for remaining subarray to be divisible by k  -----  
+# ---21 length of smallest subarray to remove for remaining subarray to be divisible by k  -----  
 # 5 9
 # 3 5 1 6 2
-# 2
+# 2 (2 length subarrays +> 3,5 or 6,2)
 
 # 5 7
 # 10 20 30 40 50
@@ -678,44 +731,42 @@ print(sum_divisible_by_k(A,k))
 
 # 1 1 1 1
 
-def fourSum(nums, target):
-    details={}
-    n = len(nums) 
-    for i in range(n-3):
-        for j in range(i+1,n-2):
-            t = target - (nums[i] +nums[j]) 
-            key = (nums[i], nums[j]) 
-            if key in details:
-                continue
-            if t<nums[j+1]:
-                continue 
-            details[(nums[i], nums[j])] = twoSum(nums[j+1:], t)
-    all_quads = [] 
-    for key,value in details.items():
-        for each in value:
-            quad = list(key) + list(each) 
-            all_quads.append(quad) 
-    return all_quads
-    
 def twoSum(nums,target):
     res = [] 
-    lo,hi = 0, len(nums)-1 
+    lo, hi = 0, len(nums)-1 
     while lo<hi:
-        total = nums[lo] +nums[hi] 
-        if total < target:
+        total = nums[lo]+nums[hi] 
+        if total<target:
             lo+=1 
         elif total>target:
             hi-=1 
-        elif (nums[lo],nums[hi]) not in res:
+        elif (nums[lo], nums[hi]) not in res: 
             res.append((nums[lo], nums[hi]))
             lo+=1 
             hi-=1 
     return res 
-            
-            
 
-n,k = [int(each) for each in input().split()] 
-nums = [int(each) for each in input().split()] 
+def fourSum(nums,target):
+    details = {}
+    n = len(nums) 
+    for i in range(n-3):
+        for j in range(i+1, n-2):
+            t = target - (nums[i] + nums[j])
+            key = (nums[i], nums[j])
+            if key in details:
+                continue 
+            if t< nums[j+1]:
+                continue 
+            details[(nums[i],nums[j])] = twoSum(nums[j+1: ], t)
+    all_quads = []
+    for key, value in details.items():
+        for each in value:
+            quad = list(key) + list(each) 
+            all_quads.append(quad) 
+    return all_quads
+        
+n,k = [int(each) for each in input().split()]
+nums = [int(each) for each in input().split()]
 nums.sort() 
 
 ans = fourSum(nums,k) 
@@ -724,6 +775,8 @@ for each in ans:
 
 
 # -------------23 Rabbits in Forest --------------  
+#each student answers total no of students in their section excluding them. return min number of students that could be in all the sections.
+
 # 3
 # 1 1 3
 # 6
