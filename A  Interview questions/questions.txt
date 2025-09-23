@@ -1,0 +1,81 @@
+------------- css ---------------
+- how to center a div 
+- what are media queries?
+- what is different types of selectors? 
+- 
+
+
+---------------------browser ------------------
+1. what is the difference between local storage and cookies?
+2. what is CSRF, what is samesite=[null, strict, lex] meaning, why strict is a problem when you do affiliate marketing 
+3. what is event loop?
+4. what is microtasks in browser event loop?
+
+
+
+------------- javascript ------------
+1. what is this? 
+2. what is difference between call and apply and other?
+3. what is hoisting?
+4. what is lexical scoping?
+5. what is closure?
+6. what is babel?
+7. what is webpack?
+8. what are some ES6 features?
+9. what is callback hell?
+8. what is difference between promises and async and await?
+10. what is chaining in js?
+11. 
+
+
+------------- react ------------
+1. what is lifecycle methods?
+2. what are hooks?
+3. what is virtual DOM?
+4. what is reconciliation?
+5. what is recoil?
+6. what are uses of different main hooks?
+7. what is lazy loading or infinite scroll?
+8. what is visualization?
+9. what is debouncing? 
+10. what is throttling? 
+
+
+
+
+
+
+---------------------next.js ------------------
+- difference between server component and client component
+- what is difference between page router and app router
+- what are server actions?
+- what is error boundry? or gloabl error boundry? or global catch?
+- what is getServerSideProps function?
+
+1. what are different type of routes in next js folder structure like catch all routes
+2. setting cookies directly from backend with the next response how does it useful
+3. nextAuth - providers
+4. nextNavigation
+
+
+----------- Docker ----------- 
+1. volume
+2. network
+3. bridge 
+4. Port mapping
+5. nginix
+6
+
+--------- Deveops ---------
+- what is proxy, reverse proxy? 
+- what is load balancer?
+- how do you scale an app for million users?
+
+
+
+
+
+
+
+
+

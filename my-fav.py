@@ -452,3 +452,8 @@ integer_array = [int(each) for each in input().split()]
 target_sum = int(input())
 count = subarray_sum(integer_array, target_sum) 
 print(count) 
+
+
+#--------linkedlist ------------
+#--------- josephus circle -----------
+# ----------- position of car B when car A finished CLL --------------
