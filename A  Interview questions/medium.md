@@ -39,6 +39,7 @@ Examples: C, C++, Go, Rust.
 Requires a compilation step to generate an executable.
 Faster execution since the code is already in machine language.
 Harder to debug, but more efficient for performance-critical applications.
+
 Summary:
 Interpreted languages run code directly, line by line, while compiled languages translate code to machine code before running, resulting in faster execution.
 

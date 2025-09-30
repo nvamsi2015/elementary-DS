@@ -423,6 +423,70 @@ root = build_tree(arr, root)
 postorder(root) 
 
 # ---------- 8 Level order to inorder -------------------          
+1 2 3 4 5 6
+
+4 5 2 6 3 1 
+
+from collections import deque
+import sys 
+
+int_max = sys.maxsize
+
+class Node:
+    def __init__(self,data):
+        self.data = data 
+        self.left = self.right = None 
+
+def insert_node(data, root):
+    newnode = Node(data) 
+    
+    if len(Q) != 0:
+        temp = Q[0] 
+    if root is None:
+        root = newnode 
+    
+    elif temp.left is None:
+        temp.left = newnode 
+    elif temp.right is None:
+        temp.right = newnode 
+        Q.popleft() 
+    
+    if data != int_max:
+        Q.append(newnode)
+    return root 
+
+def remove_null_nodes(root):
+    if root is None or  root.data == int_max:
+        return None 
+    root.left = remove_null_nodes(root.left) 
+    root.right = remove_null_nodes(root.right) 
+    return root 
+
+def inorder(root):
+    if root is None:
+        return 
+    inorder(root.left) 
+    print(root.data, end = ' ')
+    inorder(root.right) 
+    
+    
+
+def build_tree(a, root):
+    for i in range(len(a)):
+        if a[i] != 'null':
+            root = insert_node(a[i], root) 
+        else:
+            root = insert_node(int_max, root) 
+    root = remove_null_nodes(root) 
+    return root 
+
+Q = deque()     
+
+arr = [x for x in input().split()]
+root = None 
+root = build_tree(arr, root) 
+inorder(root) 
+
 
 
 # ---------- 9  Build Binary tree -------------------
@@ -814,13 +878,191 @@ result = Solution(1)
 print(result.get_longest_path(root))
 
 # ---------- 15 Lowest common ancestor -------------------
+4 5
+1 2 null 3 4 5
 
+from collections import deque
+import sys 
+
+int_max = sys.maxsize 
+
+class Node:
+    def __init__(self, data):
+        self.data = data 
+        self.left = self.right = None 
+
+Q = deque() 
+
+def build_tree(a, root):
+    for i in range(len(a)):
+        if a[i] != 'null':
+            root = insert_node(a[i], root) 
+        else:
+            root = insert_node(int_max, root) 
+    root = remove_null_nodes(root) 
+    return root 
+
+def insert_node(data, root):
+    newnode = Node(data)
+    if len(Q) != 0:
+        temp = Q[0] 
+    if root is None:
+        root = newnode
+    elif temp.left == None:
+        temp.left = newnode
+    elif temp.right == None:
+        temp.right = newnode
+        Q.popleft() 
+    if data != int_max:
+        Q.append(newnode)
+    return root 
+
+def remove_null_nodes(root):
+    if root is None or root.data == int_max:
+        return None 
+    root.left = remove_null_nodes(root.left) 
+    root.right = remove_null_nodes(root.right) 
+    return root 
+
+def lowest_common_ancestor(root, m, n):
+    if root is None:
+        return 0
+    left = 0 
+    if lowest_common_ancestor(root.left, m, n):
+        left = 1 
+    right = 0
+    if lowest_common_ancestor(root.right, m,n):
+        right = 1 
+    current=0 
+    if root.data == m or root.data ==n:
+        current = 1 
+    if left+right+current >=2:
+        print(root.data) 
+    if current+right+left>0:
+        return 1 
+    else:
+        return 0 
+
+m,n = [int(x) for x in input().split()] 
+arr = [x for x in input().split()]
+root = None 
+root = build_tree(arr, root) 
+lowest_common_ancestor(root, m, n) 
 
 # ---------- 16 Build binary tree-2 -------------------
 
+6 8 5 7 -1
+6 8 7 5 -1
+
+5 8 6 7 
+class Node:
+    def __init__(self,key):
+        self.key = key 
+
+def build(start, end, postorder, post_index, inorder_map):
+    if start>end:
+        return None, post_index 
+    
+    root = Node(postorder[post_index]) 
+    post_index = post_index -1 
+    index = inorder_map[root.key] 
+    
+    root.right, post_index = build(index+1, end, postorder, post_index, inorder_map) 
+    root.left, post_index = build(start, index-1, postorder, post_index, inorder_map) 
+    
+    return root, post_index
+
+
+def build_tree(inorder, postorder):
+    n = len(inorder)
+    inorder_map ={}
+    for i,e in enumerate(inorder):
+        inorder_map[e] = i 
+    
+    post_index = n-1 
+    return build(0,n-1, postorder, post_index, inorder_map)[0]
+    
+
+def pre_order_traversal(root):
+    if root != None:
+        print(root.key, end = ' ')
+        pre_order_traversal(root.left) 
+        pre_order_traversal(root.right) 
+
+inorder = [int(x) for x in input().split()]
+postorder = [int(x) for x in input().split()]
+inorder = inorder[:-1] 
+postorder = postorder[:-1] 
+root = build_tree(inorder, postorder) 
+pre_order_traversal(root) 
+
 
 # ---------- 17 Boundary of binary tree -------------------      
+5 3 8 # # # 7 9 # # #
 
+5 3 8 9 7
+
+class Node:
+    def __init__(self, val):
+        self.val = val 
+        self.left = self.right = None 
+
+def create(arr):
+    if not arr:
+        return 
+    val = arr.pop(0) 
+    
+    if val == '#':
+        return 
+    root = Node(int(val))
+    root.left = create(arr) 
+    root.right = create(arr) 
+    return root 
+
+def leftBoundary(root, result):
+    if root is None or (root.left is None and root.right is None):
+        return 
+    result.append(root.val) 
+    if root.left is None:
+        leftBoundary(root.right, result) 
+    else:
+        leftBoundary(root.left, result) 
+
+def rightBoundary(root,result):
+    if root is None or (root.left is None and root.right is None):
+        return 
+    if root.right is None:
+        rightBoundary(root.left, result)
+    else:
+        rightBoundary(root.right, result) 
+    result.append(root.val) 
+
+def leaves(root,result):
+    if root is None:
+        return 
+    if root.right is None and root.left is None:
+        result.append(root.val) 
+        return 
+    
+    leaves(root.left, result) 
+    leaves(root.right, result)
+
+def boundaryOfBinaryTree(root):
+    if root is None:
+        return [] 
+    result = []
+    result.append(root.val) 
+    leftBoundary(root.left, result) 
+    leaves(root.left, result) 
+    leaves(root.right, result) 
+    rightBoundary(root.right, result) 
+    return result 
+    
+
+arr = input().split() 
+root = create(arr) 
+ans = boundaryOfBinaryTree(root)
+print(*ans) 
 
 # ---------- 18  -------------------
 
