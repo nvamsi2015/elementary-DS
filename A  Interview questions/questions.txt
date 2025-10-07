@@ -8,8 +8,7 @@
 ---------------------browser ------------------
 1. what is the difference between local storage and cookies?
 2. what is CSRF, what is samesite=[null, strict, lex] meaning, why strict is a problem when you do affiliate marketing 
-3. what is event loop?
-4. what is microtasks in browser event loop?
+
 
 
 

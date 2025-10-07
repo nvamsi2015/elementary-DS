@@ -603,10 +603,171 @@ Throttling: Executes the function at a consistent rate, allowing it to run perio
 Debouncing: Delays the execution of a function until a certain period of inactivity has passed after the last trigger.
 The choice between throttling and debouncing depends on the specific requirements of the application and the desired behavior for handling frequent events.
 
+----------- 13. what is callstack?
 
+The JavaScript Call Stack is a fundamental mechanism within the JavaScript runtime environment that manages the execution of functions. It is a data structure that operates on the Last-In, First-Out (LIFO) principle
 
+------------14. what is Event loop, microtask and macrotasks
 
+The Event Loop, Microtasks, and Macrotasks are core components of JavaScript's execution model, where the Event Loop continuously orchestrates tasks by first checking the Call Stack, then processing the higher-priority Microtask Queue (for things like Promise callbacks and MutationObservers) until empty, and finally executing tasks from the lower-priority Macrotask Queue (for operations like setTimeout, user events, or network requests). This ensures asynchronous code is handled efficiently in a single-threaded environment by prioritizing immediate tasks over longer-running ones.
 
+1. The Event Loop
+What it is: A continuous process that monitors the Call Stack and the task queues (microtask and macrotask) to keep JavaScript running smoothly.
+How it works:
+It checks the Call Stack to see if any synchronous code needs to be executed.
+If the Call Stack is empty, it then checks the Microtask Queue and executes all queued microtasks until that queue is empty.
+Only after the microtask queue is empty does the event loop process one task from the Macrotask Queue.
+It repeats this cycle, constantly checking for new tasks and maintaining the order of execution. 
+2. Microtasks
+What they are: High-priority asynchronous operations that are processed immediately after the current synchronous code finishes, but before the event loop moves on to the next macrotask.
+Examples:
+Promise callbacks (from .then(), .catch(), .finally())
+MutationObserver callbacks
+Calls to queueMicrotask()
+Key Behavior: Microtasks are processed in a "run-to-completion" manner, meaning all microtasks in the queue will be executed before any macrotask is processed, even if they are added during the execution of another microtask. 
+3. Macrotasks
+What they are: Lower-priority asynchronous operations that are executed in distinct iterations of the event loop.
+Examples:
+Timer functions (setTimeout(), setInterval())
+User interface events (like clicks or scrolls)
+Network requests (I/O operations)
+Key Behavior: Macrotasks are executed one at a time, each taking its own iteration of the event loop to run, but only after all current microtasks are complete. 
+In Summary:
+The event loop ensures that your JavaScript code runs without blocking the main thread by using these queues. It prioritizes urgent microtasks, then handles less urgent macrotasks, allowing for both immediate responsiveness and the smooth execution of longer-running operations. 
 
+---------- 15. what is currying?
 
+Currying is a functional programming technique that transforms a function with multiple arguments into a sequence of functions, each accepting a single argument. This process allows for the creation of new, specialized functions by "partially applying" or pre-filling some arguments, leading to more reusable and flexible code by maintaining the remaining arguments in the function's closure. 
+How it Works
+Instead of a function like f(a, b, c) being called all at once, a curried function is called as f(a)(b)(c). Each step returns a new function that holds the argument it received and waits for the next argument in the chain. 
+javascript
+// Regular function
+function sum(a, b, c) {
+  return a + b + c;
+}
 
+// Curried version
+function curriedSum(a) {
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    };
+  };
+}
+
+// Calling the curried function
+let sum10 = curriedSum(10); // sum10 is now a function that waits for b
+let sum10And20 = sum10(20); // sum10And20 is now a function that waits for c
+let result = sum10And20(30); // result is 60
+Benefits of Currying
+Partial Application: You can create specialized functions with some arguments already defined. For example, you can create addTen(x) from an add(a, b) function by partially applying 10 as the first argument, resulting in addTen(x) = add(10)(x).
+Code Reusability: By breaking down complex functions into smaller, single-argument functions, you can reuse these smaller functions in different contexts.
+Readability and Maintainability: Currying can make code more readable by allowing complex logic to be broken into more manageable pieces, according to Medium.
+Function Composition: It facilitates creating complex functions by composing simpler, curried functions together, notes DEV Community. 
+
+------------16. what are different types of promises?
+
+In JavaScript, promises are a way to handle asynchronous operations. While there's only one core Promise object, there are different static methods available on the Promise constructor that offer various ways to manage multiple promises concurrently. 
+Promise States:
+A Promise object can exist in one of three states: 
+Pending: The initial state; the asynchronous operation has not yet completed.
+Fulfilled (or Resolved): The operation completed successfully, and the promise has a resulting value.
+Rejected: The operation failed, and the promise has a reason (error) for the failure.
+Static Promise Methods:
+These methods allow for coordination and management of multiple promises:
+Promise.all(iterable):
+Waits for all promises in the iterable to be fulfilled.
+If all promises resolve, it returns a new promise that resolves with an array of their resolved values, in the same order as the input iterable.
+If any promise in the iterable rejects, it immediately returns a new promise that rejects with the reason of the first rejected promise.
+Promise.allSettled(iterable):
+Waits for all promises in the iterable to be settled (either fulfilled or rejected).
+Returns a new promise that resolves with an array of objects, each describing the outcome of a promise (e.g., { status: 'fulfilled', value: ... } or { status: 'rejected', reason: ... }).
+Promise.race(iterable):
+Returns a new promise that settles as soon as any of the promises in the iterable settles (either fulfills or rejects).
+The returned promise adopts the state and value/reason of the first promise to settle.
+Promise.any(iterable):
+Waits for any promise in the iterable to be fulfilled.
+If any promise fulfills, it returns a new promise that resolves with the value of the first fulfilled promise.
+If all promises in the iterable reject, it returns a new promise that rejects with an AggregateError containing all the rejection reasons.
+Example of using Promise.all:
+JavaScript
+
+const promise1 = Promise.resolve(3);
+const promise2 = 42; // Not a promise, but treated as a resolved promise
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, 'foo');
+});
+
+Promise.all([promise1, promise2, promise3]).then((values) => {
+  console.log(values); // Expected output: [3, 42, "foo"]
+});
+
+------ difference between forEach and map ----------------
+
+he forEach() and map() methods in JavaScript are both used to iterate over arrays, but they serve distinct purposes: 
+Return Value:
+forEach(): This method does not return a new array. It returns undefined. Its primary use is for performing side effects, such as logging values or modifying elements of the original array in place (though this is generally discouraged for maintaining immutability).
+map(): This method returns a new array containing the results of calling a provided callback function on every element in the original array. The original array remains unchanged.
+Purpose:
+forEach(): Designed for iterating and performing an action for each element, without necessarily creating a new data structure. Think of it as a cleaner alternative to a traditional for loop when you don't need a return value.
+map(): Designed for transforming the elements of an array into a new array of the same length, where each element in the new array is the result of applying a transformation function to the corresponding element in the original array.
+Chaining:
+forEach(): Cannot be directly chained with other array methods because it returns undefined.
+map(): Can be easily chained with other array methods like filter(), reduce(), etc., because it returns a new array.
+Example:
+JavaScript
+
+const numbers = [1, 2, 3];
+
+// Using forEach()
+let sum = 0;
+numbers.forEach(num => {
+  sum += num; // Side effect: modifying an external variable
+});
+console.log("Sum:", sum); // Output: Sum: 6
+
+// Using map()
+const doubledNumbers = numbers.map(num => num * 2); // Transformation: creating a new array
+console.log("Original numbers:", numbers); // Output: Original numbers: [1, 2, 3]
+console.log("Doubled numbers:", doubledNumbers); // Output: Doubled numbers: [2, 4, 6]
+
+------- what is event bubbling, where to use it and where to avoid it ---------------
+
+Event bubbling is a mechanism in the Document Object Model (DOM) where an event, such as a mouse click, starts at the target element and then propagates or "bubbles up" through all of its parent elements to the root of the document. 
+In JavaScript, this process happens automatically, allowing parent elements to respond to events triggered by their descendants. This is the reverse of the "event capturing" phase, which moves from the top down to the target element. 
+Where to use event bubbling (Event Delegation)
+The primary and most powerful use of event bubbling is a design pattern known as event delegation. By attaching a single event listener to a common parent element, you can handle events for all its children, even those added to the page dynamically after the initial page load. 
+Common use cases for event delegation:
+Handling lists of items: Instead of adding an event listener to each <li> item in a list, you can add a single listener to the parent <ul>. When a list item is clicked, the event bubbles up to the <ul>, where the listener can identify the specific item clicked using event.target.
+Dynamic content: If your page generates new elements, like a "To-Do" list where items are added by the user, a single event listener on the container will automatically work for all new items without needing to add a new listener for each one.
+Optimizing performance: For large tables or long lists, adding hundreds or thousands of individual event listeners can consume a lot of memory. Event delegation dramatically reduces this overhead by using just one listener for all child elements.
+UI components: Accordion menus, dropdowns, and modal dialogs can be managed efficiently. For example, a "click-outside-to-close" feature for a modal can be implemented with a single listener on the document that checks if the click occurred outside the modal's content. 
+Where to avoid event bubbling
+While useful, event bubbling can also cause problems if not managed correctly. You may need to stop the propagation to prevent unwanted side effects. 
+When to avoid or stop bubbling:
+Preventing unwanted parent events: If you have a nested element, such as a "Delete" button inside a card, you may want to prevent the button's click event from also triggering the parent card's click event. In this case, you would call event.stopPropagation() inside the button's event handler.
+Heavy event handlers: In cases with a complex DOM hierarchy and an expensive event handler, bubbling can cause performance issues by repeatedly triggering the handler on many parent elements.
+Conflicting behaviors: When nested elements have conflicting behaviors. For example, if clicking a parent expands a menu, but clicking a child link inside should only navigate, bubbling would trigger both actions unless stopped.
+Non-bubbling events: Some events, like focus, blur, mouseenter, and mouseleave, do not bubble up the DOM. For these events, you cannot use event delegation on a parent, and must attach the listener directly to the target element. 
+
+--------19. what is strictMode and NonstrictMode ?
+
+Strict Mode and Non-Strict Mode (also sometimes referred to as "sloppy mode") are two distinct operational modes in JavaScript, primarily introduced to improve code quality, security, and error handling.
+Non-Strict Mode (Default):
+This is the default mode of operation in JavaScript.
+It allows for more flexible, and sometimes less explicit, coding practices.
+Certain actions that would be considered errors in strict mode are silently ignored or handled with implicit behaviors (e.g., undeclared variables becoming global).
+It offers less robust error checking and can make it harder to detect potential bugs.
+Strict Mode:
+Introduced in ECMAScript 5 (ES5), strict mode is an opt-in, restricted variant of JavaScript.
+It enforces stricter rules and provides better error checking, making it easier to catch common coding mistakes and potential security vulnerabilities.
+It eliminates some "bad practices" and silent errors that exist in non-strict mode.
+You can enable strict mode globally by placing 'use strict'; at the top of a script, or locally within a function. Modern JavaScript features like classes and modules automatically enable strict mode.
+Key Differences and Benefits of Strict Mode:
+Error Handling: Strict mode converts certain "bad syntax" or potentially problematic actions into actual errors, preventing silent failures and making bugs easier to identify.
+Variable Declarations: In strict mode, using undeclared variables throws an error, preventing accidental global variable creation.
+this Keyword Behavior: Inside a function, this defaults to undefined in strict mode (unless explicitly bound), preventing accidental modification of the global object. In non-strict mode, this would refer to the global object.
+Disallowed Syntax: Strict mode prohibits the use of features considered problematic or deprecated, such as the with statement and arguments.caller/arguments.callee.
+Read-Only Properties: Strict mode enforces the read-only nature of properties, throwing an error if you attempt to write to a non-writable property.
+Duplicate Parameter Names: Strict mode disallows duplicate parameter names in function declarations, which can lead to confusion in non-strict mode.
+In essence, strict mode promotes writing cleaner, more secure, and more maintainable JavaScript code by enforcing stricter rules and providing clearer error feedback.

@@ -1,0 +1,49 @@
+1. what is the difference between local storage and cookies?
+2. what is CSRF, what is samesite=[null, strict, lex] meaning, why strict is a problem when you do affiliate marketing 
+
+
+
+
+
+
+
+
+
+------------- what is the difference between local storage and cookies?
+Local storage provides large-capacity, browser-only client-side storage that persists until deleted by the user or code, while cookies are small, server-sent data storage with a small capacity (4KB) that are sent with every HTTP request to the server, making them useful for authentication and session management. Key differences include capacity (local storage is much larger), scope (local storage is client-side, cookies are sent to the server), and expiration (local storage never expires without explicit action, while cookies can have expiration dates). 
+Local Storage
+Capacity: Offers a much larger storage limit, typically 5-10 MB per origin.
+Expiration: Data has no expiration date and persists until explicitly cleared by the user or code.
+Scope: Accessible only via JavaScript on the same origin (domain) and is not sent with HTTP requests.
+Use Cases: Ideal for caching large amounts of application data, such as user preferences or other client-side data that needs to persist between visits. 
+Cookies
+Capacity: Has a significantly smaller storage limit, around 4 KB.
+Expiration: Can have an expiration date set manually, or they expire at the end of a session if no date is set.
+Scope: Scoped to domains and paths, and are sent with every HTTP request to the domain, allowing server-side access.
+Use Cases: Best for storing small amounts of data needed by the server, such as authentication tokens for session management and user tracking. 
+
+Summary of Key Differences
+
+Feature 	Local Storage	                                    Cookies
+Capacity	Large (5-10 MB)	                                    Small (4 KB)
+Expiration	No expiration; data persists until deleted	        Can have set expiration dates or expire on session close
+Server Interaction	Not sent to the server; client-side only	Sent with every HTTP request to the server
+Accessibility	Accessible by JavaScript on the same origin	    Accessible by both client-side JavaScript and the server
+
+
+
+------------- what is CSRF, what is samesite=[null, strict, lex] meaning, why strict is a problem when you do affiliate marketing 
+Cross-Site Request Forgery (CSRF) is a web security vulnerability that tricks authenticated users into performing unintended actions on a web application. A CSRF attack uses social engineering to send a malicious link or code to a victim. When the victim clicks the link, their browser automatically sends credentials (like a session cookie) with the malicious request, making the action appear legitimate to the web application. 
+How SameSite cookie attributes prevent CSRF
+The SameSite attribute is a security feature for HTTP cookies that controls how cookies are sent with cross-site requests. By restricting this behavior, it helps to mitigate CSRF attacks. 
+SameSite=Strict: This is the most secure setting. The cookie will only be sent in requests that originate from the same site as the cookie was set. For example, if a user is on site-a.com and clicks a link to site-b.com, the cookie from site-b.com will not be sent, and the user may be required to log in again.
+SameSite=Lax: This is a more relaxed setting and is the default for most modern browsers if no SameSite attribute is specified. The cookie will be sent in same-site requests and in cross-site requests only if:
+The request is a top-level navigation (i.e., the user is clicking a link that changes the URL in the address bar).
+The HTTP request method is "safe" (like GET), but not POST.
+SameSite=None: This explicitly tells the browser to send cookies with all cross-site requests. To be accepted by modern browsers, a cookie with SameSite=None must also be set with the Secure attribute, meaning it is only transmitted over HTTPS connections. 
+CSRF as a problem in affiliate marketing
+Affiliate marketing relies on cross-site interactions to track referrals and sales. This can create a conflict with modern security measures like the SameSite attribute and lead to vulnerabilities and fraud. 
+Cookie stuffing: This is a fraudulent tactic where an attacker places an affiliate's tracking cookie on a user's device without the user's knowledge or consent, typically using iframes or pop-ups. The affiliate then gets a commission for any subsequent purchase the user makes, even though the user was never legitimately referred.
+SameSite=Lax breaks tracking: Since many browsers now default to SameSite=Lax, affiliate referral links using a GET request will still work when a user clicks a link. However, if the affiliate tracking cookie is set to SameSite=Strict, or if a POST request is used, the cookie may be blocked. This can prevent legitimate tracking, causing the affiliate to lose their deserved commission and making it difficult for the merchant to accurately attribute sales.
+Security risks from SameSite=None: To enable cross-site tracking, affiliate networks might require cookies with SameSite=None. If implemented incorrectly or on a vulnerable website, this can create an opportunity for CSRF attacks. An attacker could exploit this cross-site cookie usage to perform malicious, authenticated actions on the user's behalf.
+Vulnerability in affiliate plugins: For websites, particularly those using content management systems (CMS) with affiliate plugins, poor security practices can create additional CSRF vulnerabilities. An attacker could exploit the plugin to execute unwanted actions, such as stored Cross-Site Scripting (XSS), which amplifies the damage. 
