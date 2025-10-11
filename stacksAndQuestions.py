@@ -149,6 +149,24 @@ sortStack(stack)
 # print(stack)
 printStack(stack)
 
+
+# Recursive Stack Sort
+# Time Complexity: O(n²) (worst case, due to repeated popping and pushing)
+# Space Complexity: O(n) (due to recursion and stack)
+# Mainly for educational purposes or when you must use stack operations only
+# Not efficient for large datasets
+
+# Stack Recursive Sort (O(n²) Time Complexity)
+# Each time you pop an element from the stack in sortStack, you recursively sort the remaining stack.
+# Then, in sortedPush, you may pop all elements again to insert the current element in the correct position.
+# For each of the n elements, you may do up to n operations (inserting into the sorted stack).
+# Total operations:
+# First element: 1 push
+# Second element: up to 2 pops/pushes
+# ...
+# nth element: up to n pops/pushes
+# Sum: 1 + 2 + ... + n = O(n²)
+
 #------------- 4 print minimum in the stack before each pop---------
 # 4
 # 2 4 1 3

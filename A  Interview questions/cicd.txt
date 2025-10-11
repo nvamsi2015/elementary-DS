@@ -1,0 +1,86 @@
+
+# ------------ Create the CD pipeline that
+# Clones the repo
+# Builds the docker image
+# Pushes the docker image
+
+
+# Make sure to add the dockerhub secrets to github secrets  of the repo (DOCKER_USERNAME, DOCKER_PASSWORD)
+# You should see a workflow running
+
+# You might have to inject more environment variables (like DB URL) in there for the build to work as expected
+
+
+
+
+
+# -------------------------- 
+
+# Create an ec2 server
+# Download its keypair file
+# Allow http/https traffic
+# Ubuntu base image
+# Download docker on the machine
+# https://docs.docker.com/engine/install/ubuntu/
+#  sudo docker run hello-world
+# Update workflow to pull the latest image on the ec2 machine 
+
+
+# Point userapp.your_domain.com to the IP of the server
+# Add nginx reverse proxy to forward requests from userapp.your_domain.com to port on which the app is running
+
+# Install certbot and Refresh certificate
+
+# Take home assignments
+# Get a DB on neon.tech / RDS  / Aeiven and add a DB migration step to the DB
+# Pass in the DB credentials while starting the docker image
+# Start the docker image so that it restarts if it goes down (similar to pm2)
+
+------- what is Kafka/RabbitMQ/SQS----------
+
+Kafka, RabbitMQ, and SQS are all messaging systems that help decouple software components, but they have different architectures and use cases. Kafka is a distributed event streaming platform designed for high-throughput, real-time data pipelines, while RabbitMQ is a traditional message broker that uses a queue-based model and supports various messaging patterns. Amazon SQS is a fully managed message queuing service from AWS that is ideal for decoupling microservices and serverless applications with high scalability and durability. 
+
+Apache Kafka
+What it is: A distributed event streaming platform designed for high-throughput, fault-tolerant, and scalable data pipelines.
+Architecture: Uses a log-based architecture where events are persistently stored in a structured format.
+Best for: Real-time analytics, event sourcing, and building real-time data pipelines and streaming applications that need to handle massive volumes of data.
+Key features: High throughput, low latency, and durability by storing data for extended periods. 
+
+RabbitMQ
+What it is: An open-source, distributed message broker that implements the Advanced Message Queuing Protocol (AMQP).
+Architecture: Uses a queue-based model where messages are sent from producers to a broker, which routes them to consumers.
+Best for: Traditional message queuing, job processing, and microservices communication in event-driven architectures.
+Key features: Flexible routing of messages to different destinations, supports various messaging patterns like publish/subscribe and point-to-point. 
+
+Amazon SQS
+What it is: A fully managed message queuing service provided by Amazon Web Services (AWS).
+Architecture: A scalable and durable message queue service that sends, stores, and receives messages between software components.
+Best for: Decoupling and scaling microservices, distributed systems, and serverless applications without requiring other components to be available.
+Key features: Simple, scalable, and highly available, with an emphasis on ease of use and reliability. 
+
+
+-------- microservices in node.js --------------
+Microservices architecture, when implemented with Node.js, involves structuring an application as a collection of small, independent services. 
+Each service focuses on a specific business capability, is independently deployable, and communicates with other services through well-defined interfaces, often using HTTP/REST with JSON or Protobuf.
+
+------------------ api gateway -------------
+Amazon API Gateway is a fully managed service in Amazon Web Services (AWS) that allows developers to create, publish, maintain, monitor, and secure APIs at any scale. It acts as a "front door" for applications to access data, business logic, or functionality from various backend services, including: 
+AWS Lambda functions: Serverless compute services.
+Applications running on Amazon EC2, ECS, or Elastic Beanstalk: Virtual servers, containerized applications, or web applications.
+Any web application or external public endpoint.
+Key features and functionalities of Amazon API Gateway:
+API Management: Handles the entire API lifecycle, from creation and deployment to versioning and retirement.
+Traffic Management: Manages incoming API requests, including throttling, caching, and request routing.
+Security and Access Control: Provides various mechanisms for securing APIs, such as IAM roles, custom authorizers, and resource policies.
+Monitoring and Logging: Integrates with AWS CloudWatch to provide detailed metrics and logs for API usage and performance.
+Support for different API types:
+REST APIs: For traditional request-response interactions.
+HTTP APIs: A newer, lower-cost option for building RESTful APIs with improved performance.
+WebSocket APIs: For real-time, bidirectional communication, ideal for applications like chat or streaming dashboards.
+Integration with AWS services: Seamlessly connects with other AWS services like Lambda, DynamoDB, and S3.
+Custom Domain Names: Allows you to use your own domain names for your APIs for a more user-friendly experience.
+In essence, API Gateway simplifies the process of creating and managing APIs, enabling developers to easily expose their backend services to various client applications while handling the complexities of security, scalability, and monitoring.
+
+
+
+

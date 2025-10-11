@@ -1,6 +1,8 @@
 1. what is the difference between local storage and cookies?
 2. what is CSRF, what is samesite=[null, strict, lex] meaning, why strict is a problem when you do affiliate marketing 
-
+3. what are web workers
+4. what are web api's that browsers support 
+5. how does a browser load a website?
 
 
 

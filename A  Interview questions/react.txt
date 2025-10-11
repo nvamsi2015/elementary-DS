@@ -14,6 +14,18 @@ what is side effect in react mean?
 13. what is controlled and uncontrolled inputs and components?
 14. what is higher order components?
 15. what is error boundry?
+--------- Agilisium consulting --
+what are the stategies used for authentication and authorisation ? - Agilisium consulting
+what are the security measures taken to protect your app - - Agilisium consulting
+explain an instance where you debugged a critical bug and how did you do it?
+How did you do code reviews and how you managed code quality?
+what are the testing libraries you used in you development processs?
+give an example where you solved a critical feature and deploy it?
+how did you deploy you projects?
+where did you use aws services?
+difference bw sql and nosql and where did you use them?
+form validations where did you do it, what did you use for it?
+
 
 -------------  what is lifecycle methods?
 

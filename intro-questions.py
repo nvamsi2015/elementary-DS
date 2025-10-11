@@ -121,6 +121,9 @@ if(pivot_index == 0):
 else:
     print(nums[pivot_index], nums[pivot_index-1])
 
+
+#  nums[mid] > nums[mid+1] is the condition for the mid to be largest and mid+1 to be smallest   
+
 # ----------- p6 pattern printing triangle -----------
 # 4
 

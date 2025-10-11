@@ -1,5 +1,5 @@
 # notes 
-from queue import PriorityQueue 
+from queue import PriorityQueue # not from collections but from queue
 pq = PriorityQueue() 
 
 pq.qsize()

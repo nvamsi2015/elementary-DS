@@ -8,6 +8,8 @@ what is normalizations ?
 what is ACID properties in dbms --------------
 what is diff of mongo and postgres --------------
 
+what are the stategies used for data migration and optimzing queries? - Adilisium consulting
+
 
 
 
@@ -50,3 +52,116 @@ what is diff of mongo and postgres --------------
  The core difference lies in their data models: 
  MongoDB uses a dynamic schema for flexibility, 
  whereas PostgreSQL requires a pre-defined, strict schema for data consistency.  
+
+
+
+------------What is the difference between a primary key, foreign key, candidate key, and super key?
+Primary key uniquely identifies a record, foreign key links tables, candidate key can be primary key, super key is a set of attributes.
+
+Primary key: Unique identifier for a record in a table
+
+Foreign key: Links tables together by referencing the primary key of another table
+
+Candidate key: A set of attributes that can be used as a primary key
+
+Super key: A set of attributes that can uniquely identify a record
+
+-------------- 7 stagtegies for scaling databases (bytebytego) ----------
+1. indexing
+2. Materialized views
+3. Denormalization
+4. Vertical scaling
+5. Database caching 
+6. Replication
+7. Sharding 
+
+
+
+1. indexing ( b tree indexing)
+
+Indexes can significantly  reduce query execution time Without proper indexing, even a  simple search query could turn  into a full table scan, which  is extremely time-consuming.
+
+
+2. Materialized views
+
+pre-computed snapshots  of data that are stored for faster access.
+useful for  complex queries that would be too slow to compute on the fly every time. - tablleau 
+This allows the reports to be  generated quickly and efficiently.
+
+
+3. Denormalization
+
+Denormalization involves storing redundant data  to reduce the complexity of database  queries and speed up data retrieval.
+Facebook denormalizes data to store user  posts and information in the same table.
+This approach minimizes the need  for complex joins between tables,  
+speeding up retrieval when displaying user feeds.
+Storing redundant data means that updates must  
+3:37
+be carefully managed to maintain  consistency across the database.
+3:41
+This added complexity in maintaining consistent  
+3:43
+data can lead to potential  issues if handled incorrectly.
+
+4. Vertical scaling
+
+Adding more resources such as cpu, ram, or storage to you existing db server to handle increased load
+
+
+
+5. Database caching 
+
+Caching involves storing frequently accessed  data in a faster storage layer to reduce the  load on your database and speed up response times.
+
+
+6. Replication
+
+Replication involves creating copies of  your primary database on different servers  to improve availability, distribute  the load, and enhance fault tolerance.
+Replication can be configured in several ways,  such as synchronous or asynchronous replication. In synchronous replication, data is copied  to the replica servers simultaneously as  
+it's written to the primary server,  ensuring immediate consistency.
+
+
+7. Sharding 
+
+Sharding is a database architecture  pattern that involves splitting a  large database into smaller, more  manageable pieces, called shards.
+Each shard is a separate database  that contains a subset of the data.
+
+Sharding is particularly effective  for scaling databases horizontally.
+Instead of upgrading a single server's hardware,  you can add more servers to distribute the load.
+Each server handles a portion of the data,  
+which significantly enhances  both read and write performance.
+However, sharding introduces complexity  in database design and management.
+
+
+------------ why orm's ------
+Key reasons for using ORMs
+
+Increased development speed:  
+ORMs automate common database tasks, eliminating the need to write and maintain repetitive SQL queries for simple create, read, update, and delete (CRUD) operations.
+
+Reduced errors:     
+By generating SQL queries automatically, ORMs decrease the risk of typos and other human errors common in writing complex SQL commands.
+
+Improved code maintainability: 
+ORMs allow developers to work with a familiar object-oriented paradigm. This makes the code more readable and easier for future developers (or even the original developer) to understand, modify, and extend.
+
+Abstraction and portability: 
+ORMs provide a layer of abstraction between your application and the database. This means the application's core logic doesn't need to be rewritten if you switch to a different type of database, as the ORM handles the necessary translations.
+
+Enhanced security: 
+ORMs automatically handle data sanitization, which helps prevent SQL injection attacks.
+
+Automated schema management: 
+Some ORMs can automatically generate database schemas, which further simplifies the management of database structures. 
+
+-------------- what is  Kafka/RabbitMQ/SQS -----------
+
+
+
+
+
+
+
+
+
+

@@ -312,11 +312,30 @@ for i in range(n):
             print(j,end=' ')
             break
 
+# Time Complexity: O(n log n)
+# Space Complexity: O(n) (due to temporary arrays)
+# Stable, efficient, and works for large datasets
+# Widely used in practice
+
+# Merge Sort (O(n log n) Time Complexity)
+# Merge sort divides the array into halves recursively (log n levels).
+# At each level, it merges all elements (n operations per level).
+# Total operations:
+# log n levels × n operations per level = O(n log n)
+
+
 # ---------------- 10 Find the median in the arrary -----------
 # 4
 # 1 2 3 4
 
 # 2.50
+
+# 5 
+# 10 8 6 3 11
+
+#8.00
+
+
 
 def merge(arr, start, mid, end):
     n1 = mid - start + 1
@@ -366,6 +385,17 @@ else:
         print("%.2f" % ((a+b)/2))
     else:
         print("%.2f" % arr[n//2])
+
+# Time Complexity: O(n log n)
+# Space Complexity: O(n) (due to temporary arrays)
+# Stable, efficient, and works for large datasets
+# Widely used in practice
+
+# Merge Sort (O(n log n) Time Complexity)
+# Merge sort divides the array into halves recursively (log n levels).
+# At each level, it merges all elements (n operations per level).
+# Total operations:
+# log n levels × n operations per level = O(n log n)
 
 
 # ---------------- 11 odd even valley sort -----

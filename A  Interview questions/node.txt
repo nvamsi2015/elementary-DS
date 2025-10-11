@@ -1,0 +1,52 @@
+- what is node.js 
+- what is express 
+- what are websockets 
+- eventloop 
+
+---------Node-----------------
+Node.js is an open-source and cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts. 
+Node.js runs the V8 JavaScript engine, the core of Google Chrome, outside of the browser. 
+A Node.js app runs in a single process, without creating a new thread for every request.
+Node.js provides a set of asynchronous I/O primitives in its standard library that prevent JavaScript code from blocking 
+and generally, libraries in Node.js are written using non-blocking paradigms, making blocking behavior the exception rather than the norm.
+
+When Node.js performs an I/O operation, 
+- like reading from the network, 
+- accessing a database or the filesystem, 
+instead of blocking the thread and wasting CPU cycles waiting, Node.js will resume the operations when the response comes back.
+
+
+This allows Node.js to handle thousands of concurrent connections with a single server without introducing the burden of managing thread concurrency, which could be a significant source of bugs.
+Node.js has a unique advantage because millions of frontend developers that write JavaScript for the browser are now able to write the server-side code in addition to the client-side code without the need to learn a completely different language.
+In Node.js the new ECMAScript standards can be used without problems, as you don't have to wait for all your users to update their browsers - you are in charge of deciding which ECMAScript version to use by changing the Node.js version, and you can also enable specific experimental features by running Node.js with flags.
+- node documentation (https://nodejs.org/en/learn/getting-started/introduction-to-nodejs)
+
+Node (or more formally Node.js) is an open-source, cross-platform runtime environment that allows developers to create all kinds of server-side tools and applications in JavaScript. The runtime is intended for use outside of a browser context (i.e. running directly on a computer or server OS). As such, the environment omits browser-specific JavaScript APIs and adds support for more traditional OS APIs including HTTP and file system libraries. 
+- mdn docs (https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/Introduction)
+
+Node.js has a fantastic standard library, including first-class support for networking.
+- The createServer() method of http creates a new HTTP server and returns it.
+
+-------------- event loop ----------
+
+The Node.js event loop is a crucial mechanism that enables Node.js to handle asynchronous operations efficiently, despite being single-threaded. It allows Node.js to perform non-blocking I/O operations and manage thousands of concurrent connections.
+Here's how the Node.js event loop works:
+Execution of Main Script (Synchronous Code): When a Node.js application starts, it first executes all the synchronous code in the main script.
+Phases of the Event Loop: After the synchronous code finishes, the event loop enters a continuous cycle, processing different types of events in distinct phases:
+Timers Phase: This phase handles setTimeout() and setInterval() callbacks.
+Pending Callbacks Phase: This phase executes I/O callbacks that were deferred from the previous loop iteration.
+Poll Phase: This is a crucial phase where Node.js retrieves new I/O events (like network requests, file system operations) and executes their corresponding callbacks. If there are no pending I/O events, it might wait for new events to arrive or proceed to the next phase if setImmediate() callbacks are scheduled.
+Check Phase: This phase executes setImmediate() callbacks.
+Close Callbacks Phase: This phase handles 'close' event callbacks, such as socket.on('close', ...).
+Microtask Queue: In addition to the main event loop phases, Node.js also has a microtask queue that handles process.nextTick() callbacks and Promise callbacks. These microtasks are executed between each phase of the event loop and after the completion of the currently executing phase's callbacks.
+Non-Blocking I/O: When an asynchronous operation (like a network request or file read) is initiated, Node.js delegates the task to the underlying libuv library, which handles the I/O operation using system resources (often in separate threads). Once the I/O operation completes, its associated callback is placed in the appropriate queue within the event loop to be processed in a subsequent cycle.
+In essence, the event loop continuously checks for pending tasks in various queues and executes their associated callbacks in a specific order, ensuring that asynchronous operations are handled without blocking the main thread and allowing Node.js to maintain its non-blocking, efficient nature.
+
+
+
+-------------- Expresss ----------------------  
+
+Express is a fast, unopinionated, minimalist web framework for Node.js, providing a robust set of features for web and mobile applications.
+- express documentation (https://expressjs.com/)
+Express is the most popular Node.js web framework, and is the underlying library for a number of other popular Node.js frameworks
+- mdn docs ( https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/Introduction)

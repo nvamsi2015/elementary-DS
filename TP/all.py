@@ -321,7 +321,7 @@ print()
 printUnion(A, B)
 
 
-# ----------------2p8 Remove subarray to maked sorted Array (51 sorting) ------
+# ----------------2p8 Remove subarray to make sorted Array (51 sorting) ------
 # 8
 # 1 3 5 10 4 2 6 9
 
