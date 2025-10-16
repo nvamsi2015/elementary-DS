@@ -21,7 +21,11 @@ what is map and set in js
 17. difference between forEach and map?
 18. what is event bubbling? how do you avoid or use it?
 19. what is strictMode and NonstrictMode ?
-
+20. what is shallow copy and deep copy?
+21. what is the difference between async-await and promises 
+22. sorting in js
+23. memory management in js
+24. what is difference between deepcopy and shallowcopy
 
 -----------------------
 1. what is this? 
@@ -116,6 +120,7 @@ greet.apply(person, args); // Output: Hello, my name is Alice? Language used: Fr
 // 3. Using `bind()`
 console.log("--- Using bind() ---");
 // `bind` returns a new function, which is then called separately
+
 const boundGreet = greet.bind(person, "German");
 boundGreet("..."); // Output: Hello, my name is Alice... Language used: German
 
@@ -169,7 +174,8 @@ In summary, arrow functions are used for writing more concise code and, more imp
 
 --------- what is hoisting -------------
 
-Hoisting in JavaScript is a behavior where declarations of variables and functions are conceptually moved to the top of their containing scope during the compilation phase, before the code is executed. This means that you can use a variable or call a function before it is declared in your code. 
+Hoisting in JavaScript is a behavior where declarations of variables and functions are conceptually moved to the top of their containing scope during the compilation phase, before the code is executed. 
+This means that you can use a variable or call a function before it is declared in your code. 
 
 Key aspects of Hoisting:
 
@@ -190,7 +196,10 @@ JavaScript
     function myFunction() {
       console.log("Hello from myFunction!");
     }
-let and const and the Temporal Dead Zone (TDZ): While let and const declarations are also hoisted, they are not initialized with undefined like var. Instead, they enter a "Temporal Dead Zone" (TDZ) from the beginning of their block scope until their actual declaration line. Accessing them within the TDZ will result in a ReferenceError.
+let and const and the Temporal Dead Zone (TDZ): 
+While let and const declarations are also hoisted, they are not initialized with undefined like var. 
+Instead, they enter a "Temporal Dead Zone" (TDZ) from the beginning of their block scope until their actual declaration line. 
+Accessing them within the TDZ will result in a ReferenceError.
 
 JavaScript
 
@@ -215,6 +224,14 @@ JavaScript
 ------------- what is lexical scoping and closure --------------
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures#creating_closures_in_loops_a_common_mistake
 
+lexical scoping, which describes how a parser resolves variable names when functions are nested. 
+The word lexical refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. 
+Nested functions have access to variables declared in their outer scope.
+
+Closures
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). 
+In other words, a closure gives a function access to its outer scope.
+In JavaScript, closures are created every time a function is created, at function creation time.
 
 ---------- what is babel -------------
 
@@ -771,3 +788,6 @@ Disallowed Syntax: Strict mode prohibits the use of features considered problema
 Read-Only Properties: Strict mode enforces the read-only nature of properties, throwing an error if you attempt to write to a non-writable property.
 Duplicate Parameter Names: Strict mode disallows duplicate parameter names in function declarations, which can lead to confusion in non-strict mode.
 In essence, strict mode promotes writing cleaner, more secure, and more maintainable JavaScript code by enforcing stricter rules and providing clearer error feedback.
+
+
+

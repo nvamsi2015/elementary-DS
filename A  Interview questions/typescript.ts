@@ -112,7 +112,7 @@ type User = {
 	age: number
 }
 
-// But they let you do a few other things.
+// But they let you do a few other things. like unions and intersecions
 
 // 1. Unions
 // Let’s say you want to print the id of a user, which can be a number or a string.
