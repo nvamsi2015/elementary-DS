@@ -1,3 +1,41 @@
+// ---------- what is this -----------------
+// In JavaScript, the this keyword is a special identifier that refers to the context in which a function is executed. 
+// Its value is determined at runtime, based on how the function is called, rather than where it is defined. 
+
+// Global Context:
+//     When this is used outside of any function or object, it refers to the global object. 
+//     In a web browser, this is typically the window object. 
+//     In Node.js, it's the global object. 
+
+
+// Object Methods:
+//     When a function is called as a method of an object (e.g., object.method()), 
+//     this inside that method refers to the object itself if it is regular function or function expression.
+//     this inside that method refers to global object if it is a arrow function  
+
+// Standalone Functions:
+//     When a function is called as a standalone function (not attached to an object, e.g., functionName()), this typically refers to the global object in non-strict mode. 
+//     In strict mode ('use strict';), this will be undefined. 
+
+
+// Constructor Functions:
+//     When a function is called with the new keyword (e.g., new ConstructorFunction()), it acts as a constructor. 
+//     In this case, this inside the constructor refers to the newly created instance of the object.
+
+
+// Event Handlers:
+//     In an event listener, this typically refers to the DOM element that triggered the event.
+
+// Explicit Binding (call, apply, bind):
+//     JavaScript provides methods like call(), apply(), and bind() to explicitly set the value of this for a function call.
+//     call() and apply() immediately invoke the function with a specified this value and arguments.
+//     bind() creates a new function with a permanently bound this value, which can be invoked later.
+
+// Arrow Functions:
+//     Arrow functions (=>) handle this differently. They do not have their own this binding. Instead, they lexically inherit this from their parent scope at the time they are defined. 
+//     This makes them useful for preserving context in callbacks and other scenarios where this might otherwise change unexpectedly. 
+
+
 
 // ************* If you assign a method to a variable and call it, this is not bound to the object anymore.
 

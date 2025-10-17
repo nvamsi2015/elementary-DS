@@ -1,0 +1,114 @@
+// ---------- what is this -----------------
+
+In JavaScript, the this keyword is a special identifier that refers to the context in which a function is executed. 
+Its value is determined at runtime, based on how the function is called, rather than where it is defined. 
+
+- when this is used outside of any function or object it refers to global object(window object in browser or global object in node js)
+
+- in standalone function (not attached to an object, e.g., functionName()) this typically refers to global object in non-strict mode, undefined in strict mode 
+
+- in arrow functions, they do not have their own binding, they inherit this value from lexically from their parent scope at the time they are defined.
+    This makes them useful for preserving context in callbacks and other scenarios where this might otherwise change unexpectedly.
+
+- in object methods this refers to the object itself if it is regular function or function expression, global object in arrow functions. 
+
+- in constructor functions, this inside constructor refers to the newly created instance of the object. 
+
+- in event handlers, this refers to the DOM Element that triggered the event.
+
+- in javascript methods like call,apply,bind we can explicitly set the value of this for a function call
+    call() and apply() immediately invoke the function with a specified this value and arguments.
+    bind() creates a new function with a permanently bound this value, which can be invoked later. 
+
+
+
+---------- what is hoisting -----------
+
+
+Hoisting in JavaScript is a behavior where declarations of variables and functions are conceptually moved to the top of their containing scope during the compilation phase, before the code is executed. 
+This means that you can use a variable or call a function before it is declared in your code. 
+
+
+Declarations are hoisted: Only the declaration part of a variable or function is moved to the top, not its assignment, not initializations or function definition.
+
+Variable Hoisting (with var): When var is used, the declaration is hoisted to the top of its function or global scope, and the variable is initialized with undefined.
+
+let and const declarations are also hoisted, they are not initialized with undefined like var
+Instead, they enter a "Temporal Dead Zone" (TDZ) from the beginning of their block scope until their actual declaration line. 
+Accessing them within the TDZ will result in a ReferenceError.
+
+
+
+Function Hoisting: Function declarations are fully hoisted, meaning both the function name and its definition are available at the top of their scope( contradicting the above point).
+
+Function Expressions and Arrow Functions: These are not hoisted in the same way as function declarations. They behave like var, let, or const variables depending on how they are declared.
+
+    // myFuncExpression();  // TypeError: myFuncExpression is not a function (if declared with var)
+    // myArrowFunc();       // ReferenceError: Cannot access 'myArrowFunc' before initialization (if declared with let/const as in TDZ)
+
+    var myFuncExpression = function() {         
+      console.log("Hello from function expression!");
+    };
+    const myArrowFunc = () => {
+      console.log("Hello from arrow function!");
+    };
+
+Function expressions and arrow functions are not hoisted like function declarations because only their variable declarations are hoisted, not their assignments.
+
+For var myFuncExpression, the variable is hoisted and initialized as undefined.
+So calling myFuncExpression() before assignment gives TypeError: myFuncExpression is not a function.
+
+For const myArrowFunc, the variable is hoisted but not initialized (it’s in the "Temporal Dead Zone").
+So calling myArrowFunc() before assignment gives ReferenceError: Cannot access 'myArrowFunc' before initialization.
+
+Only function declarations are fully hoisted (name and definition).
+Function expressions and arrow functions are treated as variables, so their assignments are not available until the code reaches them.
+
+----------- lexical scope ---------
+
+lexical scoping, which describes how a parser resolves variable names when functions are nested. 
+The word lexical refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. 
+Nested functions have access to variables declared in their outer scope.
+
+--------- Closures ------------
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). 
+In other words, a closure gives a function access to its outer scope.
+In JavaScript, closures are created every time a function is created, at function creation time.
+
+------ difference between == and  === in js ==========
+In JavaScript, == (loose equality) and === (strict equality) are both used for comparison, but they differ in how they handle type coercion.
+
+Loose Equality (==)
+The == operator performs a loose comparison.
+It attempts to convert the operands to a common type before making the comparison. This process is called type coercion.
+If the values are equal after type coercion, it returns true; otherwise, it returns false.
+
+
+console.log(5 == "5"); // true (string "5" is coerced to number 5)
+console.log(0 == false); // true (false is coerced to number 0)
+console.log(null == undefined); // true
+
+
+Strict Equality (===)
+The === operator performs a strict comparison.
+It compares both the value and the data type of the operands without performing any type coercion.
+If both the value and the data type are identical, it returns true; otherwise, it returns false. 
+
+
+console.log(5 === "5"); // false (number and string are different types)
+console.log(0 === false); // false (number and boolean are different types)
+console.log(null === undefined); // false (null and undefined are different types)
+
+
+********* When comparing two objects with the == operator, it compares their references, not their values. (ex 9 in js tricky questions) *******
+
+
+
+
+
+
+
+
+
+
+

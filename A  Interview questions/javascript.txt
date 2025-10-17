@@ -139,7 +139,8 @@ JavaScript
     // Arrow function
     const addArrow = (a, b) => a + b;
 
-Lexical this Binding: This is a key advantage of arrow functions. Unlike traditional functions, arrow functions do not create their own this context. Instead, they inherit this from their surrounding (lexical) scope. This eliminates the need for bind(), call(), or apply() in many scenarios, particularly within object methods or event handlers, preventing common this binding issues.
+Lexical this Binding: This is a key advantage of arrow functions. Unlike traditional functions, arrow functions do not create their own this context. Instead, they inherit this from their surrounding (lexical) scope. 
+This eliminates the need for bind(), call(), or apply() in many scenarios, particularly within object methods or event handlers, preventing common this binding issues.
 
 JavaScript
 
@@ -770,16 +771,19 @@ Non-bubbling events: Some events, like focus, blur, mouseenter, and mouseleave, 
 --------19. what is strictMode and NonstrictMode ?
 
 Strict Mode and Non-Strict Mode (also sometimes referred to as "sloppy mode") are two distinct operational modes in JavaScript, primarily introduced to improve code quality, security, and error handling.
+
 Non-Strict Mode (Default):
 This is the default mode of operation in JavaScript.
 It allows for more flexible, and sometimes less explicit, coding practices.
 Certain actions that would be considered errors in strict mode are silently ignored or handled with implicit behaviors (e.g., undeclared variables becoming global).
 It offers less robust error checking and can make it harder to detect potential bugs.
+
 Strict Mode:
 Introduced in ECMAScript 5 (ES5), strict mode is an opt-in, restricted variant of JavaScript.
 It enforces stricter rules and provides better error checking, making it easier to catch common coding mistakes and potential security vulnerabilities.
 It eliminates some "bad practices" and silent errors that exist in non-strict mode.
 You can enable strict mode globally by placing 'use strict'; at the top of a script, or locally within a function. Modern JavaScript features like classes and modules automatically enable strict mode.
+
 Key Differences and Benefits of Strict Mode:
 Error Handling: Strict mode converts certain "bad syntax" or potentially problematic actions into actual errors, preventing silent failures and making bugs easier to identify.
 Variable Declarations: In strict mode, using undeclared variables throws an error, preventing accidental global variable creation.

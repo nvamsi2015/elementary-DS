@@ -1,6 +1,6 @@
 what is composite indexing? what are different types of indexing?
 how mongodb handles replica set ?
-what is sharding ?
+what is sharding and partitioning ?
 what is normalizations ?
 
 
@@ -26,29 +26,64 @@ what are the stategies used for data migration and optimzing queries? - Adilisiu
  | 2 | 3 | 5 |
  | 2 | 4 | 4 |
  | 2 | 4 | 5 |
+
 -------- how mongodb handles replica set 
+
+------- what is partitioning and sharding ---------
+Database sharding and partitioning are techniques used to manage and scale large datasets, but they differ in their approach to data distribution.
+
+---------- partitioning -------
+Partitioning involves dividing a large database table into smaller, more manageable units called partitions within a single database instance. 
+This can be done horizontally (splitting rows based on a criterion) or vertically (splitting columns). 
+The primary goals of partitioning are to improve query performance by reducing the amount of data to be scanned, enhance manageability (e.g., faster backups, index rebuilding), and facilitate data lifecycle management.
+
 ---------- what is sharding --------------
+1st def:
+
  Sharding is a database architecture pattern related to horizontal partitioning — 
  the practice of separating one table's rows into multiple different tables, known as partitions, that all have the same schema. 
  Each partition is referred to as a shard. Each shard is held on a separate database server instance, to spread load.
+
+2nd def:
+
+Sharding is a form of horizontal partitioning where data is distributed across multiple database instances or servers, known as shards. 
+Each shard contains a subset of the total data and operates as an independent database.
+Sharding is primarily used for horizontal scalability, allowing a system to handle higher transaction volumes and larger datasets by distributing the load across multiple machines. 
+This helps to overcome the limitations of a single server, such as CPU, memory, and I/O capacity.
+
+Key Differences:
+Data Distribution: Partitioning keeps all data within a single database instance, albeit in separate logical segments. Sharding distributes data across multiple, independent database instances.
+Scalability: Partitioning improves performance and manageability within a single server. Sharding enables horizontal scalability by adding more servers to the system.
+Complexity: Sharding generally introduces more complexity in terms of data routing, distributed transactions, and maintaining data consistency across multiple servers. Partitioning within a single instance is typically less complex to manage.
+
+In essence:
+Partitioning helps to optimize performance and manageability within a single database server.
+Sharding helps to scale out a database system across multiple servers to handle massive data volumes and high traffic.
+
 ----- what is CAP theorem --------------
+
  The CAP theorem, also known as Brewer's theorem, states that in a distributed data store, you can only achieve two out of the following three guarantees simultaneously:
  Consistency: Every read receives the most recent write or an error.
  Availability: Every request receives a (non-error) response, without the guarantee that it contains the most recent write.
  Partition Tolerance: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes. 
  In practice, distributed systems must choose between consistency and availability when a network partition occurs.
+
 --------- what is ACID properties in dbms --------------
  ACID is an acronym that stands for 
  Atomicity, Consistency, Isolation, and Durability. These are a set of properties that guarantee reliable processing of database transactions.  
+
  Atomicity: Ensures that all operations within a transaction are completed successfully. If any operation fails, the entire transaction is rolled back, leaving the database unchanged.    
  Consistency: Ensures that a transaction brings the database from one valid state to another, maintaining all predefined rules, such as integrity constraints.
  Isolation: Ensures that concurrent transactions do not interfere with each other. The intermediate state of a transaction is invisible to other transactions until it is committed.
  Durability: Ensures that once a transaction has been committed, it will remain so, even in the event of a system failure. This is typically achieved through the use of transaction logs and
  database backups.# These properties are crucial for maintaining the integrity and reliability of databases, especially in systems where multiple transactions may occur simultaneously.
+
  ----------3. what is diff of mongo and postgres --------------
+
  MongoDB is a NoSQL document database that stores data in flexible, JSON-like documents and excels at handling unstructured data and horizontal scalability,
  while PostgreSQL is a powerful open-source object-relational database that uses tables with rows and columns, is known for its ACID compliance, 
  strong support for complex SQL queries, and reliability for structured data. 
+
  The core difference lies in their data models: 
  MongoDB uses a dynamic schema for flexibility, 
  whereas PostgreSQL requires a pre-defined, strict schema for data consistency.  
@@ -95,13 +130,10 @@ Denormalization involves storing redundant data  to reduce the complexity of dat
 Facebook denormalizes data to store user  posts and information in the same table.
 This approach minimizes the need  for complex joins between tables,  
 speeding up retrieval when displaying user feeds.
-Storing redundant data means that updates must  
-3:37
-be carefully managed to maintain  consistency across the database.
-3:41
-This added complexity in maintaining consistent  
-3:43
-data can lead to potential  issues if handled incorrectly.
+
+Storing redundant data means that updates must be carefully managed to maintain  consistency across the database.
+
+This added complexity in maintaining consistent data can lead to potential  issues if handled incorrectly.
 
 4. Vertical scaling
 
@@ -155,7 +187,6 @@ Automated schema management:
 Some ORMs can automatically generate database schemas, which further simplifies the management of database structures. 
 
 -------------- what is  Kafka/RabbitMQ/SQS -----------
-
 
 
 
