@@ -15,8 +15,10 @@ what are the stategies used for data migration and optimzing queries? - Adilisiu
 
 -------------what is composite indexing
  https://stackoverflow.com/questions/795031/how-do-composite-indexes-work
+
  Composite indexes work just like regular indexes, except they have multi-values keys.
  If you define an index on the fields (a,b,c) , the records are sorted first on a, then b, then c.
+
  Example:
  | A | B | C |
  -------------
@@ -41,7 +43,7 @@ The primary goals of partitioning are to improve query performance by reducing t
 1st def:
 
  Sharding is a database architecture pattern related to horizontal partitioning — 
- the practice of separating one table's rows into multiple different tables, known as partitions, that all have the same schema. 
+ the practice of ****separating one table's rows into multiple different tables****, known as partitions, that all have the same schema. 
  Each partition is referred to as a shard. Each shard is held on a separate database server instance, to spread load.
 
 2nd def:
@@ -75,12 +77,13 @@ Sharding helps to scale out a database system across multiple servers to handle 
  Atomicity: Ensures that all operations within a transaction are completed successfully. If any operation fails, the entire transaction is rolled back, leaving the database unchanged.    
  Consistency: Ensures that a transaction brings the database from one valid state to another, maintaining all predefined rules, such as integrity constraints.
  Isolation: Ensures that concurrent transactions do not interfere with each other. The intermediate state of a transaction is invisible to other transactions until it is committed.
- Durability: Ensures that once a transaction has been committed, it will remain so, even in the event of a system failure. This is typically achieved through the use of transaction logs and
- database backups.# These properties are crucial for maintaining the integrity and reliability of databases, especially in systems where multiple transactions may occur simultaneously.
+ Durability: Ensures that once a transaction has been committed, it will remain so, even in the event of a system failure. This is typically achieved through the use of transaction logs and database backups.
+ 
+  These properties are crucial for maintaining the integrity and reliability of databases, especially in systems where multiple transactions may occur simultaneously.
 
  ----------3. what is diff of mongo and postgres --------------
 
- MongoDB is a NoSQL document database that stores data in flexible, JSON-like documents and excels at handling unstructured data and horizontal scalability,
+ MongoDB is a NoSQL document database that stores data in flexible, JSON-like documents and excels at ******* handling unstructured data and horizontal scalability********,
  while PostgreSQL is a powerful open-source object-relational database that uses tables with rows and columns, is known for its ACID compliance, 
  strong support for complex SQL queries, and reliability for structured data. 
 
@@ -91,6 +94,7 @@ Sharding helps to scale out a database system across multiple servers to handle 
 
 
 ------------What is the difference between a primary key, foreign key, candidate key, and super key?
+
 Primary key uniquely identifies a record, foreign key links tables, candidate key can be primary key, super key is a set of attributes.
 
 Primary key: Unique identifier for a record in a table
@@ -102,6 +106,7 @@ Candidate key: A set of attributes that can be used as a primary key
 Super key: A set of attributes that can uniquely identify a record
 
 -------------- 7 stagtegies for scaling databases (bytebytego) ----------
+
 1. indexing
 2. Materialized views
 3. Denormalization
@@ -191,7 +196,125 @@ Some ORMs can automatically generate database schemas, which further simplifies 
 
 
 
+-------------how do we perform joins in mongodb
+In MongoDB, which is a NoSQL, document-oriented database, the concept of "joins" as understood in relational databases is achieved using the $lookup operator within the aggregation pipeline. This operator performs a left outer join between two collections in the same database.
+Here's how you perform joins in MongoDB using $lookup:
+Initiate an Aggregation Pipeline: You begin by calling the aggregate() method on the collection you want to join from (the "left" collection).
 
+  db.collection1.aggregate([
+        // Aggregation stages go here
+    ]);
+
+Add the $lookup Stage: Inside the aggregation pipeline, you include the $lookup stage. This stage takes an object with the following parameters:
+from: The name of the collection you want to join with (the "right" collection).
+localField: The field from the input documents (from collection1) that will be used for the join.
+foreignField: The field from the documents of the from collection (collection2) that will be used for the join.
+as: The name of the new array field to add to the input documents. This array will contain the matching documents from the from collection.
+
+    db.collection1.aggregate([
+        {
+            $lookup: {
+                from: "collection2",       // The collection to join with
+                localField: "fieldInCollection1", // Field from collection1
+                foreignField: "fieldInCollection2", // Field from collection2
+                as: "joinedData"          // Name of the new array field
+            }
+        }
+    ]);
+
+Process the Joined Data (Optional): After the $lookup stage, you can add other aggregation stages like $unwind, $match, $project, or $group to further process or shape the data in the joinedData array.
+For example, to get only documents where a match was found in collection2:
+
+    db.collection1.aggregate([
+        {
+            $lookup: {
+                from: "collection2",
+                localField: "fieldInCollection1",
+                foreignField: "fieldInCollection2",
+                as: "joinedData"
+            }
+        },
+        {
+            $match: { "joinedData": { $ne: [] } } // Filter out documents with empty joinedData arrays
+        }
+    ]);
+
+Important Considerations:
+Left Outer Join: $lookup performs a left outer join. This means all documents from the "left" collection (collection1 in the example) are returned, and if there are matching documents in the "right" collection (collection2), they are included in the as array. If no match is found, the as array will be empty for that document.
+Data Modeling: While $lookup enables joins, a key principle of MongoDB is to store related data together (embedding or referencing) to minimize the need for joins and improve query performance. Consider your data model carefully to determine if joins are truly necessary or if a different modeling approach would be more efficient.
+Sharded Collections: Starting in MongoDB 5.1, $lookup works across sharded collections.
+
+------------- how to we do indexing in mongodb
+Indexing in MongoDB is primarily achieved using the createIndex() method. This method allows you to define indexes on specific fields within a collection to improve query performance.
+
+Creating a Single-Field Index:
+To create an index on a single field, you use the following syntax:
+db.<collection>.createIndex({ <field_name>: <order> })
+
+<collection>: Replace this with the name of your collection.
+<field_name>: Replace this with the name of the field you want to index. 
+<order>: Specify 1 for ascending order or -1 for descending order.
+
+To create an ascending index on the username field in a users collection:
+db.users.createIndex({ username: 1 })
+
+Creating a Compound Index:
+You can also create indexes on multiple fields, known as compound indexes, to support queries that involve multiple criteria.
+db.<collection>.createIndex({ <field1>: <order1>, <field2>: <order2>, ... })
+
+To create a compound index on item (ascending) and stock (ascending) in a products collection:
+db.products.createIndex({ item: 1, stock: 1 })
+
+Optional Parameters:
+The createIndex() method also accepts an optional options document where you can specify additional parameters, such as:
+unique: Set to true to enforce uniqueness on the indexed field(s).
+name: Provide a custom name for your index.
+sparse: Create a sparse index that only indexes documents containing the indexed field.
+expireAfterSeconds: For TTL (Time-to-Live) indexes, specify the time in seconds after which documents in the collection will expire and be removed.
+Example with Options:
+
+db.users.createIndex(
+   { email: 1 },
+   { unique: true, name: "email_unique_index" }
+)
+
+Viewing and Dropping Indexes:
+To view existing indexes.
+  db.<collection>.getIndexes()
+
+  to drop an index.
+  db.<collection>.dropIndex("<index_name>")
+
+(You can find the index name using getIndexes(), or use the field specification if you didn't name it explicitly.)
+
+Important Considerations:
+Performance Trade-offs: While indexes improve read performance, they can add overhead to write operations (inserts, updates, deletes) as the index also needs to be updated.
+Index Selection: Choose fields for indexing based on your common query patterns and fields used in sort operations.
+Cardinality: Fields with high cardinality (many unique values) are generally better candidates for indexing.
+Wildcard Indexes: For collections with varying document structures, wildcard indexes can be useful for indexing multiple fields dynamically.
+
+------------- how to we do indexing in postgres 
+
+To create an index on a table in PostgreSQL, use the CREATE INDEX statement.
+
+CREATE INDEX index_name ON table_name (column_name);
+CREATE INDEX idx_customer_email ON customers (email);
+
+This creates an index named idx_customer_email on the email column of the customers table.
+
+
+For multiple columns (composite index):
+
+CREATE INDEX idx_order_customer_date ON orders (customer_id, order_date);
+
+Unique index:
+CREATE UNIQUE INDEX idx_unique_email ON customers (email);
+
+Note:
+Indexes improve query performance, especially for search, join, and sort operations.
+Use EXPLAIN to analyze query plans and optimize indexing.
+
+------------ what are diff types of join and what is inner join
 
 
 

@@ -163,16 +163,14 @@ how will we achive life cycle methods in functional components
 what is the diff bw useCallback and useMemo 
 difference between package.json and packagelock.json
 
-Kavitha Kamineni
-1:11 PM
+
 
 console.log(1)
 setTimeout({
         console.log(2)
 }, 0)
 console.log(3)
-Kavitha Kamineni
-1:13 PM
+
 ----------------------------------
 
 a()
@@ -184,6 +182,7 @@ b();
 var b = function b(){
     console.log("b")
 }
+
 Kavitha Kamineni
 1:15 PM
 -----------------------------------
@@ -199,7 +198,9 @@ var getCarName = carDetails.getName;
 console.log(getCarName());              // my answer is Tomer, but correct ans is Joe
 
 // ---------- explanation--------
-(Joe or undefined in strict mode or some environments)
+undefined in Node.js, In Node.js, global variables declared with var are not attached to the global object, so this.name is undefined.
+Joe in browsers, Since var name = "Joe"; sets a global variable name, this.name returns "Joe".
+
 
 Explanation:
 

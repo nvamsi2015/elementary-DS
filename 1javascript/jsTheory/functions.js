@@ -49,7 +49,19 @@ greet("Charlie"); // Output: Hello, Charlie!
 
 
 
+// ------ 4. Immediately Invoked Function Expression (IIFE):
 
+(function(parameters) {
+  // function body
+})(arguments);
+
+(function(name) {
+  console.log("Hello, " + name + "!");
+})("Dave"); // Output: Hello, Dave!
+
+// Hoisted: No (cannot be called before its definition).
+
+// Used to create a new scope and avoid polluting the global namespace. 
 
 
 

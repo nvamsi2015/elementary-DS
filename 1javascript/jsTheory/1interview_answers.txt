@@ -76,6 +76,7 @@ In other words, a closure gives a function access to its outer scope.
 In JavaScript, closures are created every time a function is created, at function creation time.
 
 ------ difference between == and  === in js ==========
+
 In JavaScript, == (loose equality) and === (strict equality) are both used for comparison, but they differ in how they handle type coercion.
 
 Loose Equality (==)
@@ -102,7 +103,26 @@ console.log(null === undefined); // false (null and undefined are different type
 
 ********* When comparing two objects with the == operator, it compares their references, not their values. (ex 9 in js tricky questions) *******
 
+// ----9.  loose and strict comparison in objects 
 
+let x = [1, 2, 3];
+let y = [1, 2, 3];
+let z = y;
+
+console.log(x == y);
+console.log(x === y);
+console.log(z == y);
+console.log(z == x);
+
+Answer - 
+false
+false
+true
+false
+
+// When comparing two objects with the == operator, it compares their references, not their values. 
+// In this case, x and y are different objects with the same values. z is assigned the value of y, so they refer to the same object. 
+// As a result, the first comparison returns false, the second comparison also returns false and the third comparison returns true. and the last comparison also returns false.
 
 
 

@@ -27,6 +27,8 @@ what is map and set in js
 23. memory management in js
 24. what is difference between deepcopy and shallowcopy
 
+25. circular reference 
+26. shallow and deepcopy 
 -----------------------
 1. what is this? 
 
