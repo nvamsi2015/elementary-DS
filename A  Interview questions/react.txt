@@ -14,6 +14,32 @@ what is side effect in react mean?
 13. what is controlled and uncontrolled inputs and components?
 14. what is higher order components?
 15. what is error boundry?
+
+- what is thunk and saga in redux 
+- how to clean up a useEffect call 
+- what is diff bw useSelector and useReducer? 
+
+* What are lazy loading and code splitting?
+* What are React Portals?
+* What are Profilers?
+* What are Render Props?
+
+* Where do we have to use the `useRef` hook?
+    * Can we achieve the same scenario (focusing an input field on page load) without using `useRef`?
+
+* In React, do you know about pure functions?
+* What is the main use of `useDispatch` and `useSelector`?
+* Have you heard about `useReducer`? How is it different from `useState`?
+ 
+
+* Can we pass data from child to parent or not? If yes, how exactly does this work (explain with an example of a callback function)?
+
+Redux middleware ? => Saga and Thunk
+
+Explain use case with typescript?
+
+- What is your testing strategy? => we use unit testing (JEST)
+
 --------- Agilisium consulting --
 what are the stategies used for authentication and authorisation ? - Agilisium consulting
 what are the security measures taken to protect your app - - Agilisium consulting
@@ -341,3 +367,202 @@ Errors in Event Handlers
 Asynchronous code (e.g., setTimeout callbacks)
 Server-side rendering
 Errors thrown within the error boundary component itself 
+
+
+---------------- what is thunk and saga in redux and why do we use middlewares in redux 
+
+Redux Thunk and Redux Saga are both middleware libraries for Redux that help manage asynchronous operations and side effects, such as API calls, within a Redux application. They offer different approaches to handling these complexities.
+
+Redux Thunk
+Concept: A thunk is a function that wraps an expression to delay its evaluation. In Redux, redux-thunk allows action creators to return a function instead of a plain action object. This function receives dispatch and getState as arguments, enabling asynchronous logic and dispatching multiple actions over time.
+Mechanism: It leverages Promises to handle asynchronous operations. You can dispatch a "request" action, perform an API call, and then dispatch a "success" or "failure" action based on the result.
+Strengths: Simplicity, ease of learning, and minimal boilerplate, making it suitable for simpler asynchronous tasks and smaller projects.
+
+    const fetchUser = (userId) => {
+      return async (dispatch, getState) => {
+        dispatch({ type: 'FETCH_USER_REQUEST' });
+        try {
+          const response = await fetch(`/api/users/${userId}`);
+          const userData = await response.json();
+          dispatch({ type: 'FETCH_USER_SUCCESS', payload: userData });
+        } catch (error) {
+          dispatch({ type: 'FETCH_USER_FAILURE', error: error.message });
+        }
+      };
+    };
+
+Redux Saga
+Concept: Redux Saga uses ES6 Generators to create "sagas" – long-running, isolated processes that listen for dispatched actions and manage side effects in a structured and testable way.
+Mechanism: Sagas use yield keywords with "Effect" creators (like call, put, take, fork) to describe the desired behavior, making the asynchronous flow more declarative and easier to reason about.
+Strengths: Powerful control over complex asynchronous flows, excellent testability due to pure functions returned by effects, and better separation of concerns for side effects. Ideal for larger applications and intricate asynchronous logic.
+
+    import { call, put, takeEvery } from 'redux-saga/effects';
+
+    function* fetchUserSaga(action) {
+      try {
+        const userData = yield call(fetch, `/api/users/${action.payload.userId}`);
+        const data = yield call([userData, userData.json]); // Correct way to call method on object
+        yield put({ type: 'FETCH_USER_SUCCESS', payload: data });
+      } catch (error) {
+        yield put({ type: 'FETCH_USER_FAILURE', error: error.message });
+      }
+    }
+
+    function* rootSaga() {
+      yield takeEvery('FETCH_USER_REQUEST', fetchUserSaga);
+    }
+
+Key Differences
+Control Flow: Thunks use Promises and async/await for sequential execution, while Sagas use Generators for more advanced control flow patterns (e.g., race conditions, debouncing).
+Testability: Sagas are generally considered more testable as effects are plain objects that can be easily mocked, while thunks require mocking functions.
+Complexity/Learning Curve: Thunks are simpler to learn and implement, while Sagas have a steeper learning curve due to Generators and effect creators.
+Boilerplate: Sagas often involve more boilerplate code compared to thunks, especially for simpler tasks.
+
+---------------- how to clean up a useEffect call 
+Cleaning up a useEffect call in React is achieved by returning a function from within the effect's callback. This returned function is known as the "cleanup function."
+When the Cleanup Function Runs:
+Before re-running the effect: If the dependencies in the useEffect's dependency array change, the cleanup function from the previous effect run is executed before the new effect runs.
+When the component unmounts: When the component containing the useEffect hook is removed from the DOM, the cleanup function is executed.
+
+import React, { useEffect, useState } from 'react';
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // This is the "effect" part
+    console.log('Effect running, count:', count);
+
+    // Example: Setting up an interval
+    const intervalId = setInterval(() => {
+      setCount(prevCount => prevCount + 1);
+    }, 1000);
+
+    // This is the "cleanup function"
+    return () => {
+      console.log('Cleaning up effect, clearing interval:', intervalId);
+      clearInterval(intervalId); // Clear the interval to prevent memory leaks
+    };
+  }, [count]); // Dependency array: effect re-runs when 'count' changes
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+    </div>
+  );
+}
+
+export default MyComponent;
+
+Common Use Cases for Cleanup:
+Clearing timers/intervals: As shown in the example, clearInterval or clearTimeout are crucial.
+Unsubscribing from event listeners: Removing event listeners (e.g., window.removeEventListener) to prevent memory leaks and unintended behavior.
+Canceling network requests: Using AbortController to cancel pending fetch requests if the component unmounts before the request completes.
+Disconnecting from WebSockets or other subscriptions: Closing connections or unsubscribing from real-time data streams.
+Importance of Cleanup:
+Cleanup functions are essential for preventing memory leaks and ensuring that your application behaves predictably, especially when dealing with side effects that persist beyond the component's lifecycle or the effect's re-execution.
+
+
+
+
+---------------- what is diff bw useSelector and useReducer? 
+useSelector and useReducer serve different purposes in React applications, with useSelector being specific to Redux for global state management and useReducer being a built-in React Hook for local state management.
+
+
+useSelector (from React-Redux):
+Purpose: useSelector is a hook provided by the react-redux library that allows functional components to extract specific pieces of data from the Redux store.
+Scope: It's used for global state management where a single source of truth (the Redux store) holds the entire application's state.
+How it works: You provide a selector function to useSelector that takes the Redux state as an argument and returns the desired slice of that state. When the relevant part of the Redux state changes, the component using useSelector will re-render.
+Example: Retrieving a user's name from the global Redux state:
+
+    import { useSelector } from 'react-redux';
+
+    function UserProfile() {
+      const userName = useSelector(state => state.user.name);
+      return <h1>Welcome, {userName}!</h1>;
+    }
+
+useReducer (from React):
+Purpose: useReducer is a built-in React Hook used for managing complex local state within a component or a small, isolated part of the component tree. It's an alternative to useState when state logic becomes more intricate.
+Scope: It's primarily used for local state management within a component, though it can be combined with useContext to share state across a small, localized component tree without introducing a global state management library like Redux.
+How it works: You provide a reducer function and an initial state to useReducer. The reducer function takes the current state and an action, and returns the new state. You get a dispatch function back, which you call with actions to trigger state updates.
+Example: Managing a counter's state within a component:
+
+
+    import React, { useReducer } from 'react';
+
+    const counterReducer = (state, action) => {
+      switch (action.type) {
+        case 'INCREMENT':
+          return { count: state.count + 1 };
+        case 'DECREMENT':
+          return { count: state.count - 1 };
+        default:
+          return state;
+      }
+    };
+
+    function Counter() {
+      const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+
+      return (
+        <div>
+          <p>Count: {state.count}</p>
+          <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
+          <button onClick={() => dispatch({ type: 'DECREMENT' })}>Decrement</button>
+        </div>
+      );
+    }
+
+In summary:
+useSelector is for reading global state from a Redux store.
+useReducer is for managing complex local state within a React component.
+
+---------------- how do we change state in redux?
+Changing state in Redux follows a strict, predictable pattern to ensure maintainability and debuggability. 
+The core principle is that state is immutable, meaning you never directly modify the existing state object. 
+Instead, you create a new state object with the desired changes
+
+
+
+
+Here's how state changes in Redux:
+Dispatch an Action:
+When a change needs to occur (e.g., a user clicks a button, data is fetched), an action is dispatched to the Redux store.
+An action is a plain JavaScript object with a mandatory type property, which describes the event that occurred. It can also include a payload with any necessary data for the state update.
+
+
+    store.dispatch({ type: 'ADD_TODO', payload: { id: 1, text: 'Learn Redux' } });
+
+
+Reducers Handle the Action:
+The Redux store's reducer function (or root reducer, which combines smaller reducers) receives the current state and the dispatched action.
+The reducer is a pure function; it takes the current state and an action as arguments and returns a new state object based on the action's type and payload.
+It must not mutate the original state or perform any side effects (like API calls).
+
+
+    function todosReducer(state = [], action) {
+      switch (action.type) {
+        case 'ADD_TODO':
+          return [...state, action.payload]; // Returns a new array
+        case 'TOGGLE_TODO':
+          return state.map(todo =>
+            todo.id === action.payload.id ? { ...todo, completed: !todo.completed } : todo
+          ); // Returns a new array with updated item
+        default:
+          return state;
+      }
+    }
+
+
+Store Updates and Notifies:
+The Redux store replaces its current state with the new state returned by the reducer.
+Any components subscribed to the store are notified of the state change, allowing them to re-render with the updated data.
+
+
+In summary: You initiate a state change by dispatching an action, and a pure reducer function then calculates and returns a new, immutable state based on that action
+
+*------------ What are lazy loading and code splitting?
+*--------- What are React Portals?
+*--------- What are Profilers?
+*------------ What are Render Props?

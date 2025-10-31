@@ -1,4 +1,61 @@
 
+
+
+*-------------- Tell me the difference between Promises, Callback Hell, and `async/await`.
+
+Callbacks are functions passed to other functions to handle asynchronous operations but lead to "callback hell" when nested. Promises are objects that represent the eventual success or failure of an asynchronous operation, providing a cleaner, chainable way to handle it with .then() and .catch(). async/await is a modern syntax built on top of Promises that uses async functions and await expressions to make asynchronous code look and behave like synchronous code, which is easier to read and debug, often using try...catch for error handling. 
+
+
+* ---------------- What is object prototyping?
+mechanism in languages like JavaScript where objects inherit properties and methods from a parent "prototype" object, forming a "prototype chain" for inheritance. 
+
+
+* --------------- What is deep copy and shallow copy?
+A shallow copy creates a new object but duplicates only the top-level properties, meaning any nested objects or data structures are still referenced from the original. A deep copy creates a completely independent clone of the original object, including a recursive copy of all nested objects and data structures. The main difference is that changes to a shallow copy's nested objects will affect the original, while changes to a deep copy will not. 
+
+*-------------  What are event bubbling and event capturing?
+
+
+* Have you heard about currying function?
+
+*------------- What is object destructuring?
+Object destructuring is a JavaScript feature that allows you to extract values from an object and assign them to separate variables in a single statement, making code more concise and readable. Instead of accessing each property individually (e.g., let id = article.id;), you can use a single line to pull out multiple properties at once (e.g., const { id, title } = article;). 
+
+* Have you heard about `for...of` loop? What's its use and why do we sometimes use `for...of` instead of a normal `for` loop?
+*---------------- Tell me the difference between `forEach` and `for...in` loop.
+
+forEach Method:
+Purpose: Primarily designed for iterating over elements in arrays. It is a higher-order array method.
+Syntax: It takes a callback function as an argument, which is executed for each element in the array. The callback function can receive the current element, its index, and the array itself as arguments.
+
+for...in Loop:
+Purpose: Designed for iterating over enumerable properties of an object, including inherited properties.
+
+
+*---------------- Tell me the difference between Fetch API and Axios.
+The Fetch API and Axios are both used for making HTTP requests in JavaScript, but they differ in several key aspects:
+
+Fetch API:
+Native Browser API: Fetch is a built-in browser API, meaning no external library installation is required. It's part of the global window object.
+Promise-based: It uses Promises for asynchronous operations, returning a Promise that resolves with a Response object.
+Manual JSON Handling: JSON responses require explicit parsing using response.json().
+Limited Error Handling: Fetch only rejects a Promise on network errors (e.g., no internet connection). HTTP error codes (like 404 or 500) do not automatically trigger a Promise rejection; you need to check response.ok or response.status.
+No Built-in Interceptors: Request and response interceptors are not natively supported and require manual implementation if desired.
+Request Cancellation: Requires using AbortController for request cancellation.
+Browser-only (originally): While now supported in Node.js v18+, it was initially a browser-specific API.
+
+Axios:
+Third-Party Library: Axios is a popular, promise-based HTTP client library that needs to be installed (e.g., via npm).
+Automatic JSON Handling: Axios automatically transforms JSON data in requests and responses, simplifying data handling.
+Enhanced Error Handling: Axios automatically rejects the Promise for HTTP error codes (e.g., 404, 500), making error handling more straightforward.
+Built-in Interceptors: Provides built-in support for request and response interceptors, allowing you to modify requests or responses globally before they are sent or processed.
+Built-in Request Cancellation: Offers a simpler, built-in method for canceling requests.
+Browser and Node.js Support: Works seamlessly in both browser environments and Node.js.
+Additional Features: Includes features like XSRF protection, request timeouts, and easier progress bar implementation.
+In summary:
+Fetch offers a lightweight, native solution for basic HTTP requests, while Axios provides a more feature-rich and developer-friendly experience with advanced capabilities like automatic JSON handling, comprehensive error handling, and built-in interceptors. The choice between them often depends on project requirements and personal preference.
+
+
 ------------- javascript ------------
 1. what is this? 
 2. what is difference between call and apply and other?
