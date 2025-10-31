@@ -1,10 +1,17 @@
 // Closures
 
-// A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). 
+//  1. A closure is the combination of a function bundled together (enclosed) with references to its surrounding lexical environment. 
 
-// In other words, a closure gives a function access to its outer scope.
+//  2. a function's scope is determined by where it is defined, not where it is called in js
+//   JavaScript's combination of lexical scoping and first-class functions makes closures a natural and powerful mechanism for data encapsulation and managing state in asynchronous and event-driven programming.
 
-// In JavaScript, closures are created every time a function is created, at function creation time.
+
+//  3. When a function is created, it "remembers" its surrounding lexical environment, including variables and other functions in its parent scope.
+//  4. closure gives a function access to its outer scope. closures are created every time a function is created, at function creation time.
+
+
+// Example1: Event Handlers with Data Retention: multiple buttons, each with a unique ID and a click handler that displays that specific ID.
+// onclick function retains access to that specific id value because each onclick function forms a distinct closure, preserving its own lexical environment
 
 // --------- closures------------
 
@@ -13,9 +20,7 @@
 // Closures in JavaScript arise from its lexical scoping and first-class functions, a combination less common in languages with different paradigms. 
 // While other languages may offer similar functionality through objects or explicit binding mechanisms, JavaScript's design naturally leads to closures.
 
-// Here is why closures are a fundamental part of JavaScript:
-
-// Lexical Scoping: JavaScript uses lexical (or static) scoping, meaning that a function's scope is determined where it is defined, not where it is called. When a function is created, it "remembers" its surrounding lexical environment, including variables and other functions in its parent scope.
+// Lexical Scoping: JavaScript uses lexical (or static) scoping, meaning that a function's scope is determined by where it is defined, not where it is called. When a function is created, it "remembers" its surrounding lexical environment, including variables and other functions in its parent scope.
 
 // First-Class Functions: Functions in JavaScript are treated as first-class citizens. They can be assigned to variables, passed as arguments to other functions, and returned as values from functions. This capability is crucial for closures to manifest.
 

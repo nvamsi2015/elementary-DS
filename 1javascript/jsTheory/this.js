@@ -9,8 +9,7 @@
 //     In Node.js, it's the global object. 
 
 
-// Object Methods:
-//     When a function is called as a method of an object (e.g., object.method()), 
+// Inside Object Methods:
 //     this inside that method refers to the object itself if it is regular function or function expression.
 //     this inside that method refers to global object if it is a arrow function  
 

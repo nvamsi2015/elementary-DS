@@ -1,3 +1,13 @@
+#  patterns
+# 1. returning mid with l<=h condition in while loop
+# 1.1 returning ans, with ans = min(ans, mid) with l= mid+1, h = mid-1, ( min x to divide arr such that sum of quotients <= threshold, )
+
+# 2. returning l with l<h condition in while loop, l=mid+1, h= mid will break the loop condition l<h fail ( peak of mountain, helping friend read book, )
+
+# 3. returning l with l<h condition in while loop, l= mid, h= mid-1 will break the loop condition l<h fail ( arranging dustbins,)
+
+
+
 #---------- bs1 find element in 1d- array  -----------
 # input:
 # 4
@@ -231,7 +241,7 @@ def smallestDivisor(arr, n, threshold):
             low = mid + 1
         else:
             ans = min(ans, mid)
-            high = mid - 1
+            high = mid - 1                  #this line will break the loop when high<low
     return ans
 
 def main():
@@ -310,12 +320,12 @@ def max_distance(position, m):
                 ans += 1
                 curr = position[i]
         return ans >= m
-
-    low, high = 0, position[-1] - position[0]
+                                               # condition is to place all m dustbins
+    low, high = 0, position[-1] - position[0]  #high = 9 => min distance bw 2 dustbins can be in range 0 to 9, we have find max value in this range that satisfies the condition
     while low < high:
-        mid = high - (high - low) // 2
-        if is_possible(mid):
-            low = mid
+        mid = high - (high-low)//2              # this line always chooses higher value as mid, which is different to (high+low)//2
+        if is_possible(mid):                    # ex: low=0, high=9 => mid = 5, while (high+low)//2 normally gives mid =4
+            low = mid                           # ex: low=3, high=4 => mid = 4, while (high+low)//2 normally gives mid =3
         else:
             high = mid - 1
     return low

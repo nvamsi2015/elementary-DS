@@ -12,21 +12,27 @@
 
 
 
-// Function Hoisting: Function declarations are fully hoisted, meaning both the function name and its definition are available at the top of their scope( contradicting the above point).
-
+// Function Hoisting: 
+// Function declarations(or regular functions) are fully hoisted, meaning both the function name and its definition are available at the top of their scope.
 // Function Expressions and Arrow Functions: These are not hoisted in the same way as function declarations. They behave like var, let, or const variables depending on how they are declared.
 
-    // myFuncExpression();  // TypeError: myFuncExpression is not a function (if declared with var)
-    // myArrowFunc();       // ReferenceError: Cannot access 'myArrowFunc' before initialization (if declared with let/const as in TDZ)
+// myRegularFunction()  // Hello from regular function! 
+// myFuncExpression();  // TypeError: myFuncExpression is not a function (if declared with var)
+// myArrowFunc();       // ReferenceError: C, Cannot access 'myArrowFunc' before initialization 
 
-    var myFuncExpression = function() {         
-      console.log("Hello from function expression!");
-    };
-    const myArrowFunc = () => {
-      console.log("Hello from arrow function!");
-    };
+function myRegularFunction() {
+    console.log("Hello from regular function!");
+}
 
-// Function expressions and arrow functions are not hoisted like function declarations because only their variable declarations are hoisted, not their assignments.
+var myFuncExpression = function() {         
+    console.log("Hello from function expression!");
+};
+
+const myArrowFunc = () => {
+  console.log("Hello from arrow function!");
+};
+
+// Function expressions and arrow functions are not hoisted like function declarations(or Regular function) because only their variable declarations are hoisted, not their assignments.
 
 // For var myFuncExpression, the variable is hoisted and initialized as undefined.
 // So calling myFuncExpression() before assignment gives TypeError: myFuncExpression is not a function.
