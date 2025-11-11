@@ -1,3 +1,56 @@
+# ----------- 1 coin change -------
+# x = table[i][j-1] if (j>=1) else 0                                  # x  value from left side  (j-1) => immediate left 
+# y = table[i- diff_coins[j]][j] if ( i-diff_coins[j] >= 0) else 0    # y = table[sum-coin_value][coin_index]   #value from top,  sum-coinValue difference gives row number from which y value comes 
+# table[i][j] = x+y
+
+# ---- 2. nth catalan number-----
+#  catalan[i] = catalan[i] + catalan[j] *catalan[i-j-1]
+
+
+#  catalan general formula  cn = c0*c(n-1) + c1*c(n-2) + .... + c(n-1)*c0
+#  cn = sum of catalan[i]*catalan[n-i-1] for i in range(n)
+
+
+# ---- 3. check subset sum N ----
+# for i in range(1, m+1):
+#     for j in range(1, n+1):
+#         if j < nums[i-1]:
+#             subset[i][j] = subset[i-1][j] 
+#         if j>= nums[i-1]:
+#             subset[i][j] = subset[i-1][j] or subset[i-1][j-nums[i-1]]
+
+#----- 4. tiling --------
+
+# for i in range(3,n+1):
+#     tiles.append(tiles[i-2] + tiles[i-1])
+
+# --- 5. rod cutting max profit -
+
+# for i in range(1,n+1):
+#     max_val = int_min
+    
+#     for j in range(0,i):
+#         max_val = max(max_val, prices[j] + val[i-j-1] )
+#     val[i] = max_val 
+
+# --- 6. min cost to paint fence -------
+
+for i in range(n-2, -1, -1):
+    mat[i][0] += min(mat[i+1][1], mat[i+1][2])
+    mat[i][1] += min(mat[i+1][0], mat[i+1][2]) 
+    mat[i][2] += min(mat[i+1][0], mat[i+1][1]) 
+
+# The intuition is to start fixing the colors from one end and thereby updating the cost of the next columns. The min cost of the columns with j columns is
+# - Fixing the color of jth column to be Blue and combine it with the minimum value of the j - 1 columns.
+# - Fixing the color of jth column to be Red and combine it with the minimum value of the j - 1 columns.
+# - Fixing the color of jth column to be Black and combine it with the minimum value of the j - 1 columns.
+
+# In the solution, we are choosing the right end as the starting point.
+
+# Complexity Analysis
+# Time complexity: The time complexity of the solution is O(N).
+# Space complexity: The space complexity of the solution is O(N).
+
 # ----------------- 1. coinchange    --------------
 # N rupees, M diff valued coins, no of unique coin combinations that sum upto N
 # 3 4
@@ -16,8 +69,8 @@ def coinChange(diff_coins,n):
             if i ==0:
                 table[0][j] =1 
             else:
-                x = table[i- diff_coins[j]][j] if ( i-diff_coins[j] >= 0) else 0 
-                y = table[i][j-1] if (j>=1) else 0 
+                x = table[i][j-1] if (j>=1) else 0                                  # x  value from left side  (j-1) => immediate left 
+                y = table[i- diff_coins[j]][j] if ( i-diff_coins[j] >= 0) else 0    # y = table[sum-coin_value][coin_index]   #value from top,  sum-coinValue difference gives row number from which y value comes 
                 table[i][j] = x+y
     
     return table[n][m-1] 
@@ -26,6 +79,22 @@ def coinChange(diff_coins,n):
 m,n = map(int,input().split())
 arr = [int(x) for x in input().split()][:m]
 print(coinChange(arr,n))
+
+# approach:
+# The intuition to count the number of solutions is to combine:
+
+# A. Solutions that contain at least one diff_coins[j].
+# B. Solutions that do not contain diff_coins[j] coin.
+# All the solutions are recorded in table. table[i][j] represents the solutions that have a sum value of i using only coins from diff_coins(0 ... j).
+
+# For table[i][j]:
+
+# A can be achieved by collecting all the solutions that have a sum of i - diff_coins[j] using coins from diff_coins(0 ... j).
+# B can be achieved by collecting all the solutions that have a sum of i using coins from diff_coins(0 ... j-1).
+
+# Time complexity: The time complexity of the solution is O(M*N)
+# Space complexity: The space complexity of the solution is O(N).
+
 
 # ----------------- 2. Nth catalan Number   --------------
 # formed by counting no of expressions containing N pairs or matching parentheses  
@@ -47,6 +116,18 @@ def get_catalan_number(n):
 
 n = int(input())
 print(get_catalan_number(n))
+
+
+# appproach: 
+# 
+# The intuition is that in each of the jth Catalan number possibilities, we can remove () and get j-1th Catalan number possibilities. 
+# So the jth Catalan number is the sum of all possible breakdowns of the parentheses with j-1 pairs. 
+# Those breakdowns(pairs) can be visualized as the ones that add to either end of () to become a valid parenthesis of j pairs. 
+# We use catalan array to store all the catalan numbers we have calculated.
+
+# Complexity Analysis
+# Time complexity: The time complexity of the solution is O(N^2).
+# Space complexity: The space complexity of the solution is O(N).
 
 # -----------------3. check subset sum N   --------------
 # given set of M non negative integers, and an integer N, check if subset sum of elements equal to N
@@ -79,6 +160,15 @@ while t:
     print(isSubsetSum(nums, m, n))
     t-=1 
 
+# approach
+# The intuition of the problem is that we divide the problem into subproblems and store the result of each subproblem in a 2D matrix(subset). Here subset[i][j] represents if it is possible to achieve a target sum of j with some of the first i numbers in nums. 
+# For a target sum of j and elements till i, there are only two possibilities for a solution to be present:
+# Consider the last element(nums[i]) and the required sum = j – nums[i] with the number of elements being i - 1.
+# Target j is already achieved and hence update the corresponding status to True.
+
+# Complexity Analysis
+# Time complexity: The time complexity of the solution is O(M*N).
+# Space complexity: The space complexity of the solution is O(M*N)
 
 # ----------------- 4. Tiling Problem, no of unique ways    --------------
 # fill 2*N board with 2*1 tiles, find no of unique ways
@@ -100,6 +190,18 @@ def count(n):
 n = int(input())
 print(count(n))
 
+
+# The intuition is to get the general solution for a board of size i and compute the solution for the board of size N.
+
+# For a board of size i:
+
+# If we place first tile vertically, the problem reduces to tiles(i-1).
+# If we place first tile horizontally, we have to place second tile also horizontally. So the problem reduces to count(i-2).
+# If the possiblities are stored in an array tiles then tiles[i] = tiles[i - 1] + tiles[i - 2].
+
+# Complexity Analysis
+# Time complexity: The time complexity of the solution is O(N).
+# Space complexity: The space complexity of the solution is O(N).
 # --------- 5. Max profit from rod cutting  --------------
 # 4
 # 1 2 3 4
@@ -133,6 +235,15 @@ size = int(input())
 arr = [int(x) for x in input().split()][:size]
 print(cutRod(arr))
 
+# The intuition is to divide the problem into subproblems and get the best solution for i-inch(starting from 1 inch) rod and then use these to get the best solution for i+1 -inch rod. 
+
+# Best solution for i -inch rod is got by comparing the best price of all the possible breakdowns. 
+# In each breakdown, we already have the best price for each of the two parts. So the best value for i -inch is the maximum of all those possible breakdowns(sum of the two parts).
+    
+# Complexity Analysis
+# Time complexity: The time complexity of the solution is O(N^2).
+# Space complexity: The space complexity of the solution is O(N).
+
 # -------- 6. Min cost to paint fence -----------
 # fence with N columns, colors Red, Blue, Black, no two adjacent columns share the same colour
 # 3
@@ -156,6 +267,8 @@ for x in range(n):
     mat.append([int(y) for y in input().split()])
 
 print(get_min_cost(mat,n))
+
+
 
 # --------- 7. Longest common subsequence of 3 strings    -----
 # demostration implementation explanation

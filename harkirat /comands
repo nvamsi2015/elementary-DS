@@ -1,0 +1,53 @@
+-------- to create a new typescript project for jest testing ---------
+https://projects.100xdevs.com/tracks/testing-1/Testing-in-the-MERN-Stack-2
+
+
+npm init -y 
+npx tsc --init ( npm install typescript )
+
+change outdir, rootdir 
+"rootDir": "./src",
+"outDir": "./dist",
+
+"module": "ESNext",                 #sometimes exporting functions gives swiggles then run this
+
+npm install --save-dev ts-jest @jest/globals            
+
+# --save-dev means it will save in devDependencies in package.json not dependencies. devDependencies are things that you only need in development not in production ec2 machine  
+
+"devDependencies": {
+    "@jest/globals": "^30.2.0",
+    "ts-jest": "^29.4.5"
+  }
+
+npx ts-jest config:init         #creates jest.config.json keep the default as it is
+
+# by default package.json will have this, when running npm run test it will normal throw error as no tests are there 
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+npm run test
+
+> simple-app-1@1.0.0 test
+> echo "Error: no test specified" && exit 1
+
+Error: no test specified
+
+# now that we have added jest and ready to test 
+
+#naieve way of adding test is 
+
+  "scripts": {
+    "test": "node /dist/index.test.js"
+  },
+
+#cleaner way
+
+  "scripts": {
+    "test": "jest"
+  },
+
+
+# jest will look for files ending with test.ts files in all the folders, so you can write by creating a test folder and in index.test.ts file or directly under src index.test.ts doesn't matter

@@ -199,9 +199,9 @@ show(); // window (or undefined in strict mode)
 
 const carDetails = {
   name: "Tomer",
-    getName() {
-      return this.name;
-}
+  getName() {
+     return this.name;
+  }
 }
 var name = "Joe";
 var getCarName = carDetails.getName;
