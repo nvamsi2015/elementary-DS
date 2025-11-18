@@ -56,3 +56,4 @@ var b = function b(){
 
 // a
 // TypeError: b is not a function
+

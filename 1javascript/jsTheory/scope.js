@@ -1,3 +1,5 @@
+// var is function scoped and let and const are block scoped
+
 // -------- what is scope(mdn)---------
 
 // The scope is the current context of execution in which values and expressions are "visible" or can be referenced. 
@@ -69,6 +71,18 @@ g();
 // Mathematica: Uses a Block construct that provides dynamic scoping for local variables. 
 
 
+
+// ======= var is not global scoped but it is function scoped ======
+
+function sum(a,b){
+  var x= 10 
+  return a+b
+}
+
+console.log(x)
+
+//  ReferenceError: x is not defined in node .js
+//  Uncaught ReferenceError: x is not defined in browser
 
 
 

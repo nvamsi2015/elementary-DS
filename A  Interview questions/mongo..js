@@ -7,8 +7,10 @@
 
 // --------- how to achive joins in mongodb -----------
 
-// MongoDB, as a NoSQL document database, handles relationships between collections differently than traditional relational databases. While it doesn't have a direct equivalent to SQL's JOIN clause, you can achieve similar results using the $lookup aggregation pipeline stage.
-// The $lookup stage performs a left outer join operation, adding a new array field to the input documents. This new field contains the matching documents from the "joined" collection. 
+// MongoDB, as a NoSQL document database, handles relationships between collections differently than traditional relational databases. While it doesn't have a direct equivalent to SQL's JOIN clause, you can achieve similar results 
+// using the $lookup aggregation pipeline stage.
+// The $lookup stage performs a left outer join operation, adding a new array field to the input documents. 
+// This new field contains the matching documents from the "joined" collection. 
 
 // Here's how to use $lookup:
 

@@ -214,3 +214,39 @@ Explanation:
 
 // Summary:
 // When a method is called without its object, this does not refer to the object anymore.
+
+// ============ innovaptive ========= 
+
+function sum(a,b){
+  var x= 10 
+  return a+b
+}
+
+console.log(x)
+
+//  ReferenceError: x is not defined in node .js
+//  Uncaught ReferenceError: x is not defined in browser
+
+how can you improve the api performace 
+
+destruction nested object same problem everyone is asking 
+
+given array and Number, find indexes of pair of number whose sum in given number 
+
+// ========= mediamint======
+
+what is uvicorm, what is fastapi 
+
+how do you use types in fastapi 
+
+how do you declare a client component in next.js 
+
+what are dynamic routes in next.js 
+
+what is wsgi 
+
+what is the comparision for the django and flask and fastapi 
+
+
+
+

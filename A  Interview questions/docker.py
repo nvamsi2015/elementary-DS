@@ -28,6 +28,18 @@ postgres=# CREATE TABLE users (
 );
 CREATE TABLE
 
+or 
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phone VARCHAR(20)
+);
+
+INSERT INTO users (name, email, password, phone)
+VALUES ('vamsi', 'nvamsi2015@gmail.com', 'hashed_password_here', '7207422372');
 
 postgres-# \dt
           List of tables
