@@ -28,8 +28,14 @@
 // includes:  arr.includes(valueToSearch, fromIndex)
         // if (!uniqueArray.includes(arr[i])) {      // arr.includes(valueToSearch, fromIndex) returns t/f
 
+// Array.from 
+        // const chunkArray = (arr, size) => Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size));
+        // console.log(chunkArray([1,5,9,4,8,6,12],3))
+        // [ [ 1, 5, 9 ], [ 4, 8, 6 ], [ 12 ] ]
 
-
+        // Generate a sequence of numbers Since the array is initialized with `undefined` on each position, the value of `v` below will be `undefined`
+        Array.from({ length: 5 }, (v, i) => i);
+        // [0, 1, 2, 3, 4]
 
 // ========1. find the largest number in array ======== 
 
