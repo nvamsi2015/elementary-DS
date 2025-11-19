@@ -247,6 +247,7 @@ what is wsgi
 
 what is the comparision for the django and flask and fastapi 
 
+what are web apis 
 
 
 
