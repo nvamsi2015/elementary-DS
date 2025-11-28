@@ -7,7 +7,7 @@ Its value is determined at runtime, based on how the function is called, rather 
 
 - in standalone function (not attached to an object, e.g., functionName()) this typically refers to global object in non-strict mode, undefined in strict mode 
 
-- in arrow functions, they do not have their own binding, they inherit this value from lexically from their parent scope at the time they are defined.
+- in arrow functions, they do not have their own binding, they inherit this value lexically from their parent scope at the time they are defined.
     This makes them useful for preserving context in callbacks and other scenarios where this might otherwise change unexpectedly.
 
 - in object methods this refers to the object itself if it is regular function or function expression, global object in arrow functions. 
@@ -39,7 +39,7 @@ Accessing them within the TDZ will result in a ReferenceError.
 
 
 
-Function Hoisting: Function declarations are fully hoisted, meaning both the function name and its definition are available at the top of their scope( contradicting the above point).
+Function Hoisting: Function declarations(regular functions) are fully hoisted, meaning both the function name and its definition are available at the top of their scope( contradicting the above point).
 
 Function Expressions and Arrow Functions: These are not hoisted in the same way as function declarations. They behave like var, let, or const variables depending on how they are declared.
 

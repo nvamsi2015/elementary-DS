@@ -93,7 +93,7 @@ console.log(addFoo(y));
 // Answer - 2, 3
 
 
-// ------5. var in setTimeout's callback function
+// ------5. var in setTimeout's callback function --------------------
 
 const arr = [1, 2, 3, 4, 5];
 
@@ -136,7 +136,7 @@ for (let i = 0; i < arr.length; i++) {
 Answer - 0, 1, 2, 3, 4
 
 
-// -----6. forEach 
+// -----6. forEach ----------------------
 
 const arr = [1, 2, 3, 4, 5];
 
@@ -203,7 +203,7 @@ false
 // As a result, the first comparison returns false, the second comparison also returns false and the third comparison returns true. and the last comparison also returns false.
 
 
-// ----10 callback functions modifying global variables and using them inside them.
+// ----10 callback functions modifying global variables and using them inside them. ------------------------
 
 var x = 0;
 for (let i = 0; i < 5; i++) {
@@ -246,7 +246,7 @@ answer:
 // Closure is formed for i (each callback gets its own i value).
 // No closure is formed for x (all callbacks share the same x).
 
-// ---------- 11. global vs local variables
+// ---------- 11. global vs local variables--------------------------------
 
 let num = 0;
 
@@ -272,7 +272,7 @@ Answer:
 0
 
 
-// --------  12. default parameters
+// --------  12. default parameters---------------------
  
 const add = (a = 1, b = 2) => a + b;
 console.log(add());
@@ -284,7 +284,7 @@ answer:
 7
 11
 
-// ------ 13. es6 object literals to create objects --
+// ------ 13. es6 object literals to create objects -------------------
 
 const name = "John";
 const age = 25;
@@ -295,7 +295,7 @@ console.log(user);
 answer
 { name: "John", age: 25 }
 
-//---14. 
+//---14. ---------------------------------
 
 const arr = [1, 2, 3];
 const [a, b, c] = arr;
@@ -310,7 +310,7 @@ console.log(c);
 
 // Then, it uses destructuring assignment to extract the values from the array arr and assign them to variables a, b, and c respectively.
 
-// ----14. 
+// ----14. ---------------------------------
 
 console.log(typeof null);
 console.log(typeof undefined);
@@ -330,7 +330,7 @@ undefined
 false
 true
 
-// --------15. 
+// --------15.  ----------------------
 
 let x = 5;
 {
@@ -342,7 +342,7 @@ console.log(x);
 10
 5
 
-// --- 16.
+// --- 16.  -------------------------------------
 
 const obj = { a: 1, b: 2, c: 3 };
 const { a, b } = obj;
@@ -358,7 +358,7 @@ The console.log() statement then prints the values of the a and b variables, whi
 1 2
 
 
-// ----17.
+// ----17. ------------------------------------
 
 
 const x = 10;
@@ -380,7 +380,7 @@ foo();
 
 ReferenceError: Cannot access 'x' before initialization
 
-// -------18.
+// -------18.  --------------------------
 
 const a = [1, 2, 3];
 const b = a;
@@ -400,7 +400,7 @@ console.log(b);
 [1, 2, 3, 4]
 [1, 2, 3, 4]
 
-// --------19.
+// --------19.  --------------------------
 
 const companies = [
   { id: "1", name: "Facebook" },
@@ -468,7 +468,7 @@ calculateSum();
 answer: undefined
 
 
-// --------- 22. 
+// --------- 22. ----------------------------------------
 
 let x = 10;
 
@@ -485,7 +485,7 @@ updateX();
 20
 10
 
-// --------- 23.
+// --------- 23.--------------------------------------
 const person = {
   name: "John",
   age: 30,
@@ -510,7 +510,7 @@ console.log(person.age);
 30
 
 
-// -----24 
+// -----24 --------------------------------------------------------
 
 function foo() {
   let x = 1;
@@ -529,7 +529,7 @@ foo();
 3
 
 
-// --25 hoisting without assignment 
+// --25 hoisting without assignment -----------------------------------
 
 let x = 10;
 
@@ -554,7 +554,7 @@ outer();
 
 // Hence, the correct answer is C: undefined.
 
-// ----26 nested destructuring 
+// ----26 nested destructuring --------------------------------------------------
 
 const obj = {
   a: 1,
@@ -591,9 +591,14 @@ console.log(generator.next());
 console.log(generator.next());
 console.log(generator.next());
 
+// { value: 1, done: false }
+// { value: 2, done: false }
+// { value: 3, done: false }
+
 // This code snippet demonstrates the use of a generator function. When a generator function is called, it returns an iterator object, which can be used to control the execution of the generator function.
 
-// The generatorFunction is a generator function that yields three values: 1, 2, and 3. The yield keyword pauses the execution and returns the yielded value. When the generator is finished, it returns the value using the return statement.
+// The generatorFunction is a generator function that yields three values: 1, 2, and 3. The yield keyword pauses the execution and returns the yielded value. 
+// When the generator is finished, it returns the value using the return statement.
 
 // When the generator is executed step by step using generator.next(), it proceeds through the generator function's code, stopping at each yield statement.
 

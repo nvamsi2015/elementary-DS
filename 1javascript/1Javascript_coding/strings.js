@@ -44,7 +44,12 @@ reversed_str2 = input_str.split("").reverse().join("");
 
 console.log(reversed_str, reversed_str2) // GeeksForGeeks GeeksForGeeks
 
-
+const str = 'foo'
+console.log(str.split())  // [ 'foo' ]v
+console.log(str.split('')) // [ 'f', 'o', 'o' ]
+console.log(str.split('').reverse()) // [ 'o', 'o', 'f' ]
+console.log(str.split('').reverse().join())   //   o,o,f
+console.log(str.split('').reverse().join('')) //   oof
 
 // ==========  2. pgm to check if a string is palindrom or not ============
 
@@ -228,14 +233,75 @@ console.log(uniqueCharacters("geeksforgeeks")); // geksfor
 
 
 
+// =========== str.charCodeAt(i) ===========
+
+
+let str = "Hello";
+for (let i = 0; i < str.length; i++) {
+  console.log(str.charCodeAt(i));
+}
+// Output:
+// 72
+// 101
+// 108
+// 108
+// 111
 
 
 
+// ======== case insensitve sorting
+const fruitsMixedCase = ['banana', 'Apple', 'cherry', 'mango'];
+
+fruitsMixedCase.sort((a, b) => {
+  const lowerA = a.toLowerCase();
+  const lowerB = b.toLowerCase();
+
+  if (lowerA < lowerB) {
+    return -1;
+  }
+  if (lowerA > lowerB) {
+    return 1;
+  }
+  return 0;
+});
+
+console.log(fruitsMixedCase);
+// Output: ["Apple", "banana", "cherry", "mango"] (order for same case items is stable)
 
 
+// ======= localcompare accounts for language specific sorting ===========
+const internationalFruits = ["réservé", "premier", "communiqué", "café", "adieu", "éclair"];
+
+internationalFruits.sort((a, b) => a.localeCompare(b));
+
+console.log(internationalFruits);
+// Output: ["adieu", "café", "communiqué", "éclair", "premier", "réservé"]
 
 
+// ======== without using sort ============
 
+function bubbleSortStrings(arr) {
+    let done = false;
+    while (!done) {
+        done = true;
+        for (let i = 1; i < arr.length; i += 1) {
+            // Compare strings lexicographically
+            if (arr[i - 1] > arr[i]) {
+                done = false;
+                // Swap elements
+                let tmp = arr[i - 1];
+                arr[i - 1] = arr[i];
+                arr[i] = tmp;
+            }
+        }
+    }
+    return arr;
+}
 
+const colors = ["orange", "apple", "mango", "banana", "cherry"];
+const sortedColors = bubbleSortStrings(colors);
+console.log(sortedColors);
+// Output: ["apple", "banana", "cherry", "mango", "orange"]
 
+// ========
 

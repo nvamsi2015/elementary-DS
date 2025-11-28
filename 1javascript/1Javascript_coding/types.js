@@ -117,6 +117,10 @@
 
 
 
+// ======== instanceof =====================
+
+
+// --------- typechecking for each type of values in with different inbuilt ways -------------------
 
 
 

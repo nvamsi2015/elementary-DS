@@ -131,3 +131,62 @@ export default TaskList;
 
 
 #  --------- what is lazy loading and give some examples ----------
+
+
+# ========= wexa.ai ========================
+
+
+leetcode 560: Subarray Sum Equals K
+
+
+Input: nums = [1,1,1], k = 2
+Output: 2
+Example 2:
+
+Input: nums = [1,2,3], k = 3
+Output: 2
+
+# ------------ my ans  only passing 27/90 testcases -------------
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        left =0
+        # right = 0
+        sum = 0 
+        count= 0 
+        
+        for num in nums:
+            sum +=num
+            if sum== k:
+                count+=1
+                sum-=nums[left]
+                left+=1
+                # print(sum, left)
+            while sum >k:
+                # print(sum, num)
+                sum-=nums[left]
+                left+=1
+                # print(sum, num)
+                if sum==k:
+                    count+=1
+
+        return count
+
+
+
+# ============== intraedge ================
+
+# what is shallow copy and deep copy with example 
+i have used spread operator for shallow, 
+for deep i have used nagarrows flatten nested object proceducre to get all the keys and values to be copied but there are better ways to do it 
+
+# what is virtual dom and how does it work?
+
+
+# what is middleware and write an example 
+
+# what are the testing stategies you have used? - only manuel testing 
+
+# what are the deployment procedures you have used?
+
+# in what cases you have used rest api give some examples - loan forms in varthana 
+

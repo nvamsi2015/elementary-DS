@@ -1,13 +1,27 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
 
-// "A".charCodeAt(0)
+// "A".charCodeAt(0)      //65
+
 // String.fromCharCode(x)
+
+// let char1 = String.fromCharCode(65);
+// console.log(char1);
+// Output: A
+
+
 
 // const range = (start, stop, step) =>
 //   Array.from(
 //     { length: Math.ceil((stop - start) / step) },
 //     (_, i) => start + i * step,
 //   );
+
+// const range = (start, stop, step ) => {
+//   const length = Math.ceil((stop - start) / step);
+//   return Array.from({length}, (_,i) => start+i*step, )
+// }
+//   let x = range(1,5,1)
+// console.log(x)
 
 
 // function f() {  
@@ -17,6 +31,7 @@
 // console.log(f(1, 2, 3)); // [ 1, 2, 3 ]
 // This behavior in JavaScript is due to the presence of an automatic local variable called arguments inside every function body (except for arrow functions).
 
+// The Map object is a collection of key-value pairs that allows you to store data and retrieve it efficiently using keys. 
 // Map()
     const myMap = new Map([
     [1, "one"],

@@ -288,4 +288,4 @@ console.log(countVowels("hello geek")); // 4
 
 // ======== creating array from Array.from()
 
-// =======
+// ======= charcodes 

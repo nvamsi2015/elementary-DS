@@ -67,7 +67,7 @@ d();
 // The delay time (0ms, 500ms, 1000ms) dictates the order the callbacks enter the Callback Queue (c, then b, then a).
 // The Event Loop strictly processes the callbacks from the Queue in First-In, First-Out (FIFO) order, but only after the Call Stack is completely clear of all synchronous code.
 
-// ======== why fecth becomes macrotask eventhough it gives promises, synchronous promises go to microtask, fetch's resove callback comes to microtask but fetch resource will be in macrotask ============ 
+// ======== why fecth becomes macrotask eventhough it gives promises, synchronous promises go to microtask, fetch's resole callback comes to microtask but fetch resource will be in macrotask ============ 
 
 fetch('https://www.google.com')
   .then(function a() {console.log('a')});
