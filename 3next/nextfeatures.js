@@ -226,3 +226,5 @@ Access: You access all variables uniformly in your code using process.env.VARIAB
 Build-Time vs. Runtime: Client-side (public) environment variables are static and embedded during the build process. Server-side (private) variables can be read at runtime when the application runs on a Node.js server (e.g., next start).
 No Committing Secrets: Sensitive information, such as API keys and database credentials, should be stored in .env.local files and never committed to version control. 
 For deployment to platforms like Vercel, you configure environment variables through the platform's dashboard, as local .env* files are not used in production builds. 
+
+// =============

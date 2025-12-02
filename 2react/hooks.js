@@ -185,3 +185,8 @@ export default ClickCounter;
 // Accessing and manipulating DOM elements directly: This is useful for imperative actions like focusing an input field, managing animations, or playing/pausing media.
 // Storing mutable values that do not trigger a re-render: Unlike state, updating the .current value of a ref does not cause a component to re-render, making it suitable for storing values like timer IDs, previous state/props, or cached results of expensive computations. 
 
+
+
+// ================== custome hooks =========================
+
+

@@ -58,7 +58,7 @@ def MaxContinuousOnes(A,n,k):
 n,k = map(int,input().split())
 A = [int(x) for x in input().split()]
 MaxContinuousOnes(A,n,k)
-#----------- sw2.1  Find triplets with sum k in a sorted array (p10 in arrays)------ 
+#----------- sw3  Find triplets with sum k in a sorted array (p10 in arrays)------ 
 # 8 4
 # -2 -1 0 1 2 4 4 4
 # op: 
