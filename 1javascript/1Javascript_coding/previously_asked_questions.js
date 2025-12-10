@@ -535,3 +535,145 @@ Firewall & Network Configuration: Ensure firewall rules and network settings (e.
 // acid properties 
 
 //==================== difference between left join and inner join ===================
+
+// ============= caw studio ceo round questions ========
+1. what is the use of refresh token why not only use access token and keeep generation new token when it expired why such complex logic with two tokens 
+
+
+
+// ==================== intellectdesignArena ================
+
+// -------------- what is the need for storing token in db?
+i answered we dont store users in db but tokens will be stored in browser cache 
+
+he counterd with how will know if the token is tampred or theft how will you handle 
+
+the actual answer should be to store tokens in the db to know a lot of things like managing device sessions
+
+
+
+
+2. ER diagram for autho flow with o auth logins tables 
+3. bluetooh signal, direction, blutooth id to get total no students attended every class where to place the device for optimal working ?
+
+
+
+1. what are the apis you will design for login flow 
+// ---------- 2. in frontend a user is uploading json file but only csv file is valid, frontend allowed it how do you handle it in backend 
+
+//  Verify the MIME Type
+// The browser sends a Content-Type header with the file, which indicates the file's MIME type (e.g., text/csv for a CSV file). 
+// Action: In your backend code, access the uploaded file's MIME type information provided in the request.
+// Validation: Compare the MIME type against an allow-list of valid CSV types (e.g., text/csv, application/vnd.ms-excel, etc., as some programs handle CSVs differently).
+// Caution: The MIME type can be spoofed, so this check is also not foolproof and must be combined with content inspection. 
+
+
+<input type="file" id="fileInput" accept=".jpg, .png">
+<p id="messageArea"></p>
+
+
+
+// 3. same question how do you keep a limit on the filesize the user is uploading 
+
+// const fileInput = document.getElementById('fileInput');
+// const messageArea = document.getElementById('messageArea');
+// const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
+
+// fileInput.addEventListener('change', function() {
+//     // Clear previous messages
+//     messageArea.textContent = '';
+    
+//     // Check if files were selected
+//     if (this.files && this.files.length > 0) {
+//         const file = this.files[0];
+        
+//         if (file.size > MAX_FILE_SIZE) {
+//             messageArea.textContent = `Error: The file size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 5 MB limit.`;
+//             messageArea.style.color = 'red';
+//             // Optional: clear the input to prevent submission
+//             this.value = ''; 
+//         } else {
+//             messageArea.textContent = `File selected: ${file.name} (Valid size)`;
+//             messageArea.style.color = 'green';
+//         }
+//     }
+// });
+
+
+
+//------------  4. how will you know how many users are using our frontend and backend ( session management if we are storing token in db)
+
+// To determine the number of users interacting with your frontend and backend applications, you need to implement application performance monitoring (APM) and analytics tools [2, 3, 4]. These tools capture metrics and report them to a central dashboard where you can monitor usage in real-time and over time [2, 3]. 
+// Here is a breakdown of the methods and tools used for monitoring frontend and backend usage:
+// Monitoring Frontend Application Usage
+// Frontend monitoring focuses on client-side activity within the user's web browser or mobile app. 
+// Analytics Tools:
+// Tools like Google Analytics track user sessions, page views, unique users, active users in real-time, and user journeys [2].
+// By embedding a small tracking snippet (usually JavaScript) in your application's code, you can send data points (events) back to the analytics service [2].
+// APM Tools:
+// Services like Datadog, New Relic, or Sentry provide "Real User Monitoring" (RUM) features [2].
+// RUM tracks metrics such as the number of active users, session duration, geographical distribution, and the performance (e.g., load times, errors) they experience [2]. 
+// Monitoring Backend Application Usage
+// Backend monitoring focuses on server-side requests, processing, and database interactions. 
+// APM Tools:
+// APM agents (e.g., Datadog APM, New Relic APM, Dynatrace) are installed within your backend server's environment or application code [2, 3].
+// These agents track the volume of requests (throughput), number of active server instances, active user sessions managed by the backend, and server resource utilization (CPU, memory) [2, 3].
+// Log Management Tools:
+// Centralized logging systems like Elasticsearch (ELK stack) or Splunk collect all server logs [3].
+// You can analyze these logs to count unique user IDs, unique IP addresses, or unique session tokens to estimate the number of active users [3].
+// Database Monitoring:
+// You can monitor the number of concurrent connections to your database [3].
+// By querying user data tables, you can count the number of sessions created or recently updated within a specific time window [3]. 
+// By integrating these solutions across your stack, you can get a comprehensive view of how many users are actively engaging with your entire application ecosystem.
+
+//----------------------  5. sql query to get earliest emplyee in each department given dept_id and joining date for all emloyees 
+// SELECT DISTINCT ON (dept_id)
+//     dept_id,
+//     employee_name,
+//     joining_date
+// FROM
+//     employees
+// ORDER BY
+//     dept_id,
+//     joining_date ASC;
+
+6. lowest salaried employee in every department.A
+
+// 7. A user crashed a server by uploadin a 1gb file how will you handle it in you backend.?
+
+// To handle a 1GB file upload without crashing the server, implement chunked uploads, breaking the file into smaller pieces on the client, sending them sequentially, and reassembling on the backend, alongside server-side limits, validation, and efficient storage (like cloud services or S3) to manage memory/bandwidth, ensuring resilience and scalability. 
+// Backend Strategies:
+// Implement Chunked Uploads:
+// Client-Side: Use JavaScript (like File API) to slice the large file into smaller chunks (e.g., 5-10MB).
+// Server-Side: Receive each chunk as a separate request, store them temporarily, and then combine them into the original file once all chunks arrive. Libraries/frameworks often support this (e.g., resumable.js, plupload for JavaScript).
+// Set Server Limits & Timeouts (Prevent Crashes):
+// Adjust PHP settings (upload_max_filesize, post_max_size, max_input_time, max_execution_time) to allow larger uploads but also prevent indefinite hangs.
+// For Node.js, use middleware like express-fileupload or multer with size limits.
+// Asynchronous Processing:
+// After a successful upload (or chunk assembly), don't process the file directly in the request-response cycle. Instead, place a job (e.g., to a queue like RabbitMQ, Redis) to handle heavy processing (like resizing images, virus scans).
+// Use Dedicated Storage (S3, Cloud):
+// Upload large files directly to scalable cloud storage (AWS S3, Google Cloud Storage) using their SDKs rather than saving directly to the local server's disk. This offloads storage and bandwidth pressure.
+// Validation & Error Handling:
+// Validate File Type/Size: Check file type (MIME type) and size before heavy processing.
+// Check for Errors: Verify move_uploaded_file() or equivalent functions didn't fail.
+// Optimize Network & Server Resources:
+// Concurrency: Allow multiple chunk uploads in parallel to speed up transfer.
+// Compression: Compress files before upload if possible. 
+// Example Flow for a 1GB File:
+// User selects 1GB file.
+// Client splits file into 100 x 10MB chunks.
+// Client uploads chunks 1-100 to the server via separate HTTP requests.
+// Server receives chunks, stores them temporarily (e.g., in a Redis temp store or S3).
+// Once last chunk arrives, server reassembles the 1GB file.
+// Server places a job (e.g., "process_large_video") in a queue.
+// A worker process picks up the job, processes the video (e.g., transcode), and saves the final output.
+// By chunking and offloading processing, the server's main request thread remains responsive, preventing crashes from a single, massive file. 
+
+
+//-----------------------  8. how will the web page know which os you are using whiel downloading vscode for the first time in the pc ? 
+
+// The web page uses specific technologies within your web browser to detect your operating system (OS) [1, 2, 3]. Here is how it typically works: 
+// User-Agent String: When your browser requests a web page, it sends an "HTTP User-Agent" string to the web server [1, 2]. This string contains information about your browser name and version, and crucial details about your operating system (e.g., Windows 10, macOS Ventura, or a Linux distribution) [1, 2].
+// JavaScript: The web page also runs client-side JavaScript code after it loads [1, 3]. This script can access additional browser properties and environmental variables to confirm the OS and sometimes the CPU architecture (like x64 or ARM) [3].
+// Server-Side Logic: The web server or content delivery system reads this information and dynamically customizes the download link you see on the page to point to the correct installation file (e.g., a .exe for Windows, a .dmg for macOS, or a .deb/.rpm for Linux) [1, 3]. 
+// This process allows the site to automatically recommend the correct version for your PC without you having to manually select your OS [1]. 

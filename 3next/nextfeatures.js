@@ -107,13 +107,6 @@ CDN & Caching: Use CDNs to improve global performance for static assets.
 
 
 
-Encapsulation: Bundles data and methods within a class, hiding internal details from outside access.
-Abstraction: Hides complex implementation details and exposes only necessary functionality.
-Inheritance: Allows a new class to inherit properties and methods from an existing class.
-Polymorphism: Enables a single interface to represent different behaviors.
-
-abstraction : __account_number and __balance are "private" attributes (indicated by the double underscore). They cannot be directly accessed from outside the class, promoting data hiding. Access and modification are controlled through methods like deposit(), withdraw(), and get_balance().
-
 
 // ============== server actions ===========
 

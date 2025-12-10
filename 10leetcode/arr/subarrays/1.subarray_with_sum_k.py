@@ -22,7 +22,7 @@ print(Solution.subarraySum([1,1,1], 2))     # 2
 
 print(Solution.subarraySum([1,2,3], 3))     # 2
 
-print(Solution.subarraySum([1,-1,0], ))     # 3
+print(Solution.subarraySum([1,-1,0], 0))     # 3
      
 # --------------- print subarrays with sum k ------------
 

@@ -23,9 +23,10 @@
 
 // 6. Use Cases:
 //    - REST: REST is commonly used for web APIs, mobile applications, and services that require scalability and flexibility.
-//    - SOAP: SOAP is often used in enterprise-level applications, financial services, and scenarios that require strict security and transactional reliability.
+//    - SOAP: SOAP is often used in enterprise-level applications, financial services, and scenarios that require ********************* strict security and transactional reliability*******************.
 
-// In summary, REST is a more flexible and lightweight approach suitable for web services, while SOAP is a more rigid and feature-rich protocol often used in enterprise environments. The choice between the two depends on the specific requirements of the application or service being developed.
+// In summary, REST is a more flexible and lightweight approach suitable for web services, while SOAP is a more rigid and feature-rich protocol often used in enterprise environments.
+// The choice between the two depends on the specific requirements of the application or service being developed.
 
 
 // SOAP (Simple Object Access Protocol) and REST (Representational State Transfer) are two distinct approaches for building web services, each with its own characteristics and use cases.

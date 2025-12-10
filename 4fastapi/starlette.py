@@ -79,6 +79,7 @@ INFO: Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 
 
 # Modularity
-# The modularity that Starlette is designed on promotes building re-usable components that can be shared between any ASGI framework. This should enable an ecosystem of shared middleware and mountable applications.
+# The modularity that Starlette is designed on promotes building re-usable components that can be shared between any ASGI framework.
+#  This should enable an ecosystem of shared middleware and mountable applications.
 
 # The clean API separation also means it's easier to understand each component in isolation.

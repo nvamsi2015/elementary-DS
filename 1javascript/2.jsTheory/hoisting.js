@@ -57,3 +57,7 @@ var b = function b(){
 // a
 // TypeError: b is not a function
 
+
+// ============= https://javascript.plainenglish.io/react-interview-experience-august-2025-capgemini-part-1-6b8b0abef9c6
+
+// https://javascript.plainenglish.io/react-interview-experience-august-2025-bajaj-finserv-5d81b9155657

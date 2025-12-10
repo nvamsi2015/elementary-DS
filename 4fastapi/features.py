@@ -143,7 +143,8 @@ Serving the Application: Uvicorn is the actual server that runs and hosts your F
 
 Protocol Handling: It listens for incoming HTTP requests, handles the low-level network protocol (HTTP/1.1 or HTTP/2), and translates these network events into the standard ASGI format.
 
-Interface Bridge: It acts as the bridge between the client (web browser, API consumer) and your ASGI application (FastAPI, which uses Starlette). When a request comes in, Uvicorn receives it and passes it to the Starlette/FastAPI application. When the application generates a response, Uvicorn takes it and sends it back to the client.
+Interface Bridge: It acts as the bridge between the client (web browser, API consumer) and your ASGI application (FastAPI, which uses Starlette). 
+When a request comes in, Uvicorn receives it and passes it to the Starlette/FastAPI application. When the application generates a response, Uvicorn takes it and sends it back to the client.
 
 
 Concurrency Management: It often uses the asyncio event loop to efficiently manage a large number of concurrent connections, which contributes significantly to FastAPI's speed.
@@ -156,17 +157,17 @@ Starlette is a lightweight ASGI (Asynchronous Server Gateway Interface) web fram
 
 
 Starlette's Key Roles:
-Core HTTP Operations: Handles the basics of an incoming HTTP request, managing requests, responses, and sessions.
+# Core HTTP Operations: Handles the basics of an incoming HTTP request, managing requests, responses, and sessions.
 
-Routing: Provides the underlying system that matches an incoming URL path to the correct function (the path operation function) in your FastAPI code.
+# Routing: Provides the underlying system that matches an incoming URL path to the correct function (the path operation function) in your FastAPI code.
 
-Middleware: Manages the ability to run logic before or after a request is processed (e.g., for CORS, logging, or authentication).
+# Middleware: Manages the ability to run logic before or after a request is processed (e.g., for CORS, logging, or authentication).
 
-WebSockets: Offers native support for WebSocket communication.
+# WebSockets: Offers native support for WebSocket communication.
 
-Asynchronous Support: Being an ASGI framework, it enables the non-blocking, asynchronous (using async and await) nature of FastAPI, which is key to its high performance.
+# Asynchronous Support: Being an ASGI framework, it enables the non-blocking, asynchronous (using async and await) nature of FastAPI, which is key to its high performance.
 
-FastAPI builds its high-level features (like automatic data validation, dependency injection, and automatic OpenAPI documentation) on top of Starlette's basic web toolkit.
+# FastAPI builds its high-level features (like automatic data validation, dependency injection, and automatic OpenAPI documentation) on top of Starlette's basic web toolkit.
 
 # ========= pydantic ==============
 
@@ -245,7 +246,8 @@ Pydantic BaseSettings: This feature from Pydantic allows you to automatically re
 
 # ============ database and env variables ==============
 
-FastAPI itself is intentionally database-agnostic and does not provide a built-in way to handle database connections. Similarly, while it doesn't have a dedicated mechanism for environment variables, it heavily relies on Pydantic for managing both.
+FastAPI itself is intentionally database-agnostic and does not provide a built-in way to handle database connections. 
+Similarly, while it doesn't have a dedicated mechanism for environment variables, it heavily relies on Pydantic for managing both.
 
 Here's how these concepts are typically handled in a production-ready FastAPI application:
 
@@ -332,7 +334,8 @@ Initializing the Connection (using FastAPI's event handlers)
 Managing the Session/Client (using Dependency Injection)
 
 🐘 PostgreSQL Connection (SQLAlchemy/SQLModel)
-For PostgreSQL (or any relational database), the standard approach is to use SQLAlchemy (the popular Python ORM) with an asynchronous driver like asyncpg. A newer, integrated option is SQLModel, which combines SQLAlchemy and Pydantic.
+For PostgreSQL (or any relational database), the standard approach is to use SQLAlchemy (the popular Python ORM) with an asynchronous driver like asyncpg. 
+A newer, integrated option is SQLModel, which combines SQLAlchemy and Pydantic.
 
 1. 🛠️ Install Dependencies
 Install FastAPI, an ASGI server, the ORM, and the async driver:
@@ -387,7 +390,8 @@ Bash
 
 pip install fastapi "uvicorn[standard]" motor
 2. ⚙️ Initialize and Manage Client Lifecycle
-Since MongoDB uses a client connection that stays open, the best practice is to initialize the client when the application starts up and close it when the application shuts down. You use FastAPI's lifespan events (or the older @app.on_event) for this.
+Since MongoDB uses a client connection that stays open, the best practice is to initialize the client when the application starts up and close it when the application shuts down. 
+You use FastAPI's lifespan events (or the older @app.on_event) for this.
 
 Python
 
