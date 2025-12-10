@@ -1,15 +1,16 @@
-React virtualization is a performance optimization technique used for rendering large lists or grids of data by only displaying the items that are currently visible within the user's viewport. This approach minimizes the number of DOM elements, significantly improving initial render time, memory usage, and scrolling performance. 
+// React virtualization is a performance optimization technique used for rendering large lists or grids of data by only displaying the items that are currently visible within the user's viewport. 
+// This approach minimizes the number of DOM elements, significantly improving initial render time, memory usage, and scrolling performance. 
 
-Libraries like react-window and react-virtualized are commonly used to implement this in React applications.
+// Libraries like react-window and react-virtualized are commonly used to implement this in React applications.
 
 
-Example using react-window
-This example demonstrates how to virtualize a list of 1000 items using the FixedSizeList component from the lightweight react-window library. 
-First, install the library:
+// Example using react-window
+// This example demonstrates how to virtualize a list of 1000 items using the FixedSizeList component from the lightweight react-window library. 
+// First, install the library:
 
-npm install react-window
-# or
-yarn add react-window
+// npm install react-window
+// # or
+// yarn add react-window
 
 
 // Then, implement the virtualized list in a React component: 

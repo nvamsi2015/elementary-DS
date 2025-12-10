@@ -677,3 +677,6 @@ the actual answer should be to store tokens in the db to know a lot of things li
 // JavaScript: The web page also runs client-side JavaScript code after it loads [1, 3]. This script can access additional browser properties and environmental variables to confirm the OS and sometimes the CPU architecture (like x64 or ARM) [3].
 // Server-Side Logic: The web server or content delivery system reads this information and dynamically customizes the download link you see on the page to point to the correct installation file (e.g., a .exe for Windows, a .dmg for macOS, or a .deb/.rpm for Linux) [1, 3]. 
 // This process allows the site to automatically recommend the correct version for your PC without you having to manually select your OS [1]. 
+
+// run this in browser to see the os you are using 
+window.navigator.platform // 'Linux x86_64' 

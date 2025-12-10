@@ -1,17 +1,20 @@
-Lazy loading in React is a technique to defer the loading of components or resources until they are needed, which helps to significantly improve the application's initial load time and performance by reducing the initial JavaScript bundle size. 
-React provides built-in support for lazy loading using the React.lazy() function and the Suspense component. 
+// Lazy loading in React is a technique to defer the loading of components or resources until they are needed, 
+// which helps to significantly improve the application's initial load time and performance by reducing the initial JavaScript bundle size. 
+
+
+// React provides built-in support for lazy loading using the React.lazy() function and the Suspense component. 
 
 // Core Concepts
 
-React.lazy(): This function lets you render a dynamic import() as a regular component. React won't load the component's code until it's rendered for the first time.
+React.lazy() // This function lets you render a dynamic import() as a regular component. React won't load the component's code until it's rendered for the first time.
 
-Suspense: This component is required to wrap lazy-loaded components. It allows you to display fallback content (like a loading indicator or spinner) while the lazy component is being downloaded.
+Suspense // This component is required to wrap lazy-loaded components. It allows you to display fallback content (like a loading indicator or spinner) while the lazy component is being downloaded.
 
-Code Splitting: Lazy loading works hand-in-hand with code splitting, a feature supported by modern bundlers like Webpack, which splits your application into smaller "chunks" that are loaded on demand. 
+Code Splitting // Lazy loading works hand-in-hand with code splitting, a feature supported by modern bundlers like Webpack, which splits your application into smaller "chunks" that are loaded on demand. 
 
 
-Example Implementation
-The following example demonstrates how to lazy load a LazyComponent in your React application.
+// Example Implementation
+// The following example demonstrates how to lazy load a LazyComponent in your React application.
 
 // --------- Step 1: Create the Component to be Lazy Loaded
 // Create a new file, for instance, LazyComponent.js. This component should use a default export.

@@ -1,14 +1,14 @@
-Throttling in React is a technique used to limit how often a function can run in a given period, regardless of how many times the event is triggered. 
-This improves performance in scenarios like scroll events, button clicks, or window resizing, by preventing excessive function calls. 
+// Throttling in React is a technique used to limit how often a function can run in a given period, regardless of how many times the event is triggered. 
+// This improves performance in scenarios like scroll events, button clicks, or window resizing, by preventing excessive function calls. 
 
-A common way to implement this in modern React applications is by creating a custom useThrottle hook. 
+// A common way to implement this in modern React applications is by creating a custom useThrottle hook. 
 
 
 Example: Throttling a Scroll Event
-This example demonstrates how to create and use a useThrottle hook to log the scroll position at most every 300 milliseconds.
+// This example demonstrates how to create and use a useThrottle hook to log the scroll position at most every 300 milliseconds.
 
-1. Create the useThrottle Hook
-This hook uses useRef to store the timestamp of the last execution and useCallback to return the throttled function. 
+// 1. Create the useThrottle Hook
+// This hook uses useRef to store the timestamp of the last execution and useCallback to return the throttled function. 
 
 
 
@@ -83,7 +83,8 @@ export default App;
 
 
 // ----------- Common Use Cases
-Scenario 	Throttling Use Case
-Scrolling	Limit the frequency of scroll event handlers, such as infinite scrolling or position tracking, to improve performance.
-Window Resizing	Restrict how often resize event listeners are called to avoid expensive layout recalculations.
-Rapid Clicks	Prevent users from accidentally making multiple API calls or submitting a form multiple times by rapidly clicking a button.
+// Scenario 	Throttling Use Case
+
+// Scrolling	Limit the frequency of scroll event handlers, such as infinite scrolling or position tracking, to improve performance.
+// Window Resizing	Restrict how often resize event listeners are called to avoid expensive layout recalculations.
+// Rapid Clicks	Prevent users from accidentally making multiple API calls or submitting a form multiple times by rapidly clicking a button.
