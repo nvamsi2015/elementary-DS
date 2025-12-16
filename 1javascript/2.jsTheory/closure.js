@@ -81,3 +81,27 @@ for (let i = 1; i <= 3; i++) {
 
 // my definition
 // ******** closure is a function closing over or capturing the variables that it needs from surrounding lexical enviroment while that function is created. **********
+
+
+
+
+// ----------- ngenux -------------
+const outer = (y) =>{
+    let x = 10 
+    const inner = () =>{
+     return x*y   
+    }
+    x++
+    return inner
+}
+
+console.log(outer(2)())
+
+// ouput: 22 ( i have said 20)
+
+// Why it's 22 (The Key Insight)The reason the result is 22 instead of 20 is because:
+// The inner function does not capture the value of $x$ at the time of its definition (i.e., $x=10$).
+// It captures a reference (a link) to the variable $x$ in the outer function's scope.The line x++ runs before inner is ever executed, modifying the captured variable's value from 10 to 11.
+// When inner finally runs in Step 6, it looks up the current value of $x$ in its preserved scope, which is 11.
+
+

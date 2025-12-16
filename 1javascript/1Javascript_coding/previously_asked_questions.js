@@ -680,3 +680,160 @@ the actual answer should be to store tokens in the db to know a lot of things li
 
 // run this in browser to see the os you are using 
 window.navigator.platform // 'Linux x86_64' 
+
+
+// ----------- ngenux -------------
+
+const outer = (y) =>{
+    let x = 10 
+    const inner = () =>{
+     return x*y   
+    }
+    x++
+    return inner
+}
+
+console.log(outer(2)())
+
+// ouput: 22 ( i have said 20)
+
+// Why it's 22 (The Key Insight)The reason the result is 22 instead of 20 is because:
+// The inner function does not capture the value of $x$ at the time of its definition (i.e., $x=10$).
+// It captures a reference (a link) to the variable $x$ in the outer function's scope.The line x++ runs before inner is ever executed, modifying the captured variable's value from 10 to 11.
+// When inner finally runs in Step 6, it looks up the current value of $x$ in its preserved scope, which is 11.
+// have you ever worked on webpack configuration file  
+
+html semantic elements 
+css positons( block inline block, absolute, sticky) how do they position with refrence to what? 
+throtteling and debouncing 
+
+react app with stopwatch
+// ------ 2nd round ----------
+
+minimum len subarray with sum grater than or eqaul to k (solced with below code )---------------
+
+
+arr= [3,8,12,16,7,5,1,6,12]
+
+target_sum = 8
+
+
+left = 0 
+right = 0 
+
+sum = 0 
+final_min_len = 0
+# min_len = 0 
+min_sub_array = []
+
+while left<=right and right<len(arr):
+    sum+=arr[right]
+    # print(left,right,sum)
+    while sum>=target_sum:
+
+        if not min_sub_array:
+            min_sub_array = arr[left:right+1]
+            final_min_len = right-left+1
+        elif(right-left+1<final_min_len):
+            
+            final_min_len = right-left+1
+            min_sub_array = arr[left:right+1]
+        
+        # print(left,right,sum, final_min_len, min_sub_array, )
+        sum-=arr[left]
+        left+=1
+        
+    right+=1
+    # print(min_len, min_sub_array)
+
+print(final_min_len,min_sub_array)
+        
+        
+
+
+// -------------- asked to implement a mail inbox layout with different filters on top with a given api endpoint ------------
+
+// ---------- struggled to use tailwind classes in react project
+
+import React, { useState, useEffect } from 'react';
+import './App.css'; // Optional: Add some basic styling later
+
+function App() {
+  const [mails, setMails] = useState([]);
+  const [filteredMails, setFilterdMails] = useState([]) 
+  const [type, setType] = useState();
+
+ 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://6571b94bd61ba6fcc0135d20.mockapi.io/api/v1/OutlookClonse');
+
+        const data = await response.json();
+        setMails(data); 
+      } catch (err) {
+        console.log(err)
+        setMails([]);
+      } 
+    };
+
+    fetchProducts();
+  }, []); 
+
+  useEffect(()=>{
+    const updatedFilteredMails = mails.filter((each) => each.folder === type)
+    if(updatedFilteredMails.length > 0){
+      setFilterdMails(updatedFilteredMails)
+    }
+  
+
+  },[type])
+
+  const handleFilter = (e) =>{
+    setType(e.target.value)
+    
+  }
+
+  return (
+    <div >
+        <div className= 'flex justify-center'>
+          <button value = 'image'  onClick = {handleFilter} type="button" className="text-white bg-black box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">image</button>
+          <button value = 'video'  onClick = {handleFilter} type="button" className="text-white bg-black box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">video</button>
+          <button value = 'audio'  onClick = {handleFilter} type="button" className="text-white bg-black box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">audio</button>
+{/* 
+          <button value = 'image'  onClick = {handleFilter}>image</button>
+          <button value = 'video'  onClick = {handleFilter}>video</button>
+          <button value = 'audio'  onClick = {handleFilter}>audio</button> */}
+
+
+        </div>
+        <div>
+
+        {filteredMails && filteredMails.map((each) => (
+          <div key={each} >
+
+              <span>{each.sender}</span> <span>{each.folder}</span>
+            
+          </div>
+        ))}
+        {
+          !type  && mails.map((each) => (
+          <div key={each} >
+            <button class="outline-2 outline-offset-2 outline-solid mt-2..."><span>{each.sender}</span> <span>{each.folder}</span></button>
+
+
+              {/* <span>{each.sender}</span> <span>{each.folder}</span> */}
+            
+          </div>
+        ))
+        }
+        </div>
+        
+
+    </div>
+  );
+}
+
+export default App;
+
+        
