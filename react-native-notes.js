@@ -157,3 +157,131 @@ Step 2: Build the Scoring Engine (The "Brain")In a scoring app, the state is com
 
 youtube video link: https://www.youtube.com/watch?v=aG-wLVuVcCk&t=1s
 
+// =============== gemini prompt asking about navigator default screen ======
+this is my navigators index.tsx file 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { HeaderButton, Text } from '@react-navigation/elements';
+import {
+  createStaticNavigation,
+  StaticParamList,
+} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Image } from 'react-native';
+import bell from '../assets/bell.png';
+import newspaper from '../assets/newspaper.png';
+import { Home } from './screens/Home';
+import { Profile } from './screens/Profile';
+import { Settings } from './screens/Settings';
+import { Updates } from './screens/Updates';
+import { NotFound } from './screens/NotFound';
+import { MatchDetailsPage } from './screens/MatchDetailsPage';
+
+// const HomeTabs = createBottomTabNavigator({
+//   screens: {
+//     Home: {
+//       screen: Home,
+//       options: {
+//         title: 'Feed',
+//         tabBarIcon: ({ color, size }) => (
+//           <Image
+//             source={newspaper}
+//             tintColor={color}
+//             style={{
+//               width: size,
+//               height: size,
+//             }}
+//           />
+//         ),
+//       },
+//     },
+//     Updates: {
+//       screen: Updates,
+//       options: {
+//         tabBarIcon: ({ color, size }) => (
+//           <Image
+//             source={bell}
+//             tintColor={color}
+//             style={{
+//               width: size,
+//               height: size,
+//             }}
+//           />
+//         ),
+//       },
+//     },
+//   },
+// });
+
+const RootStack = createNativeStackNavigator({
+  screens: {
+    // HomeTabs: {            // commenting this removed bottom tab navigator
+    //   screen: HomeTabs,
+    //   options: {
+    //     title: 'Home',
+    //     headerShown: false,
+    //   },
+    // },
+
+    Home:{
+      screen: Home,
+    },
+
+    Profile: {
+      screen: Profile,
+      linking: {
+        path: ':user(@[a-zA-Z0-9-_]+)',
+        parse: {
+          user: (value) => value.replace(/^@/, ''),
+        },
+        stringify: {
+          user: (value) => `@${value}`,
+        },
+      },
+    },
+    Settings: {
+      screen: Settings,
+      options: ({ navigation }) => ({
+        presentation: 'modal',
+        headerRight: () => (
+          <HeaderButton onPress={navigation.goBack}>
+            <Text>Close</Text>
+          </HeaderButton>
+        ),
+      }),
+    },
+    MatchDetailsPage : {
+      screen: MatchDetailsPage,
+    },
+    NotFound: {
+      screen: NotFound,
+      options: {
+        title: '404',
+      },
+      linking: {
+        path: '*',
+      },
+    },
+  },
+});
+
+export const Navigation = createStaticNavigation(RootStack);
+
+type RootStackParamList = StaticParamList<typeof RootStack>;
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}
+
+how does it know to show Home component as default instead of profile or setting which are also siblings to Home screen
+//  In React Navigation, the navigator determines the default screen based on a simple rule: The first screen listed in the screens object becomes the initial screen.
+
+
+// =============Types of Navigators
+Stack Navigator: This provides a way to transition between screens where each new screen is placed on top of a stack. It provides the familiar iOS and Android look and feel for screen transitions and header management. It is ideal for sequential user flows like a login process or drilling into item details from a list.
+Tab Navigator:   This renders a tab bar (usually at the bottom of the screen) that lets the user switch between several primary sections of the app. It's commonly used in apps like Instagram or social media applications for the main menu.
+Drawer Navigator: This provides a slide-out sidebar menu (a "drawer") that can be swiped in from the edge of the screen. It's often used for less frequently accessed sections or settings, similar to the main menu in the Gmail app. 
+
+
+// ============= Adding sidebar with createDrawerNavigator
