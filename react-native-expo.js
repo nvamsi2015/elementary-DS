@@ -31,3 +31,7 @@ npx expo start
 
 We'll add a bottom tab navigator to our app and reuse the existing Home and About screens to create a tab layout (a common navigation pattern in many social media apps like X or BlueSky).
   We'll also use the stack navigator in the Root layout so the +not-found route displays over any other nested navigators.
+
+// ============ building screen =========
+
+npx expo install expo-image
