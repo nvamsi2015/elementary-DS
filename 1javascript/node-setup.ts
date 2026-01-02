@@ -52,4 +52,17 @@ app.listen(PORT, ()=>{
     "test": "echo \"Error: no test specified\" && exit 1"
   },
 
+// ---------- adding .env.local, cors ----------
+      npm i dotenv @types/dotenv cors @types/cors
 
+import dotenv from 'dotenv';
+import cors from 'cors';
+
+dotenv.config({ path: '.env.local' });
+
+const app = express()
+app.use(cors({ origin: 'http://localhost:8081' }));
+
+      
+      
+      
