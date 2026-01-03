@@ -1,5 +1,21 @@
-npm init 
-npx tsc --init
+npm init -y
+npm i typescript --save-dev
+npx tsc --init // (without above npm i typescript --save-dev this won't work) or do this  npm install -g tsc to globally add this once
+
+// -- use  @tsc-ignore on above any line to escape typescript 
+
+
+// --------- problem with package.json and tsconfig file is 
+
+Module system mismatch: The package.json was set to CommonJS, but the code used ES module imports. 
+    I changed "type" to "module" and adjusted the TypeScript configuration to use "module": "nodenext" and "moduleResolution": "nodenext" for proper ES module support in Node.js.
+
+
+// ------------- redis ---------
+$ docker run -d -p 6379:6379 redis    
+docker exec -it 08b4b25517aa redis-cli
+
+    
 // ------------- index.js--------
 
 import express from 'express';
