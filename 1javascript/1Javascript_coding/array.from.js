@@ -5,11 +5,11 @@
 
 // ----------- sequence generator using Array.from() -----------
 
-// const range = (start, stop, step) =>
-//   Array.from(
-//     { length: Math.ceil((stop - start) / step) },
-//     (_, i) => start + i * step,
-//   );
+const range = (start, stop, step) =>
+  Array.from(
+    { length: Math.ceil((stop - start) / step) },
+    (_, i) => start + i * step,
+  );
 
 
 // =================================== mdn documentation ========
