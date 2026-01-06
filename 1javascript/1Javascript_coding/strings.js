@@ -1,4 +1,32 @@
 
+// ----------- charCodeAt() and fromCharCode() -----------
+// The charCodeAt() method returns an integer between 0 and 65535 representing the UTF-16 code unit at the given index.
+// The fromCharCode() method returns a string created from the specified sequence of UTF-16 code units.
+
+// Unicode ranges for English letters:
+
+// Uppercase letters (A-Z): U+0041 to U+005A (decimal 65 to 90)
+// Lowercase letters (a-z): U+0061 to U+007A (decimal 97 to 122) 
+
+// "A".charCodeAt(0)
+// String.fromCharCode(x)
+
+// 'Hello'.charCodeAt(0)	72	The Unicode value for 'H'.
+// 'Hello'.charCodeAt(1)	101	The Unicode value for 'e'.
+// 'World'.charCodeAt(4)	100	The Unicode value for 'd'.
+// 'Test'.charCodeAt(10)	NaN	The index 10 is out of range for the string "Test".
+// 'Test'.charCodeAt()	84	If no index is provided, it defaults to index 0.
+
+// console.log(String.fromCharCode(65)); // Output: A
+
+// // Example: Check if a character is within the lowercase range
+// function isLowerCaseLetter(char) {
+//   const code = char.charCodeAt(0);
+//   return code >= 97 && code <= 122; // Check if between 'a' and 'z'
+// }
+// console.log(isLowerCaseLetter('c')); // Output: true
+
+// =========== String Manipulation Problems ============
 
 // for (initialization; **condition**; final-expression)
 // for (let i= input_str.length-1; i>=0; i--)

@@ -1,7 +1,7 @@
-Implementing Redis in a React project requires using a backend server (e.g., Node.js, Go) to handle the Redis interactions, as a client-side React application cannot securely connect directly to a Redis server. 
-The frontend communicates with the backend via API calls or WebSockets. 
+// Implementing Redis in a React project requires using a backend server (e.g., Node.js, Go) to handle the Redis interactions, as a client-side React application cannot securely connect directly to a Redis server. 
+// The frontend communicates with the backend via API calls or WebSockets. 
 
-Below is an example using a Node.js backend with an Express server to connect to Redis, and a React frontend to interact with the backend. 
+// Below is an example using a Node.js backend with an Express server to connect to Redis, and a React frontend to interact with the backend. 
 
 // Prerequisites
 

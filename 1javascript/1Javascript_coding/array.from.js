@@ -1,7 +1,9 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
 
-// "A".charCodeAt(0)
-// String.fromCharCode(x)
+
+
+
+// ----------- sequence generator using Array.from() -----------
 
 // const range = (start, stop, step) =>
 //   Array.from(

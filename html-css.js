@@ -1,16 +1,70 @@
+// =============== symantic vs non symantic elements in htlm ==========
+
+Semantic elements in HTML are tags that clearly describe the meaning or purpose of the content they contain to both the browser and the developer [1]. 
+They provide context and make the code more readable and accessible
+
+
+// Semantic Elements in HTML
+
+// Semantic HTML improves accessibility, SEO (Search Engine Optimization), and code maintainability by using tags that communicate the structure and meaning of the content [1]. 
+// Examples of semantic elements include:
+// <header>: Defines the introductory content or a group of navigational links for a section or page [1].
+// <nav>: Defines a block of navigation links [1].
+// <main>: Specifies the main content of the document [1].
+// <article>: Encloses independent, self-contained content, like a blog post or a news story [1].
+// <section>: Groups thematically related content into a distinct section [1].
+// <aside>: Represents content that is tangentially related to the content around it, often a sidebar [1].
+// <footer>: Defines the footer for a document or a section [1].
+// <img>: While all HTML tags have syntax, the <img> tag is semantic because it clearly describes its purpose: displaying an image [1]. 
+
+
+// Non-semantic elements: These tags define a division of content without describing what is in them. 
+// Examples of non-semantic elements are:
+// <div>: A general container for flow content with no inherent meaning [1].
+// <span>: An inline container for phrasing content with no inherent meaning [1]. 
+// These elements are often used when no other semantic element is appropriate, typically for styling purposes in conjunction with CSS [1]. 
 
 
 
+// ============ css selectors and their spcificity ===========
+// CSS selectors are patterns used to select the HTML elements you want to style. They can be broadly divided into five categories, which can also be combined for more specific targeting. 
 
+// The main types of CSS selectors are:
+// Simple Selectors:                         Select elements based on name, ID, or class.
+// Element/Type Selector:                  Selects all elements of a given HTML tag name, e.g., p { } for all paragraphs.
+// Class Selector:                         Selects elements with a specific class attribute, denoted by a period (.) followed by the class name, e.g., .intro { }.
+// ID Selector:                            Selects the single element with a specific, unique id attribute, denoted by a hash (#) followed by the ID name, e.g., #main-header { }.
+// Universal Selector:                     Selects all elements on the page, denoted by an asterisk (*), e.g., * { }.
+// Grouping Selector:                      Selects multiple elements with the same style definitions by separating each selector with a comma, e.g., h1, h2, p { }.
+
+// 
+// CSS specificity is the algorithm browsers use to determine which style declaration is most relevant to an element when multiple rules conflict. 
+// Each selector type is assigned a weight, and the selector with the highest combined weight "wins".
+
+// Inline styles are often considered a separate, highest category that overrides all other standard selectors. 
+
+// Selector                                    Type 	Example	Weight (a-b-c)
+// Inline                                      Styles	<p style="color: blue;">	(1-0-0-0)*
+// IDs	                                        #navbar	(0-1-0-0)
+// Classes, Attributes, Pseudo-classes	.test, [type="text"], :hover	(0-0-1-0)
+// Elements and Pseudo-elements	              h1, ::before	(0-0-0-1)
+// Universal Selector and Combinators	        *, +, >, ~, :where()	(0-0-0-0)
 
 // =========== css =============
 
 // ------- Difference between document.queyselector and document.getelementbyid.
-
+// The main difference is that document.getElementById() only selects a single element by its unique ID, 
+// while document.querySelector() can select elements using any valid CSS selector (ID, class, tag name, etc.) and returns only the first matching element. 
 
 // -------- What queyselector(div) will return.
 
-When you use document.querySelector('div'), it will return the first element in the document that is a <div> tag.Here are the specific rules for how it behaves:1. It only returns one elementEven if your page has fifty <div> tags, querySelector stops searching as soon as it finds the very first match in the DOM tree (reading from top to bottom).2. The return valueA Single Element: If at least one <div> exists, you get that specific Element object.null: If there are no <div> tags on the page, it returns null.Comparison: querySelector vs querySelectorAllIf you need to interact with more than just the first div, you have to use a different method.MethodSelectionReturn TypequerySelector('div')The first <div> found.A single ElementquerySelectorAll('div')Every <div> on the page.A NodeList (similar to an array)
+// When you use document.querySelector('div'), it will return the first element in the document that is a <div> tag.
+// Here are the specific rules for how it behaves:
+// 1. It only returns one elementEven if your page has fifty <div> tags, querySelector stops searching as soon as it finds the very first match in the DOM tree (reading from top to bottom).
+// 2. The return valueA Single Element: If at least one <div> exists, you get that specific Element object.null: 
+// If there are no <div> tags on the page, it returns null.
+
+// Comparison: querySelector vs querySelectorAllIf you need to interact with more than just the first div, you have to use a different method.MethodSelectionReturn TypequerySelector('div')The first <div> found.A single ElementquerySelectorAll('div')Every <div> on the page.A NodeList (similar to an array)
 
 
 // --------- Css display block property ----- 
@@ -75,7 +129,8 @@ Inline: Stays on the same line, size depends on content, ignores width/height.
 Inline-Block: Stays on the same line, but respects width/height.
 
 Would you like to see how Flexbox (display: flex) changes these rules to allow block elements to sit side-by-side more easily?
-To fix the "white-space gap" between inline-block elements, you first have to understand why it happens. Because inline-block treats elements like words, the browser sees the Enter key or Space in your code as a literal space between words.
+To fix the "white-space gap" between inline-block elements, you first have to understand why it happens. 
+Because inline-block treats elements like words, the browser sees the Enter key or Space in your code as a literal space between words.
 
 Here are the three most common ways to fix it:
 
@@ -182,4 +237,26 @@ Sizing      Respects width and height                Ignores width and height
 Yes, you absolutely can.
 One of the primary reasons developers use display: inline-block is specifically to have the ability to set a width and height on an element that still flows like text.
 
-  // -------- flexbox vs grid layout-------
+  // -------- flexbox vs grid layout------
+
+
+
+
+  {/* =========== media quieries */}
+
+
+
+
+  @media screen and (min-width: 768px) {
+  body {
+    background-color: blue;
+    color: white;
+  }
+}
+
+/* For devices with a minimum width of 992px (Large) */
+@media screen and (min-width: 992px) {
+  body {
+    background-color: tan;
+    color: black;
+  }
