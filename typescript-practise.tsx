@@ -325,5 +325,19 @@ filterUsers(
 // https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#predefined-conditional-types
 
+// ------ given sol -
 export function filterUsers(persons: Person[], criteria: Partial <User>): User[] {    // using  Partial <User>
 
+// ----- gemini solution ------
+To solve this, we will use two powerful TypeScript utility types: Partial<T> and Omit<T, K>.The SolutionTo meet the requirements—allowing optional criteria and excluding the type field from those criteria—you should update the criteria parameter as follows:TypeScriptexport function filterUsers(
+    persons: Person[], 
+    criteria: Partial<Omit<User, 'type'>> // Use Omit to exclude 'type', then Partial to make others optional
+): User[] {
+    return persons.filter(isUser).filter((user) => {
+        const criteriaKeys = Object.keys(criteria) as (keyof typeof criteria)[];
+        return criteriaKeys.every((fieldName) => {
+            return user[fieldName] === criteria[fieldName];
+        });
+    });
+}
+How it WorksPartial<User>: This utility makes every property in the User interface optional. Without this, the compiler would force you to provide name, age, and occupation every time you called the filter.Omit<User, 'type'>: This removes the type property from the object structure. Since we already know we are filtering users (person.type === 'user'), it doesn't make sense to include it in our search criteria.Composition: By wrapping them together as Partial<Omit<User, 'type'>>, you create a type that says: "Any combination of User properties, excluding 'type', and none of them are strictly required."Why use Utility Types?Utility types allow you to transform existing types without rewriting them. This keeps your code DRY (Don't Repeat Yourself).UtilityResultPartial<T>Makes all properties in T optional (?).Omit<T, 'K'>Creates a type by picking all properties from T and then removing K.Would you like to see how to implement a more generic version of this function that could filter any type of person (User or Admin)?
