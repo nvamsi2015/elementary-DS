@@ -818,4 +818,435 @@ persons.filter(isPowerUser).forEach(logPerson);
 // https://www.typescriptlang.org/docs/handbook/utility-types.html
 // https://www.typescriptlang.org/docs/handbook/2/objects.html#intersection-types
 
-// -------------9 
+// ============ 9. Generics and Discriminated Unions
+
+/*
+
+Intro:
+
+    PowerUsers idea was bad. Once those users got
+    extended permissions, they started bullying others
+    and we lost a lot of great users.
+    As a response we spent all the remaining money
+    on the marketing and got even more users.
+    We need to start preparing to move everything to a
+    real database. For now we just do some mocks.
+
+    The server API format was decided to be the following:
+ Generics and Discriminated Unions
+    In case of success: { status: 'success', data: RESPONSE_DATA }
+    In case of error: { status: 'error', error: ERROR_MESSAGE }
+
+    The API engineer started creating types for this API and
+    quickly figured out that the amount of types needed to be
+    created is too big.
+
+Exercise:
+
+    Remove UsersApiResponse and AdminsApiResponse types
+    and use generic type ApiResponse in order to specify API
+    response formats for each of the functions.
+
+*/
+
+interface User {
+    type: 'user';
+    name: string;
+    age: number;
+    occupation: string;
+}
+
+interface Admin {
+    type: 'admin';
+    name: string;
+    age: number;
+    role: string;
+}
+
+type Person = User | Admin;
+
+const admins: Admin[] = [
+    { type: 'admin', name: 'Jane Doe', age: 32, role: 'Administrator' },
+    { type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver' }
+];
+
+const users: User[] = [
+    { type: 'user', name: 'Max Mustermann', age: 25, occupation: 'Chimney sweep' },
+    { type: 'user', name: 'Kate Müller', age: 23, occupation: 'Astronaut' }
+];
+
+export type ApiResponse<T> = unknown;
+
+type AdminsApiResponse = (
+    {
+        status: 'success';
+        data: Admin[];
+    } |
+    {
+        status: 'error';
+        error: string;
+    }
+);
+
+export function requestAdmins(callback: (response: AdminsApiResponse) => void) {
+    callback({
+        status: 'success',
+        data: admins
+    });
+}
+
+type UsersApiResponse = (
+    {
+        status: 'success';
+        data: User[];
+    } |
+    {
+        status: 'error';
+        error: string;
+    }
+);
+
+export function requestUsers(callback: (response: UsersApiResponse) => void) {
+    callback({
+        status: 'success',
+        data: users
+    });
+}
+
+export function requestCurrentServerTime(callback: (response: unknown) => void) {
+    callback({
+        status: 'success',
+        data: Date.now()
+    });
+}
+
+export function requestCoffeeMachineQueueLength(callback: (response: unknown) => void) {
+    callback({
+        status: 'error',
+        error: 'Numeric value has exceeded Number.MAX_SAFE_INTEGER.'
+    });
+}
+
+function logPerson(person: Person) {
+    console.log(
+        ` - ${person.name}, ${person.age}, ${person.type === 'admin' ? person.role : person.occupation}`
+    );
+}
+
+function startTheApp(callback: (error: Error | null) => void) {
+    requestAdmins((adminsResponse) => {
+        console.log('Admins:');
+        if (adminsResponse.status === 'success') {
+            adminsResponse.data.forEach(logPerson);
+        } else {
+            return callback(new Error(adminsResponse.error));
+        }
+
+        console.log();
+
+        requestUsers((usersResponse) => {
+            console.log('Users:');
+            if (usersResponse.status === 'success') {
+                usersResponse.data.forEach(logPerson);
+            } else {
+                return callback(new Error(usersResponse.error));
+            }
+
+            console.log();
+
+            requestCurrentServerTime((serverTimeResponse) => {
+                console.log('Server time:');
+                if (serverTimeResponse.status === 'success') {
+                    console.log(`   ${new Date(serverTimeResponse.data).toLocaleString()}`);
+                } else {
+                    return callback(new Error(serverTimeResponse.error));
+                }
+
+                console.log();
+
+                requestCoffeeMachineQueueLength((coffeeMachineQueueLengthResponse) => {
+                    console.log('Coffee machine queue length:');
+                    if (coffeeMachineQueueLengthResponse.status === 'success') {
+                        console.log(`   ${coffeeMachineQueueLengthResponse.data}`);
+                    } else {
+                        return callback(new Error(coffeeMachineQueueLengthResponse.error));
+                    }
+
+                    callback(null);
+                });
+            });
+        });
+    });
+}
+
+startTheApp((e: Error | null) => {
+    console.log();
+    if (e) {
+        console.log(`Error: "${e.message}", but it's fine, sometimes errors are inevitable.`)
+    } else {
+        console.log('Success!');
+    }
+});
+
+// In case you are stuck:
+// https://www.typescriptlang.org/docs/handbook/2/generics.html
+
+
+// ================ gemini solution ====================================
+/**
+ * Generic ApiResponse type. 
+ * T represents the type of data returned on success.
+ */
+export type ApiResponse<T> = 
+    | { status: 'success'; data: T; } 
+    | { status: 'error'; error: string; };
+
+// We no longer need AdminsApiResponse and UsersApiResponse as separate types.
+
+export function requestAdmins(callback: (response: ApiResponse<Admin[]>) => void) {
+    callback({
+        status: 'success',
+        data: admins
+    });
+}
+
+export function requestUsers(callback: (response: ApiResponse<User[]>) => void) {
+    callback({
+        status: 'success',
+        data: users
+    });
+}
+
+export function requestCurrentServerTime(callback: (response: ApiResponse<number>) => void) {
+    callback({
+        status: 'success',
+        data: Date.now()
+    });
+}
+
+export function requestCoffeeMachineQueueLength(callback: (response: ApiResponse<number>) => void) {
+    callback({
+        status: 'error',
+        error: 'Numeric value has exceeded Number.MAX_SAFE_INTEGER.'
+    });
+}
+
+// This is a classic exercise in utilizing Generics and Discriminated Unions in TypeScript to reduce boilerplate.
+
+// By creating a generic ApiResponse<T>, we can capture the repeating pattern of { status, data } | { status, error } while allowing the data type to be flexible.
+
+
+// ===========10 legacy callback to Promise conversion =========
+
+/*
+
+Intro:
+
+    We have asynchronous functions now, advanced technology.
+    This makes us a tech startup officially now.
+    But one of the consultants spoiled our dreams about
+    inevitable future IT leadership.
+    He said that callback-based asynchronicity is not
+    popular anymore and everyone should use Promises.
+    He promised that if we switch to Promises, this would
+    bring promising results.
+
+Exercise:
+
+    We don't want to reimplement all the data-requesting
+    functions. Let's decorate the old callback-based
+    functions with the new Promise-compatible result.
+    The final function should return a Promise which
+    would resolve with the final data directly
+    (i.e. users or admins) or would reject with an error
+    (or type Error).
+
+    The function should be named promisify.
+
+Higher difficulty bonus exercise:
+
+    Create a function promisifyAll which accepts an object
+    with functions and returns a new object where each of
+    the function is promisified.
+
+    Rewrite api creation accordingly:
+
+        const api = promisifyAll(oldApi);
+
+*/
+
+interface User {
+    type: 'user';
+    name: string;
+    age: number;
+    occupation: string;
+}
+
+interface Admin {
+    type: 'admin';
+    name: string;
+    age: number;
+    role: string;
+}
+
+type Person = User | Admin;
+
+const admins: Admin[] = [
+    { type: 'admin', name: 'Jane Doe', age: 32, role: 'Administrator' },
+    { type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver' }
+];
+
+const users: User[] = [
+    { type: 'user', name: 'Max Mustermann', age: 25, occupation: 'Chimney sweep' },
+    { type: 'user', name: 'Kate Müller', age: 23, occupation: 'Astronaut' }
+];
+
+export type ApiResponse<T> = (
+    {
+        status: 'success';
+        data: T;
+    } |
+    {
+        status: 'error';
+        error: string;
+    }
+);
+
+export function promisify(arg: unknown): unknown {
+    return null;
+}
+
+const oldApi = {
+    requestAdmins(callback: (response: ApiResponse<Admin[]>) => void) {
+        callback({
+            status: 'success',
+            data: admins
+        });
+    },
+    requestUsers(callback: (response: ApiResponse<User[]>) => void) {
+        callback({
+            status: 'success',
+            data: users
+        });
+    },
+    requestCurrentServerTime(callback: (response: ApiResponse<number>) => void) {
+        callback({
+            status: 'success',
+            data: Date.now()
+        });
+    },
+    requestCoffeeMachineQueueLength(callback: (response: ApiResponse<number>) => void) {
+        callback({
+            status: 'error',
+            error: 'Numeric value has exceeded Number.MAX_SAFE_INTEGER.'
+        });
+    }
+};
+
+export const api = {
+    requestAdmins: promisify(oldApi.requestAdmins),
+    requestUsers: promisify(oldApi.requestUsers),
+    requestCurrentServerTime: promisify(oldApi.requestCurrentServerTime),
+    requestCoffeeMachineQueueLength: promisify(oldApi.requestCoffeeMachineQueueLength)
+};
+
+function logPerson(person: Person) {
+    console.log(
+        ` - ${person.name}, ${person.age}, ${person.type === 'admin' ? person.role : person.occupation}`
+    );
+}
+
+async function startTheApp() {
+    console.log('Admins:');
+    (await api.requestAdmins()).forEach(logPerson);
+    console.log();
+
+    console.log('Users:');
+    (await api.requestUsers()).forEach(logPerson);
+    console.log();
+
+    console.log('Server time:');
+    console.log(`   ${new Date(await api.requestCurrentServerTime()).toLocaleString()}`);
+    console.log();
+
+    console.log('Coffee machine queue length:');
+    console.log(`   ${await api.requestCoffeeMachineQueueLength()}`);
+}
+
+startTheApp().then(
+    () => {
+        console.log('Success!');
+    },
+    (e: Error) => {
+        console.log(`Error: "${e.message}", but it's fine, sometimes errors are inevitable.`);
+    }
+);
+
+// In case you are stuck:
+// https://www.typescriptlang.org/docs/handbook/2/generics.html
+
+// =================== gemini solution ===========================
+
+// This exercise is a great way to understand how to bridge the gap between legacy "callback-style" code and modern async/await patterns using TypeScript's powerful type inference.
+
+// 1. Implementing promisify
+// The goal is to take a function that accepts a callback and return a new function that returns a Promise. We use generics so that the returned Promise is typed with the correct data structure.
+
+export function promisify<T>(fn: (callback: (response: ApiResponse<T>) => void) => void): () => Promise<T> {
+    return () => {
+        return new Promise((resolve, reject) => {
+            fn((response) => {
+                if (response.status === 'success') {
+                    resolve(response.data);
+                } else {
+                    reject(new Error(response.error));
+                }
+            });
+        });
+    };
+}
+
+2. Bonus: Implementing promisifyAll
+This requires mapping over the keys of an object. We use a Mapped Type to ensure that the resulting object has the same keys as the input, but each function's return type is transformed into a Promise.
+
+export function promisifyAll<T extends { [key: string]: any }>(obj: T): { [K in keyof T]: () => Promise<any> } {
+    const result: any = {};
+    for (const key of Object.keys(obj)) {
+        result[key] = promisify(obj[key]);
+    }
+    return result;
+}
+
+// Rewriting API creation accordingly:
+const api = promisifyAll(oldApi);
+
+// --------- typescript-excercises.github.io solution ---------------
+
+type PromiseBasedAsyncFunction<T> = () => Promise<T>;
+
+export function promisify<T>(fn: CallbackBasedAsyncFunction<T>): PromiseBasedAsyncFunction<T> {
+    return () => new Promise<T>((resolve, reject) => {
+        fn((response) => {
+            if (response.status === 'success') {
+                resolve(response.data);
+            } else {
+                reject(new Error(response.error));
+            }
+        });
+    });
+}
+
+type SourceObject<T> = {[K in keyof T]: CallbackBasedAsyncFunction<T[K]>};
+type PromisifiedObject<T> = {[K in keyof T]: PromiseBasedAsyncFunction<T[K]>};
+
+export function promisifyAll<T extends {[key: string]: any}>(obj: SourceObject<T>): PromisifiedObject<T> {
+    const result: Partial<PromisifiedObject<T>> = {};
+    for (const key of Object.keys(obj) as (keyof T)[]) {
+        result[key] = promisify(obj[key]);
+    }
+    return result as PromisifiedObject<T>;
+}
+
+// When you use a Promise, you are moving the logic from a "continuation-passing style" (callbacks) to an object that represents a future value. This allows the JavaScript Event Loop to handle asynchronous tasks more cleanly without creating "callback hell."
+
+// ================ 11 
