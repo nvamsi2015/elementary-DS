@@ -131,5 +131,69 @@ const app = express()
 app.use(cors({ origin: 'http://localhost:8081' }));
 
       
-      
+// ====  const router = express.Router()  ========      // 
+------ routes/user.ts -----
+import express from 'express';
+
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.json({ message: 'getting all users from db' });
+});
+
+router.get('/search', (req, res) => {
+  res.json({ message: 'getting searched users from db' });
+});
+
+export default router;
+
+// ------- routes/document.ts ------
+      import express from 'express';
+
+const router = express.Router();
+
+router.get('/document-types', (req, res) => {
+  res.json({
+    message: 'Get all documents types',
+  });
+});
+
+export default router;
+
+// --------routes.index.ts ------
+import express from 'express';
+import documentRoutes from './document.js';
+import userRoutes from './user.js'
+
+const router = express.Router();
+
+router.use('/document', documentRoutes);
+router.use('/users', userRoutes);
+
+
+export default router;
+
+      // ---- src/index.ts ------
+
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import v1Routes from './routes/index.js';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+  })
+);
+app.use(express.json());
+
+app.use('/api/v1', v1Routes);
+
+app.listen(PORT, () => {
+  console.log(`app started listening at port:${PORT}`);
+});
       
