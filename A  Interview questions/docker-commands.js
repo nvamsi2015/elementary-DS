@@ -5,11 +5,21 @@ docker ps
 docker run -p 5432:5432 -e POSTGRES_PASSWORD=mysecredpassword -d postgres   # -d => detached mode, -p => port mapping, -e => env variable
 docker exec -it container_id /bin/bash  # -it => interactively 
 
-root@14469b50bb47:/# psql -U postgres
+root@14469b50bb47:/# psql -U postgres (
 psql (18.0 (Debian 18.0-1.pgdg13+3))
 Type "help" for help.
-
+ 
 postgres=# 
+
+
+ // docker run -d   --name postgres-idp   -p 5432:5432   -e POSTGRES_PASSWORD=mysecredpassword   -e POSTGRES_DB=idp   -v postgres-data:/var/lib/postgresql   --restart unless-stopped postgres
+  # Stop and remove container
+docker stop postgres-idp
+docker rm postgres-idp
+
+# Remove the volume
+docker volume rm postgres-data
+
 
 
 // ---------- redis
