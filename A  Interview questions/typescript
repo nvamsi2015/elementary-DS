@@ -13,6 +13,9 @@ bin  boot  dev	docker-entrypoint-initdb.d  etc  home  lib  lib64  media  mnt  op
 root@14469b50bb47:/# psql                                                                                                       #just running psql gives error as it tries to connect with default user 'root'
 psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  role "root" does not exist
 
+in windows: use this 
+>docker exec -it postgres-idp psql -U postgres -d idp ( postgres-idp is the container name, postgres is the user, -d is the database you want to connect)
+
 root@14469b50bb47:/# psql -U postgres
 psql (18.0 (Debian 18.0-1.pgdg13+3))
 Type "help" for help.
