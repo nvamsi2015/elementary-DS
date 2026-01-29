@@ -1,3 +1,37 @@
+// --------type orm entitiy creation -------------
+This error happens because TypeScript's Strict Property Initialization is turned on. TypeScript sees a class property that doesn't have a default value (like id = 0) and hasn't been assigned in a constructor, so it worries the property might be undefined.
+
+In TypeORM, the database handles these assignments, so we tell TypeScript "don't worry, this will definitely be assigned" by using the Definite Assignment Assertion operator (!).
+
+	// src/entities/UserDocument.ts
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+
+@Entity("user_documents")
+export class UserDocument {
+    @PrimaryGeneratedColumn()
+    document_id!: number; // Added ! and renamed to match your SQL
+
+    @Column()
+    user_id!: number; // Added !
+
+    @Column()
+    file_key!: string; // Added !
+
+    @Column()
+    file_url!: string; // Added !
+
+    @Column({ nullable: true })
+    document_type?: string; // Optional field
+
+    @Column({ type: "jsonb", nullable: true })
+    parsed_data?: any; // Added ! or use ? for nullable
+
+    @CreateDateColumn()
+    created_at!: Date; // Added !
+}
+
+// ---------------------
+
 // npm install -g typescript
 
 // mkdir node-app
