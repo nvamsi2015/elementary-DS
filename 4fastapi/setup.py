@@ -5,6 +5,9 @@
 
 # python3 -m venv venv
 # source venv/bin/activate
+# source venv1/Scripts/activate in windows
+
+pip install -r requirements.txt
 
 
 # pip install "fastapi[standard]"
