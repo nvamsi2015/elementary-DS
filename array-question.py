@@ -47,7 +47,7 @@ n = input()
 nums = [int(x) for x in input().split()]
 print(max_consq_ones(nums))
 
-# ------- p2 Find pairs whose sum is k in a sorted array (TP) --------------
+# ------- p2 Find index pairs whose sum is k in a sorted array (TP) --------------
 # 5 10
 # 2 3 5 6 8 
 # op: 0 4

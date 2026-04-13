@@ -10,7 +10,7 @@ docker exec -it 14469b50bb47 /bin/bash
 root@14469b50bb47:/# ls
 bin  boot  dev	docker-entrypoint-initdb.d  etc  home  lib  lib64  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
 
-root@14469b50bb47:/# psql                                                                                                       #just running psql gives error as it tries to connect with default user 'root'
+root@14469b50bb47:/# psql        #just running psql gives error as it tries to connect with default user 'root'
 psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  role "root" does not exist
 
 in windows: use this 
