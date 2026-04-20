@@ -710,7 +710,7 @@ throtteling and debouncing
 react app with stopwatch
 // ------ 2nd round ----------
 
-minimum len subarray with sum grater than or eqaul to k (solced with below code )---------------
+minimum len subarray with sum grater than or eqaul to k (solved with below code )---------------
 
 
 arr= [3,8,12,16,7,5,1,6,12]

@@ -30,8 +30,12 @@ function WeatherReport({ record }) {
 }
  
 //===========  2. Data Fetching and API Caching
-// For fetching and caching asynchronous data (like API calls), dedicated libraries offer robust solutions, handling background refetching, stale data, and error handling automatically. 
-// Libraries like TanStack Query (React Query) or SWR: These are the recommended approach for managing server state and caching API data in client-side React applications.
+// For fetching and caching asynchronous data (like API calls), dedicated libraries offer robust solutions, handling 
+// background refetching, 
+// stale data, 
+// and error handling automatically.
+
+// Libraries like TanStack Query (React Query) or SWR: These are the recommended approach for *** managing server state and caching API data ** in client-side React applications.
 // swr is  lightweight React Hooks library for data fetching that uses the "stale-while-revalidate" caching strategy
 
 // Example using TanStack Query:
@@ -77,7 +81,7 @@ const App = () => (
 // ================== 3. Server Components Caching (cache function) 
 
 // In React Server Components (common in frameworks like Next.js), 
-// you can use the cache function to memoize data fetching or expensive functions that can be shared across multiple components during a single server request. 
+// you can use the *** cache function to memoize data fetching or expensive functions that can be shared across multiple components during a single server request. 
 
 // Example using cache (in a Server Component environment):
 
@@ -145,7 +149,7 @@ function UserProfile() {
 // SWR is a lightweight React Hooks library for data fetching that uses the "stale-while-revalidate" caching strategy to ensure a fast, real-time user experience. Developed by Vercel, the company behind Next.js, it is a powerful alternative to manual data fetching with useEffect and useState. 
 // 
 // The SWR Strategy: "Stale-While-Revalidate"
-// The name SWR is derived from an HTTP cache invalidation strategy. This approach works in three steps to balance speed and data freshness: 
+// The name SWR is derived from an ***HTTP cache invalidation strateg***. This approach works in three steps to balance speed and data freshness: 
 // 1.Stale: First, the cached (stale) data is instantly returned to the user, so the UI is immediately responsive and doesn't show an empty loading state for long.
 // 2.Revalidate: A fetch request is sent to the server in the background to get the latest data.
 // 3.Up-to-date: Once the new data arrives, the cache is updated, and the component re-renders with the fresh information. 

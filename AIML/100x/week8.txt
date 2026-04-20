@@ -1,0 +1,126 @@
+llms are autoregresive modles they predict one token at a time. 
+
+first thing required to buind any agent is system prompt
+prompt that is injected initially: you are a coding agent these are tools that availbale to you 
+if you are doing a coding agent: you have read write files run the code and test the code, these are the tools we give our coding agent. 
+basically these tool calls are powering the agentic era 
+
+question: what is the one extra thing that moltbot, openclaw and clawdbot did apart from tool calls ?
+not mulitagent,
+it can run locally, can be run inside your memory -correct 
+
+correct ans is cron jobs: they basically alowed all the agents to schedule tasks like after one hour run this task, with lot of multiple optimization of context memory that became popular 
+
+clawdbot introduced somthing like loop which creates schedule tasks that run automatically, this how the current companies are moving.
+
+------ another question is how is this tools running on anthropic server -----------
+
+
+-------------
+
+agents are basically tools calls over  a loop 
+any library like langchain, langraph, uai they just abstraction of this things. 
+they have created mulitple tools, and you can connect multiple agents do multiple things, that you don't have to build things 
+
+its genrally good to build your own ai archestrator if you are building something in the agents side, and not rely toomuch on this langraph and langvies
+
+in each new chat, the preious context is all being passed to context window, that's how agents not forget things, and that how we are hitting context limits like 256k 258k etc now increased upto 1M context window 
+
+the only effective context window is 300k after that the model start to forget, that why there are so many memory startups trying to optimize 
+
+
+
+things like lanchain gives you tools that they have already developed. 
+
+as openclaw came with cron jobs to schedule tasks people started to do lot of automations which people are not previously doing, 
+experimenting like they connected to their smartwatch based on their heartbeat based on their body temperature, the person is about to wake up now, and order food for the user, 
+
+this process instead of everynight running this process - what if there is a way if it keeps on running unless i stop in a schedule that's basically a cron job 
+
+cron job of sending me a good moring message as i wake up 
+basically using smartwatch 
+
+agents basically act -> observe -> respond 
+
+agent: deinitions ( LLMs + tools + loop) 
+
+LLM: the reasonging enine that understands  intent and plans steps 
+Tools: external functions that the llms can call to interact with the world 
+Loop: the iterative process that continues till the goal is met. 
+
+
+ReAct loop: React and action loop 
+
+tools to llm: 
+for websearch first people used to give wikipedia api call to get ans like population of india, but now lot of companies are working on it.
+one good company is exa search, it gives you very detailed ans, find latest info of nvidia it gives 10 relevant sources and it is very fast, llms goes to this pages reads this pages and dumps back to llm and that's how search tools work 
+
+
+---------- 
+is there a way the website know it is getting a call from llm? -- yes 
+ideally the companys that are building this websearch tools, send that information to this websites( exa searche many websites for nvidia, those websites)  that this was a request by an agent, and they can track it out. 
+
+that's why some called robots.txt file, a lot of sites now include this file - which basically the information that website itself provides, telling this is how you can see or navigate through this website, since websites know some agents going to come and let it not helucinaed or lost, so they provide this, 
+
+
+//------------ difference beteween exa and perplexity, both are competetors  ------
+exa is more into search, perplexty is into lot of things, launign perflexity computer, labs,. 
+
+
+// context is the problem in openclaw, when it gets longer context it starts to helucinate in wierd ways 
+it is till a problem but poeple have found a way like summarize after n steps and then dump context into this file and many optimizations 
+
+//----------  halucination is react infinite loop? 
+
+react infinite loop is one part of halucination 
+model halucinated into a loop and never though of exiting out. thats one part of halucination 
+
+there can be mulitple types of halucination, react infinite loop is one kind of it. 
+
+other catefories of halucination is: 
+
+misinterpreting 
+tool name 
+missing context leading to wrong information 
+asked something did something else 
+
+and many more 
+
+//-------- when llm's thinking it consumes tokens- yes hell lot of tokesn -----------
+thats why thinking models are charged very high 
+
+learn langraph to create agents,    
+
+/------------ what is halucination actually ------
+openai sued for 10M dollars because someone used openai model for fighting a case, that model madeup files, and hearings. it generated things like this and openai charget for that, so the sued it. 
+
+it did wrong things because it couldn't figure out what's happening 
+
+
+/-------- why is RAG dead ? -----------
+beacuse as the context of model increased, people now can send a lot of information via api calls, and agent architecture they an fetch a lot of relevant data,
+people still do RAG, but there is a debate happening, 
+
+//---------- 
+
+temperature 0 means => very derministic 
+
+
+
+//////-- can we create a combine tool whch uses current tool that is what people found out, recursive language model, it kind of does the same thing, 
+
+instead of each step running tools differently, what happens when in the 1st step we create a code environemnt, and then run all the necssary tools one time only instead of waiting everytime a tool call start, 
+
+
+How to practise, 
+compelte todos 
+
+////// project 
+which uses a lot of tool calls and does not halucinate 
+
+
+
+
+
+
+

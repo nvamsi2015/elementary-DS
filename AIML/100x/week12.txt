@@ -1,0 +1,25 @@
+---------- finetuning part1 ---------
+what is finetuning, why? , what are the techiniques?, what are the different types? 
+
+-continual 
+-retaining
+-intstructional which is SFT 
+-RLHF, DPO which are alignment type of fine tunining. 
+-RLVR reasining type of fine tuning 
+
+
+-- techiniques 
+lowrank adaptation 
+fp16/32/
+
+library we use is unsloth( library optimised for code a kernal, they optimised the math by code a kernal )
+
+MOAN (optimzer) - people said it won't be scalable
+
+--------------------- fine tuning --------
+
+
+
+
+
+

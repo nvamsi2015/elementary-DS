@@ -1,0 +1,93 @@
+--------- Recursive language models Paradigm ----------
+
+note: This approach is right now just only an inference paradigm, so it has nothing to do with training right now, it is just working on the same llms that are present, its just a scafold 
+
+many of the techniques that we use, we use them in inference and has nothing to do with training, so ultimate model remains same, you pass a prompt and it returns you response. 
+
+
+a scafold is something that you can arrange and play with, you prompt it in a certain manner, you can use tools, so you can make those tools in scafold, 
+
+
+claudecode is a coding scafold, curosor and codex also coding scafold - you hava particular way of interacting with llm to get response. 
+
+how do you structe so that you can prompt better, use better tools, and do lot more stuff. 
+
+--------RLM is also a scafold here ------------
+all the agentic applications are scafolds 
+
+scafolds is building on top of the model, 
+
+-------- why to go RLM instead of LLM ---------
+RLM still uses llm under the hood, it was a scafold on llm - scafold is somthing which you gives you a proper way to interact with llm ratherthan prompting and getting response back 
+you can do lot more stuff with scafold like (claudecode, codex are scafolds, they give you certain tools like websearch, they treat you prompt in a specific manner, they send it to different subagents to work on it, all things together on top of llm is scafolds)
+
+/-------- will RLM aproach surpass RAG ------
+yes- there are examples why it can happen 
+
+lot of compnaies, startups shifted to RLMs, people are bullish on this. 
+a company named primeintelect they are training their next model on this approach 
+
+?------ RLHF is method of fine tuning which was done earliear, 
+when you want to make sure a human  sits and reviews every ai answer that is not done now, 
+what changes after RLHF's was RLIAFs - which is reenforced learining via ai feedback, ai generated the ans and ai slects which one is better, 
+now its RLVR which is reenforced learning via verifable rewards, 
+verifiable rewards are something that you can verify programtically like math, coding these all things can be programatically verified. 
+
+
+/---------- how to approach ai labs -----------
+see what are the goal thery trying to solve, and see how can you contribute to it. 
+if you can give a solution to them which they are working on, and you can convince them saying i have some ideas of why this can work and have a conversation with them you are doing this, what is suggest is to do this, if the idea resonates with the idea that the lab is working on thats a sign to reach out to lab, send messages to people working onthe company and try to get you first intro call, 
+
+make sure you are not wasting their time, its should be a vauge job application like i did all these things, you need to tell how you can contribute in that lab. 
+
+/--------- creating environment for traing is one of the field, i think browser base is solving them -----------
+
+dspi is a very good library 
+
+RLM is as name suggests we are recursively using llm calls, to complete a certain task. 
+RLM is a inference only paradigm for now, companies are betting to train them in certain way and so being helpful for RLM's for future. 
+inference paradigm is somethig that doesn't deal with any training, evals. its just technique or agent or you can say RLM agent, 
+
+RLM is a new scafold, its an other way to interact with llm, and get better result than all the current approaches, be it RAG, be it page index, 
+all of this have diff pro's and cons, but RLM's can be used in multiple applications and give you very good results. 
+
+
+
+/-------------------
+RLM gives your LLM models a python environment, so it can run python code, 
+and it gives you accessablility, we never pass full context to RLM we only pass variable name, os it can interact with that varibale and see it with python code, and checks what it can do. 
+since it only intereact with the small amount of the context, by writing better code and only seeing first 500 lines of charecters, that context is managed and recusive nature in calling many of its subagents and each one works on specific part of the prompt. 
+this approach automatically resolves context rot. 
+
+
+
+
+
+
+/--------------- how claude code started 
+
+one person thought what if i give bash tools to llm and that's how whole idea of claude code started as a side project and now its major product in anthropic 
+the basic tool kit look like 
+
+ls 
+glob 
+grep 
+cat 
+
+the agentic process 
+ 
+
+discovery : what file exits -> ls, glob
+navigaton: where is this function -> grep 
+inspection: what does it do -> cat  
+context:  what calls it -> grep references 
+
+
+/------- when boris cherny SE at anthropic was asked whey agentic search is better?
+he calls it very precise, imagine there is a function named error401Excepttion that is been causing erro, if you grep that exact word, if it exist it give you its source 
+
+in indexing, which gives you similar things instead of exact matches, exception402, 403, they all will be listed and will be comming in your top k querys
+
+
+
+
