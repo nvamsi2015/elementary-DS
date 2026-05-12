@@ -1,0 +1,16 @@
+----- running a single ts file without adding a new project and installing libraries 
+
+npx tsx ex1.ts
+
+----------- using tsc ? check if there is a way ---------
+Method 4: Built-in tsc and node 
+If you do not want to install extra runners, use the standard TypeScript compiler. 
+Compile the file: tsc your-file.ts (this creates your-file.js).
+Run the resulting JavaScript: node your-file.js. 
+
+
+-------- comments in js or ts files ------
+
+Action 	            Windows/Linux	    macOS	                Output Style
+Line Comment	    Ctrl + /	        Cmd + /	                // code
+Block Comment	    Shift + Alt + A	    Shift + Option + A	    /* code */

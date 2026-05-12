@@ -5,15 +5,20 @@
 
 // ----------- sequence generator using Array.from() -----------
 
+/* 
 const range = (start, stop, step) =>
   Array.from(
     { length: Math.ceil((stop - start) / step) },
     (_, i) => start + i * step,
   );
+ */
+
+const range=(start,stop, step) => Array.from({length:Math.ceil((stop-start)/step)},(_,i)=> start+i*step)
+console.log(range(0,10,2)) // [ 0, 2, 4, 6, 8 ]
 
 
 // =================================== mdn documentation ========
-
+// shallow copy => top level properties are newly created, but nested objects are referenced to the original object or array, changes in shallow copy can change original object or array 
 // the Array.from() static method creates a new, shallow-copied Arrray instance from an iterable or arrray-like object.Array
 
 console.log(Array.from("foo"));                         // Array ["f", "o", "o"] can be done with split() what is the difference
@@ -28,7 +33,7 @@ Array.from(items)
 Array.from(items, mapFn)
 Array.from(items, mapFn, thisArg)
 
-
+/* 
 items: iterable or array-like object 
 
 mapFn: a function to call on every element of the array. if provided, every value to be added to the array is first passed to this function, and mapFn returns value is added to array instead. 
@@ -40,7 +45,7 @@ thisArg: value to use as this when executing mapFn
 
 
 return value: a new Array instance 
-
+ */
 
 // Array.from() lets you create Arrays from:
 // iterable objects (objects such as Map and Set); or, if the object is not iterable,

@@ -1,0 +1,31 @@
+-------- https://www.linkedin.com/learning/software-architecture-patterns-for-developers-25635719/what-are-software-architecture-patterns -------
+
+Here are the key takeaways from the video:
+
+Software architecture patterns provide structured, proven solutions to common problems in software design, much like storytelling or writing patterns help organize content.
+Patterns define components and their interactions, helping developers create maintainable and recognizable code structures.
+Patterns exist at various levels—from individual functions (like the TryParse pattern in .NET) to modules and entire applications—helping manage complexity effectively.
+
+Understanding these concepts will help you design better software architectures that are easier to work with and maintain.
+
+Pattern examples: 
+- Repository
+- singleton
+- builder
+- factory 
+
+These are patterns that define how to write and interact with certain pieces of code, often organized in classes.
+
+The repository pattern, for example, shows us how we can abstract away implementation details on how to retrieve data from a database. In a piece of our application, we call a repository containing the logic to build and send a SQL query to the database. It also contains the necessary code to translate the database response to the format that the application code will understand.
+
+try parse pattern 
+writing string to int conversion function('3' to 3) in if else condition so that even if input is not string that can be converted to int like("hello") so that it won't throw exception
+when we are not sure abou the input we can use int.tryparese method availablein c++ to hlep understand if it can be converted to int or not and writing a function that does not throw exception when input is not string that can be converted to int. 
+
+
+---------- why software architechture patterns  --------------
+
+
+
+
+

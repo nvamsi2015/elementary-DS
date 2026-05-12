@@ -39,9 +39,12 @@ print(dog2.bark())
 # Max barks: Woof!
 
 
-# -------------2. Encapsulation
+# -------------2. Encapsulation (bundling and restricting direct access with private and protected variables)
 # Encapsulation involves bundling data (attributes) and methods within a class and restricting direct access to some of an object's components. 
 # Python uses conventions (e.g., prefixing with _ for protected, __ for private) rather than strict access modifiers. 
+
+# difference between public, protected, private
+
 
 class BankAccount:
     def __init__(self, initial_balance):
